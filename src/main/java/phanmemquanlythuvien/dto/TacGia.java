@@ -70,6 +70,10 @@ public class TacGia {
     public void setTomTat(String tomTat) {
         this.tomTat = tomTat;
     }
+    
+    public String getTrangThaiString() {
+        return trangThai ? "Kích hoạt" : "Khóa";
+    }    
 
 }
 

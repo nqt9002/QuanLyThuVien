@@ -21,7 +21,7 @@ public class NXBPanel extends SubPanel{
     
     List<Nxb> allNXB;
     
-    String[] header = new String[] {"Mã Nhà Xuất Bản", "Tên Nhà Xuất bản"};
+    String[] header = new String[] {"Mã Nhà Xuất Bản", "Tên Nhà Xuất Bản", "Trạng Thái"};
     
     public NXBPanel() {
         txtLabel.setText("Quản lý nhà xuất bản");
@@ -38,7 +38,8 @@ public class NXBPanel extends SubPanel{
     public Object[] data2Array(Nxb item){
         return new Object[]{
             item.getMaNXB(),
-            item.getTenNXB()
+            item.getTenNXB(),
+            item.getTrangThaiString()
         };
     }
     

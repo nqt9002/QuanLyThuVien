@@ -67,6 +67,9 @@ public class BanDoc {
     public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;
     }
-
+    
+    public String getTrangThaiString() {
+        return trangThai ? "Kích hoạt" : "Khóa";
+    }
 }
 

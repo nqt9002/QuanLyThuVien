@@ -37,6 +37,9 @@ public class ChuDe {
     public void setTenChuDe(String tenChuDe) {
         this.tenChuDe = tenChuDe;
     }
-
+    
+    public String getTrangThaiString() {
+        return trangThai ? "Kích hoạt" : "Khóa";
+    }
 }
 

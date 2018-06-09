@@ -25,6 +25,7 @@ public class MinValidator implements MyValidator{
     
     @Override
     public void run() throws InputError{
+        if(this.field.getText().length() == 0) return;
         if(this.field.getText().length() < min){
             throw new InputError(label + " không đạt độ dài tối thiểu: "+min, this.field);
         }

@@ -21,7 +21,7 @@ public class TacGiaPanel extends SubPanel {
 
     List<TacGia> allTacGia;
     
-    String[] header = new String[] {"Mã Tác Giả", "Tên Tác Giả", "Ngày Sinh", "Tiểu Sử"};    
+    String[] header = new String[] {"Mã Tác Giả", "Tên Tác Giả", "Ngày Sinh", "Tiểu Sử","Trạng Thái"};    
     
     public TacGiaPanel(){
         txtLabel.setText("Quản lý tác giả");
@@ -41,6 +41,7 @@ public class TacGiaPanel extends SubPanel {
             item.getTen(),
             item.getNgaySinhString(),
             item.getTomTat(),
+            item.getTrangThaiString()
         };
     }
       

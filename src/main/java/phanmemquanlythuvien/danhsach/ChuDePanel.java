@@ -6,7 +6,6 @@
 package phanmemquanlythuvien.danhsach;
 
 import java.util.List;
-import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
@@ -23,7 +22,7 @@ public class ChuDePanel extends SubPanel {
     private static Logger logger = Logger.getLogger(ChuDePanel.class);
     List<ChuDe> allChuDe;
     
-    String[] header = new String[] {"Mã Chủ Đề", "Tên Chủ Đề"};    
+    String[] header = new String[] {"Mã Chủ Đề", "Tên Chủ Đề","Trạng Thái"};    
     
     public ChuDePanel() {
         txtLabel.setText("Quản lý chủ đề");
@@ -40,7 +39,8 @@ public class ChuDePanel extends SubPanel {
     public Object[] data2Array(ChuDe item){
         return new Object[]{
             item.getMaCD(),
-            item.getTenChuDe()
+            item.getTenChuDe(),
+            item.getTrangThaiString()
         };
     }
     

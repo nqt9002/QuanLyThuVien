@@ -92,6 +92,10 @@ public class TaiKhoan {
     public Boolean getTrangThai() {
         return trangThai;
     }
+    
+    public String getTrangThaiString() {
+        return trangThai ? "Kích hoạt" : "Khóa";
+    }
 
     public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;

@@ -23,7 +23,7 @@ public class TaiKhoanPanel extends SubPanel {
     private static final Logger LOGGER = Logger.getLogger(TaiKhoanPanel.class);
     List<TaiKhoan> allTK;
     
-    String[] header = new String[] {"ID", "Ten", "ChucVu", "TaiKhoan"};
+    String[] header = new String[] {"Mã Tài Khoản", "Tên", "Chức Vụ", "Tài Khoản", "Trạng Thái"};
 
     public TaiKhoanPanel() {
         txtLabel.setText("Quản lý tài khoản");
@@ -44,7 +44,8 @@ public class TaiKhoanPanel extends SubPanel {
             item.getMaTaiKhoan(),
             item.getTen(),
             item.getChucVu().getText(),
-            item.getTaiKhoan()
+            item.getTaiKhoan(),
+            item.getTrangThaiString()
         };
     }
     

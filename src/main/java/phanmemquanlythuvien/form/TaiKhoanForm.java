@@ -15,6 +15,7 @@ import phanmemquanlythuvien.dao.TaikhoanDao;
 import phanmemquanlythuvien.dto.TaiKhoan;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MaxValidator;
+import phanmemquanlythuvien.form.validator.MinValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
 import phanmemquanlythuvien.permission.ChucVu;
@@ -32,6 +33,7 @@ public class TaiKhoanForm extends javax.swing.JFrame {
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
     
     List<MyValidator> validators = new ArrayList<MyValidator>();
+    List<MyValidator> createValidators = new ArrayList<MyValidator>();
     
     public TaiKhoanForm(TaiKhoan taikhoan) {
         initComponents();
@@ -39,11 +41,18 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         this.item2Form();
         
         cboChucVu.setModel(new DefaultComboBoxModel(ChucVu.available()));
-        
+        validators.add(new MaxValidator(40, txtMatKhau, "Mật khẩu"));
+        validators.add(new MinValidator(6, txtMatKhau, "Mật khẩu")); 
+        validators.add(new MaxValidator(40, txtMaBaoMat, "Mã bảo mật"));
+        validators.add(new MinValidator(6, txtMaBaoMat, "Mã bảo mật"));        
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
         validators.add(new RequireValidator(txtTaiKhoan, "Tài khoản"));
         validators.add(new MaxValidator(60, txtTaiKhoan, "Tài khoản"));
+        
+        createValidators.add(new RequireValidator(txtMatKhau, "Mật khẩu"));
+        createValidators.add(new RequireValidator(txtMaBaoMat, "Mã bảo mật"));
+
         
     }
     
@@ -62,12 +71,24 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         item.setTen(txtTen.getText());
         item.setTaiKhoan(txtTaiKhoan.getText());
         item.setTrangThai(cbxKichHoat.isSelected());
+        if(txtMatKhau.getText().length() > 0){
+            item.setMatKhau(txtMatKhau.getText());
+        }
+        if(txtMaBaoMat.getText().length() > 0){
+            item.setMaBaoMat(txtMaBaoMat.getText());
+        }
     }
     
     public boolean check(){
         try {
             for(MyValidator validator: validators){
                 validator.run();
+            }
+            
+            if(item.isNew()){
+                for(MyValidator validator: createValidators){
+                    validator.run();
+                }
             }
         } catch (InputError e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -79,9 +100,10 @@ public class TaiKhoanForm extends javax.swing.JFrame {
     
     public void saveData(){
         if(!check()) return;
+        LOGGER.info("status: "+item.getTrangThai());
         form2Item();
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
-//        tgD.save(item);
+        tgD.save(item);
         // TODO show popup
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
         dispose();
@@ -110,9 +132,11 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         cboChucVu = new javax.swing.JComboBox<>();
         txtTaiKhoan = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnMatKhau = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btnMaBaoMat = new javax.swing.JButton();
+        txtMatKhau = new javax.swing.JPasswordField();
+        txtMaBaoMat = new javax.swing.JPasswordField();
+        cbxMatKhau = new javax.swing.JCheckBox();
+        cbxMaBaoMat = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,11 +168,21 @@ public class TaiKhoanForm extends javax.swing.JFrame {
 
         jLabel2.setText("Mật khẩu");
 
-        btnMatKhau.setText("Đổi mật khẩu");
-
         jLabel3.setText("Mã bảo mật");
 
-        btnMaBaoMat.setText("Đổi mã bảo mật");
+        cbxMatKhau.setText("Hiện mật khẩu");
+        cbxMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxMatKhauActionPerformed(evt);
+            }
+        });
+
+        cbxMaBaoMat.setText("Hiện mã bảo mật");
+        cbxMaBaoMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxMaBaoMatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,14 +191,7 @@ public class TaiKhoanForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMatKhau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMaBaoMat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(cboChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtMatKhau)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTaiKhoan)
@@ -182,8 +209,17 @@ public class TaiKhoanForm extends javax.swing.JFrame {
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cbxKichHoat)))
-                                .addGap(0, 151, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addComponent(txtMaBaoMat)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxMatKhau)
+                            .addComponent(jLabel3)
+                            .addComponent(cbxMaBaoMat))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,12 +238,16 @@ public class TaiKhoanForm extends javax.swing.JFrame {
                 .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
+                .addGap(9, 9, 9)
+                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMatKhau)
+                .addComponent(cbxMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMaBaoMat)
+                .addComponent(txtMaBaoMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxMaBaoMat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -216,7 +256,7 @@ public class TaiKhoanForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
                     .addComponent(btnDatLai))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,6 +271,24 @@ public class TaiKhoanForm extends javax.swing.JFrame {
     private void btnDatLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatLaiActionPerformed
         item2Form();
     }//GEN-LAST:event_btnDatLaiActionPerformed
+
+    private void cbxMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMatKhauActionPerformed
+        // TODO add your handling code here:
+        if(cbxMatKhau.isSelected()){
+            txtMatKhau.setEchoChar((char) 0);
+        } else {
+            txtMatKhau.setEchoChar('*');
+        }
+    }//GEN-LAST:event_cbxMatKhauActionPerformed
+
+    private void cbxMaBaoMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMaBaoMatActionPerformed
+        // TODO add your handling code here:
+        if(cbxMaBaoMat.isSelected()){
+            txtMaBaoMat.setEchoChar((char)0);
+        } else{
+            txtMaBaoMat.setEchoChar('*');
+        }
+    }//GEN-LAST:event_cbxMaBaoMatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,16 +328,18 @@ public class TaiKhoanForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatLai;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnMaBaoMat;
-    private javax.swing.JButton btnMatKhau;
     private javax.swing.JComboBox<String> cboChucVu;
     private javax.swing.JCheckBox cbxKichHoat;
+    private javax.swing.JCheckBox cbxMaBaoMat;
+    private javax.swing.JCheckBox cbxMatKhau;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField txtMaBaoMat;
+    private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTaiKhoan;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables

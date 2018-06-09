@@ -24,6 +24,10 @@ public class MaxValidator implements MyValidator{
     
     @Override
     public void run() throws InputError{
+        if(this.field.getText().length() == 0)
+        {
+            return;
+        }
         if(this.field.getText().length() > max){
             throw new InputError(label + " vượt quá giớ hạn ký tự tối đa: "+max, this.field);
         }

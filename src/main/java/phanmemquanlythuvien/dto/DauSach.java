@@ -98,5 +98,8 @@ public class DauSach {
         this.ttnd = ttnd;
     }
 
+    public String getTrangThaiString() {
+        return trangThai ? "Kích hoạt" : "Khóa";
+    }    
 }
 
