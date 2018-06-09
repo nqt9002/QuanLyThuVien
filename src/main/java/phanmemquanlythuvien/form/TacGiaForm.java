@@ -5,13 +5,18 @@
  */
 package phanmemquanlythuvien.form;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.TacGia;
+import phanmemquanlythuvien.form.validator.DateValidator;
+import phanmemquanlythuvien.form.validator.InputError;
+import phanmemquanlythuvien.form.validator.MaxValidator;
+import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.RequireValidator;
 
 
 /**
@@ -23,33 +28,34 @@ public class TacGiaForm extends javax.swing.JFrame {
     
     TacGia item;
     
-    static final String MSG_TEN_NULL = "Vui lòng nhập tên Tác Giả.";
-    static final String MSG_NGAYSINH_NULL = "Vui lòng nhập vào ngày sinh.";
-    static final String MSG_NGAYSINH_FORMAT = "Ngày sinh phải có định dạng là Năm-Tháng-Ngày.";
-    static final String MSG_TIEU_SU_NULL = "Vui lòng nhập vào tiểu sử Tác Giả.";
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
-    static final String MSG_TIEU_SU_LIMIT = "Tiểu sử không được vượt 1000 ký tự";
-
+    
+    List<MyValidator> validators = new ArrayList<MyValidator>();
+    
     public TacGiaForm(TacGia tacgia) {
         initComponents();
         
         this.item = tacgia;
         this.item2Form();
         
+        validators.add(new MaxValidator(60, txtTen, "Tên"));
+        validators.add(new RequireValidator(txtTen, "Tên"));
+        validators.add(new RequireValidator(txtNgaySinh, "Ngày sinh"));
+        validators.add(new DateValidator(txtNgaySinh, "Ngày sinh"));
+        validators.add(new MaxValidator(1000, txtTieuSu, "Tiểu sử"));
+        validators.add(new RequireValidator(txtTieuSu, "Tiểu sử"));
     }   
     
     public void item2Form(){
-        if(item.getTen() == null)
-        {
+        if(item.getMaTG() == null){
             deleteText();
+            return;
         }
-        else
-        {
-            txtNgaySinh.setText(item.getNgaySinhString());
-            txtTen.setText(item.getTen());
-            txtTieuSu.setText(item.getTomTat());
-            cbxKichHoat.setSelected(item.getTrangThai());
-        }   
+
+        txtNgaySinh.setText(item.getNgaySinhString());
+        txtTen.setText(item.getTen());
+        txtTieuSu.setText(item.getTomTat());
+        cbxKichHoat.setSelected(item.getTrangThai());
     }
     
     public void form2Item(){
@@ -57,46 +63,17 @@ public class TacGiaForm extends javax.swing.JFrame {
         item.setTen(txtTen.getText());
         item.setTomTat(txtTieuSu.getText());
         item.setNgaySinh(txtNgaySinh.getText());
-        if(cbxKichHoat.isSelected())
-        {
-            item.setTrangThai(true);
-        }
-        else
-        {
-            item.setTrangThai(false);
-        }
+        item.setTrangThai(cbxKichHoat.isSelected());
     }
     
     public boolean check(){
-        if(txtTen.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, MSG_TEN_NULL);
-            txtTen.grabFocus();
-            return false;
-        }
-        if(txtNgaySinh.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, MSG_NGAYSINH_NULL);
-            txtNgaySinh.grabFocus();
-            return false;
-        }
-        if(isValidDate(txtNgaySinh.getText()) == false)
-        {   
-            JOptionPane.showMessageDialog(this, MSG_NGAYSINH_FORMAT);
-            txtNgaySinh.setText("");
-            txtNgaySinh.grabFocus();
-            return false;
-        }
-        if(txtTieuSu.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, MSG_TIEU_SU_NULL);
-            txtTieuSu.grabFocus();
-            return false;
-        }
-        if(txtTieuSu.getText().length()>1000)
-        {
-            JOptionPane.showMessageDialog(this, MSG_TIEU_SU_LIMIT);
-            txtTieuSu.grabFocus();
+        try {
+            for(MyValidator validator: validators){
+                validator.run();
+            }
+        } catch (InputError e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.field.grabFocus();
             return false;
         }
         return true;
@@ -115,21 +92,12 @@ public class TacGiaForm extends javax.swing.JFrame {
     public void deleteText()
     {
         txtTen.setText("");
+        txtTen.grabFocus();
         txtNgaySinh.setText("");
         txtTieuSu.setText("");
         cbxKichHoat.setSelected(true);
     }
     
-    public static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(inDate.trim());
-        } catch (ParseException pe) {
-            return false;
-        }
-      return true;
-    }   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

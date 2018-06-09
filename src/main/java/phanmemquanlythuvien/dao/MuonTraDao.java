@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.MuonTra;
 
 import java.util.List;
 
-public interface MuonTraDao {
+public interface MuonTraDao extends CommonDao {
     
     MuonTra findById(int id);
 

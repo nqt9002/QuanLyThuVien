@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.ChuDe;
 
 import java.util.List;
 
-public interface ChuDeDao {
+public interface ChuDeDao extends CommonDao {
 
     ChuDe findById(int id);
 

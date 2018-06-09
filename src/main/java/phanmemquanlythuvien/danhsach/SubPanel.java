@@ -3,15 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package phanmemquanlythuvien.panel;
-
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
-import org.apache.log4j.Logger;
-import phanmemquanlythuvien.config.App;
-import phanmemquanlythuvien.dao.TaikhoanDao;
-import phanmemquanlythuvien.dto.TaiKhoan;
-import static phanmemquanlythuvien.panel.CommonViewImpl.quyenThem;
+package phanmemquanlythuvien.danhsach;
 
 /**
  *
@@ -19,48 +11,26 @@ import static phanmemquanlythuvien.panel.CommonViewImpl.quyenThem;
  */
 public class SubPanel extends CommonViewImpl implements CommonView {
     
-    static {
-        quyenThem = TaiKhoan.Quyen.THEM_TAI_KHOAN;
-        quyenXem = TaiKhoan.Quyen.XEM_TAI_KHOAN;
-        quyenXoa = TaiKhoan.Quyen.XOA_TAI_KHOAN;
-    }
+    public String tabName = "TAB_NAME";
     
-    int selectedId = -1;    
-            
-    private static Logger logger = Logger.getLogger(SubPanel.class);
-    static TaikhoanDao tkDao = App.ctx.getBean(TaikhoanDao.class);
-    public static String labelName = "";
-    Vector header, data,row;
-    DefaultTableModel tblModel;
-    int dong;
     public SubPanel() {
         initComponents();
-        tblModel = new DefaultTableModel();
-        prepareTable();
-        data = new Vector();
-        showData();
-        tblModel.setDataVector(data, header);
+    }
+    
+    @Override
+    public void showHideButton(){
         //check permission
         btnThem.setVisible(canWrite());
         btnSua.setVisible(canWrite());
         btnXoa.setVisible(canDelete());
     }
     
-    public void prepareTable(){
-        header = new Vector();
-    }
-    public void loadData(){
-       
-    }
-    
-    public Vector dataToVector(TaiKhoan item){
-        // place holder method
-        return new Vector();
+    public void addToTab(javax.swing.JTabbedPane parent){
+        parent.add(tabName, this);
+        showData();
+        showHideButton();
     }
     
-    public void showData(){
-
-    }
     public void them(){
         
     }
@@ -77,8 +47,12 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         
     }
     
+    public int getSelectedId(){
+        return (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+    }
+    
     protected void updateMainTable(){
-        table.setModel(tblModel);
+//        table.setModel(tblModel);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -129,11 +103,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(table);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -257,10 +226,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        selectedId = (int) tblModel.getValueAt(table.getSelectedRow(),0);
-    }//GEN-LAST:event_tableMouseClicked
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         chiTiet();

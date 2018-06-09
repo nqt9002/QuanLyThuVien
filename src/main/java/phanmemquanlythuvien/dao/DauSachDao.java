@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.DauSach;
 
 import java.util.List;
 
-public interface DauSachDao {
+public interface DauSachDao extends CommonDao {
     
     DauSach findById(int id);
 

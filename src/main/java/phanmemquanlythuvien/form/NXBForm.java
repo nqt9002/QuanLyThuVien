@@ -5,10 +5,16 @@
  */
 package phanmemquanlythuvien.form;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.NxbDao;
 import phanmemquanlythuvien.dto.Nxb;
+import phanmemquanlythuvien.form.validator.InputError;
+import phanmemquanlythuvien.form.validator.MaxValidator;
+import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.RequireValidator;
 
 /**
  *
@@ -18,46 +24,44 @@ public class NXBForm extends javax.swing.JFrame {
 
     Nxb item;
     
-    static final String MSG_TEN_NULL = "Vui lòng nhập tên NXB.";
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
+    
+    List<MyValidator> validators = new ArrayList<MyValidator>();
     
     public NXBForm(Nxb nxb) {
         initComponents();
         this.item = nxb;
         this.item2Form();
+        
+        validators.add(new MaxValidator(60, txtTen, "Tên"));
+        validators.add(new RequireValidator(txtTen, "Tên"));
     }
 
     public void item2Form(){
-        if(item.getTenNXB()== null)
-        {
+        if(item.getMaNXB() == null){
             deleteText();
+            return;
         }
-        else
-        {
-            txtTen.setText(item.getTenNXB());
-            cbxKichHoat.setSelected(item.getTrangThai());
-        }   
+
+        txtTen.setText(item.getTenNXB());
+        cbxKichHoat.setSelected(item.getTrangThai());
+        
     }
     
     public void form2Item(){
         // bring data from txt to obj
         item.setTenNXB(txtTen.getText());
-
-        if(cbxKichHoat.isSelected())
-        {
-            item.setTrangThai(true);
-        }
-        else
-        {
-            item.setTrangThai(false);
-        }
+        item.setTrangThai(cbxKichHoat.isSelected());
     }
     
     public boolean check(){
-        if(txtTen.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, MSG_TEN_NULL);
-            txtTen.grabFocus();
+        try {
+            for(MyValidator validator: validators){
+                validator.run();
+            }
+        } catch (InputError e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.field.grabFocus();
             return false;
         }
         return true;
@@ -76,6 +80,7 @@ public class NXBForm extends javax.swing.JFrame {
     public void deleteText()
     {
         txtTen.setText("");
+        txtTen.grabFocus();
         cbxKichHoat.setSelected(true);
     } 
     @SuppressWarnings("unchecked")

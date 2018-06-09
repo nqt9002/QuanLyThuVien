@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.Nxb;
 
 import java.util.List;
 
-public interface NxbDao {
+public interface NxbDao extends CommonDao {
 
     Nxb findById(int id);
 

@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package phanmemquanlythuvien.panel;
+package phanmemquanlythuvien.danhsach;
 
 import java.util.List;
 import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.form.ChuDeForm;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.permission.Quyen;
 
 /**
  *
@@ -19,49 +21,52 @@ import org.apache.log4j.Logger;
  */
 public class ChuDePanel extends SubPanel {
     private static Logger logger = Logger.getLogger(ChuDePanel.class);
+    List<ChuDe> allChuDe;
+    
+    String[] header = new String[] {"Mã Chủ Đề", "Tên Chủ Đề"};    
+    
     public ChuDePanel() {
         txtLabel.setText("Quản lý chủ đề");
-    }
-    List<ChuDe> allChuDe;
-    public void prepareTable(){
-        header = new Vector();
-        header.add("Mã CD");
-        header.add("Tên");
+        quyenThem = Quyen.THEM_CHU_DE;
+        quyenXem = Quyen.XEM_CHU_DE;
+        quyenXoa = Quyen.XOA_CHU_DE;
+        tabName = "Chủ Đề";
     }
     
-    public Vector dataToVector(ChuDe item){
-        row = new Vector();
-        row.add(item.getMaCD());
-        row.add(item.getTenChuDe());
-        return row;
+    public static TaiKhoanPanel create(){
+        return new TaiKhoanPanel();
+    }
+    
+    public Object[] data2Array(ChuDe item){
+        return new Object[]{
+            item.getMaCD(),
+            item.getTenChuDe()
+        };
     }
     
     @Override
-    public void showData()
-    {
-        tblModel.setRowCount(0);
-        ChuDeDao cdD = App.ctx.getBean(ChuDeDao.class);
-        allChuDe = cdD.findAll();
-        allChuDe.stream()
-            .map(consumer -> dataToVector(consumer))
-            .forEach(item -> data.add(item));
-        tblModel.setDataVector(data, header);
-        updateMainTable();
+    public void showData(){
+        this.showData(null);
     }
     
     @Override
     public void tim(){
-        tblModel.setRowCount(0);
-        data = new Vector();
-        String findValue = txtTim.getText().toLowerCase();
-        allChuDe.stream()
-            .filter(consumer -> consumer.getTenChuDe().toLowerCase().contains(findValue))
-            .map(consumer -> dataToVector(consumer))
-            .forEach(item -> data.add(item));
-        tblModel.setDataVector(data, header);
-        logger.info(data);
-        updateMainTable();
-    } 
+        showData(txtTim.getText().toLowerCase());
+    }
+    
+    public void showData(String filterValue){
+
+        ChuDeDao tgD = App.ctx.getBean(ChuDeDao.class);
+        allChuDe = tgD.findAll();
+        
+        Object[][] data;
+        data = allChuDe.stream()
+            .filter(cd -> filterValue == null || cd.getTenChuDe().toLowerCase().contains(filterValue))
+            .map(cd -> data2Array(cd))
+            .toArray(size -> new Object[size][]);
+        
+        table.setModel(new DefaultTableModel(data, header));
+    }
     
     @Override
     public void them(){
@@ -71,7 +76,7 @@ public class ChuDePanel extends SubPanel {
     @Override
     public void sua() {
         ChuDeDao cdD = App.ctx.getBean(ChuDeDao.class);
-        ChuDe selectedChuDe = cdD.findById(selectedId);
+        ChuDe selectedChuDe = cdD.findById(getSelectedId());
         sua(selectedChuDe);
     }
     

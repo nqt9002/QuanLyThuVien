@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package phanmemquanlythuvien.panel;
+package phanmemquanlythuvien.form.validator;
 
 /**
  *
  * @author tainguyen
  */
-public interface CommonView {
-    boolean canRead();
-    boolean canWrite();
-    boolean canDelete();
-    void doEdit();
+public interface MyValidator {
+    void run() throws InputError;
 }

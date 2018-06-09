@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package phanmemquanlythuvien.panel;
+package phanmemquanlythuvien.danhsach;
 
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dto.TaiKhoan;
+import phanmemquanlythuvien.permission.Quyen;
 
 /**
  *
@@ -15,9 +16,9 @@ import phanmemquanlythuvien.dto.TaiKhoan;
  */
 public class CommonViewImpl extends javax.swing.JPanel implements CommonView {
     private static Logger logger = Logger.getLogger(CommonViewImpl.class);
-    public static TaiKhoan.Quyen quyenXem;
-    public static TaiKhoan.Quyen quyenThem;
-    public static TaiKhoan.Quyen quyenXoa;
+    public Quyen quyenXem;
+    public Quyen quyenThem;
+    public Quyen quyenXoa;
     
     @Override
     public boolean canRead(){
@@ -36,6 +37,16 @@ public class CommonViewImpl extends javax.swing.JPanel implements CommonView {
 
     @Override
     public void doEdit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void showData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void showHideButton() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

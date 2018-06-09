@@ -6,19 +6,12 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
-import phanmemquanlythuvien.dto.TacGia;
-
 import java.util.List;
 
-public interface TacgiaDao extends CommonDao {
-
-    TacGia findById(int id);
-
-    List<TacGia> findAll(Predicate... where);
-    
-    TacGia save(TacGia p);
-
-    long count();
-    void delete(TacGia p);
-
+/**
+ *
+ * @author tainguyen
+ */
+public interface CommonDao {
+    List<?> findAll(Predicate... where);
 }

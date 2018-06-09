@@ -5,10 +5,16 @@
  */
 package phanmemquanlythuvien.form;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.dao.ChuDeDao;
+import phanmemquanlythuvien.form.validator.InputError;
+import phanmemquanlythuvien.form.validator.MaxValidator;
+import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.RequireValidator;
 
 
 
@@ -22,49 +28,43 @@ public class ChuDeForm extends javax.swing.JFrame {
     
     ChuDe item;
     
-    static final String MSG_TEN_NULL = "Vui lòng nhập tên Tác Giả.";
-    static final String MSG_NGAYSINH_NULL = "Vui lòng nhập vào ngày sinh.";
-    static final String MSG_NGAYSINH_FORMAT = "Ngày sinh phải có định dạng là Năm-Tháng-Ngày.";
-    static final String MSG_TIEUSU_NULL = "Vui lòng nhập vào tiểu sử Tác Giả.";
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
+    
+    List<MyValidator> validators = new ArrayList<MyValidator>();    
     
     public ChuDeForm(ChuDe chude) {
         initComponents();
         this.item = chude;
         this.item2Form();
+        
+        validators.add(new MaxValidator(60, txtTen, "Tên"));
+        validators.add(new RequireValidator(txtTen, "Tên"));        
     }
 
     public void item2Form(){
-        if(item.getTenChuDe() == null)
-        {
+        if(item.getMaCD() == null){
             deleteText();
+            return;
         }
-        else
-        {
-            txtTen.setText(item.getTenChuDe());
-            cbxKichHoat.setSelected(item.getTrangThai());
-        }   
+        txtTen.setText(item.getTenChuDe());
+        cbxKichHoat.setSelected(item.getTrangThai());
+
     }
     
     public void form2Item(){
         // bring data from txt to obj
         item.setTenChuDe(txtTen.getText());
-
-        if(cbxKichHoat.isSelected())
-        {
-            item.setTrangThai(true);
-        }
-        else
-        {
-            item.setTrangThai(false);
-        }
+        item.setTrangThai(cbxKichHoat.isSelected());
     }
     
     public boolean check(){
-        if(txtTen.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, MSG_TEN_NULL);
-            txtTen.grabFocus();
+        try {
+            for(MyValidator validator: validators){
+                validator.run();
+            }
+        } catch (InputError e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.field.grabFocus();
             return false;
         }
         return true;
@@ -83,6 +83,7 @@ public class ChuDeForm extends javax.swing.JFrame {
     public void deleteText()
     {
         txtTen.setText("");
+        txtTen.grabFocus();
         cbxKichHoat.setSelected(true);
     }
     @SuppressWarnings("unchecked")

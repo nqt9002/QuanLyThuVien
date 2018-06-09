@@ -13,6 +13,28 @@ import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.TaikhoanDao;
 
+class Parent
+{
+    int value = 1000;
+    Parent()
+    {
+        System.out.println("Parent Constructor");
+    }
+    
+    int getValue(){
+        return value;
+    }
+}
+ 
+class Child extends Parent
+{
+    Child()
+    {
+        value = 10;
+        System.out.println("Child Constructor");
+    }
+}
+
 /**
  *
  * @author tainguyen
@@ -22,13 +44,17 @@ public class TestFly {
     
     private static final Logger logger = Logger.getLogger(TestFly.class);
     static TaikhoanDao tkDao = App.ctx.getBean(TaikhoanDao.class);
-
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
        // testLogin();
-        testChuDe();
+//        testChuDe();
+
+        java.sql.Date.valueOf("1990-32-12");
+
     }
     public static void testChuDe(){
         ChuDeDao cDD = App.ctx.getBean(ChuDeDao.class);

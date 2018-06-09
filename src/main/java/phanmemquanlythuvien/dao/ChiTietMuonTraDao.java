@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.ChiTietMuonTra;
 
 import java.util.List;
 
-public interface ChiTietMuonTraDao {
+public interface ChiTietMuonTraDao extends CommonDao {
     
     ChiTietMuonTra findById(int id);
 

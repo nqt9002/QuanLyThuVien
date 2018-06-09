@@ -40,8 +40,6 @@ public class QTaiKhoan extends com.querydsl.sql.RelationalPathBase<TaiKhoan> {
 
     public final com.querydsl.sql.PrimaryKey<TaiKhoan> _TaiKhoan_AD7C65297B83A62APK = createPrimaryKey(maTaiKhoan);
 
-    public final com.querydsl.sql.ForeignKey<ChucVu> _TaiKhoan_MaChuc_70DDC3D8FK = createForeignKey(maChucVu, "MaChucVu");
-
     public QTaiKhoan(String variable) {
         super(TaiKhoan.class, forVariable(variable), "dbo", "TaiKhoan");
         addMetadata();

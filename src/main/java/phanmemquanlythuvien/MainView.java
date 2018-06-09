@@ -5,14 +5,15 @@
  */
 package phanmemquanlythuvien;
 
+import java.util.Arrays;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
+import phanmemquanlythuvien.danhsach.ChuDePanel;
+import phanmemquanlythuvien.danhsach.NXBPanel;
+import phanmemquanlythuvien.danhsach.SubPanel;
+import phanmemquanlythuvien.danhsach.TacGiaPanel;
+import phanmemquanlythuvien.danhsach.TaiKhoanPanel;
 import phanmemquanlythuvien.dao.TaikhoanDao;
-import phanmemquanlythuvien.panel.ChuDePanel;
-import phanmemquanlythuvien.panel.NXBPanel;
-import phanmemquanlythuvien.panel.SubPanel;
-import phanmemquanlythuvien.panel.TacGiaPanel;
-import phanmemquanlythuvien.panel.TaiKhoanPanel;
 
 /**
  *
@@ -30,23 +31,20 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         
         App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("quanly", "123456");
+//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
         //set title
         setTitle("Phần Mềm Quản Lý Thư Viện");
         
-        SubPanel qlTaiKhoan = new TaiKhoanPanel();
-        SubPanel qlChuDe = new ChuDePanel();
-        SubPanel qlTacGia = new TacGiaPanel();
-        SubPanel qlNXB = new NXBPanel();
+        SubPanel[] panels = new SubPanel[] {
+            TaiKhoanPanel.create(),
+            new ChuDePanel(),
+            new TacGiaPanel(),
+            new NXBPanel()
+        };
         
-        //check permission
-        if(qlTaiKhoan.canRead()){
-            mainTab.add("Tài Khoản", qlTaiKhoan);}
-        if(qlChuDe.canRead()) { 
-            mainTab.add("Chủ Đề", qlChuDe);}
-        if(qlTacGia.canRead()) {        
-            mainTab.add("Quản lý tác giả", qlTacGia);}
-        if(qlNXB.canRead()) {        
-            mainTab.add("Quản lý nhà xuất bản", qlNXB);}        
+        Arrays.asList(panels).stream()
+            .filter(panel -> panel.canRead())
+            .forEach(panel -> panel.addToTab(mainTab));
     }
     
     /**

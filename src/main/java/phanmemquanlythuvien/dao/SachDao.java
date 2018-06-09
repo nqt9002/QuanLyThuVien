@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.Sach;
 
 import java.util.List;
 
-public interface SachDao {
+public interface SachDao extends CommonDao {
     
     Sach findById(int id);
 

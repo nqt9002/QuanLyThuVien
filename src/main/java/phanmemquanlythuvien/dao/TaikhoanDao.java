@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.TaiKhoan;
 
 import java.util.List;
 
-public interface TaikhoanDao {
+public interface TaikhoanDao extends CommonDao {
 
     TaiKhoan findById(int id);
     TaiKhoan login(String user, String pass);
