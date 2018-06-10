@@ -11,7 +11,7 @@ import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.NxbDao;
 import phanmemquanlythuvien.dto.Nxb;
 import phanmemquanlythuvien.form.NXBForm;
-import phanmemquanlythuvien.permission.Quyen;
+import phanmemquanlythuvien.enums.Quyen;
 
 /**
  *

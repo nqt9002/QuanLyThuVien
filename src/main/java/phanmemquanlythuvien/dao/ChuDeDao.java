@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.HashMap;
 import phanmemquanlythuvien.dto.ChuDe;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface ChuDeDao extends CommonDao {
     long count();
     void delete(ChuDe p);
 
+    HashMap<Integer, String> getMapChuDe();
+    String getTenChuDe(int maChuDe);    
 }

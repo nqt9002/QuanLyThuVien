@@ -8,7 +8,7 @@ package phanmemquanlythuvien.danhsach;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dto.TaiKhoan;
-import phanmemquanlythuvien.permission.Quyen;
+import phanmemquanlythuvien.enums.Quyen;
 
 /**
  *

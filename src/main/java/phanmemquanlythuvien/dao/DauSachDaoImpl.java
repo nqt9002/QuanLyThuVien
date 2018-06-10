@@ -16,6 +16,7 @@ import java.util.List;
 
 import phanmemquanlythuvien.dto.QDauSach;
 import phanmemquanlythuvien.dto.DauSach;
+import phanmemquanlythuvien.dto.QTacGia;
 
 @Transactional
 public class DauSachDaoImpl implements DauSachDao {

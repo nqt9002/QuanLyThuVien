@@ -1,7 +1,8 @@
 package phanmemquanlythuvien.dto;
 
+import phanmemquanlythuvien.enums.ChucVu;
+import phanmemquanlythuvien.enums.Quyen;
 import javax.annotation.Generated;
-import phanmemquanlythuvien.permission.*;
 
 /**
  * TaiKhoan is a Querydsl bean type

@@ -11,20 +11,23 @@ import javax.swing.text.JTextComponent;
  *
  * @author tainguyen
  */
-public class RequireValidator implements MyValidator{
+public class NumberValidator implements MyValidator{
 
     JTextComponent field;
     String label;
     
-    public RequireValidator(JTextComponent field, String label){
+    public NumberValidator(JTextComponent field, String label){
         this.field = field;
         this.label = label;
     }
     
     @Override
     public void run() throws InputError{
-        if(this.field.getText().isEmpty()){
-            throw new InputError(label + " không được để trống", this.field);
+        try{
+            Integer.parseInt(this.field.getText());
+        } 
+        catch (NumberFormatException e){
+            throw new InputError(label + " phải là số.", this.field);
         }
     }
     

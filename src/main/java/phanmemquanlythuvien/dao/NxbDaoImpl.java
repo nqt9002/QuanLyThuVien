@@ -9,6 +9,7 @@ import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
 import com.querydsl.sql.SQLQueryFactory;
+import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -71,6 +72,35 @@ public class NxbDaoImpl implements NxbDao {
         queryFactory.delete(nxb)
             .where(nxb.maNXB.eq(p.getMaNXB()))
             .execute();
+    }
+    
+    static HashMap<Integer, String> mapNXB;
+    
+    @Override
+    public HashMap<Integer, String> getMapNXB(){
+        if(mapNXB == null){
+            mapNXB = new HashMap<>();
+            findAll().stream()
+                    .forEach(item -> mapNXB.put(item.getMaNXB(), item.getTenNXB()));
+        }
+        
+        return mapNXB;
+    }
+    
+    @Override
+    public String getTenNXB(int maNXB){
+        
+        HashMap<Integer, String> localMap = getMapNXB();
+        
+        if(localMap.get(maNXB) == null) {
+            Nxb item = findById(maNXB);
+            
+            if(nxb != null){
+                localMap.put(item.getMaNXB(), item.getTenNXB());
+            }
+        }
+        
+        return localMap.get(maNXB);
     }
 
 }

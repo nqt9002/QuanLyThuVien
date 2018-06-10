@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.HashMap;
 import phanmemquanlythuvien.dto.Nxb;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface NxbDao extends CommonDao {
 
     long count();
     void delete(Nxb p);
-
+    
+    HashMap<Integer, String> getMapNXB();
+    String getTenNXB(int maNXB);
 }

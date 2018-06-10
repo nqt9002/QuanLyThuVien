@@ -1,5 +1,6 @@
 package phanmemquanlythuvien.dto;
 
+import java.util.Objects;
 import javax.annotation.Generated;
 
 /**
@@ -73,7 +74,11 @@ public class TacGia {
     
     public String getTrangThaiString() {
         return trangThai ? "Kích hoạt" : "Khóa";
-    }    
-
+    }
+    
+    @Override
+    public String toString(){
+        return ten;
+    }
 }
 

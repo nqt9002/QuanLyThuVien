@@ -18,7 +18,8 @@ import phanmemquanlythuvien.form.validator.MaxValidator;
 import phanmemquanlythuvien.form.validator.MinValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
-import phanmemquanlythuvien.permission.ChucVu;
+import phanmemquanlythuvien.enums.ChucVu;
+import phanmemquanlythuvien.form.validator.NumberValidator;
 
 /**
  *
@@ -44,7 +45,8 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         validators.add(new MaxValidator(40, txtMatKhau, "Mật khẩu"));
         validators.add(new MinValidator(6, txtMatKhau, "Mật khẩu")); 
         validators.add(new MaxValidator(40, txtMaBaoMat, "Mã bảo mật"));
-        validators.add(new MinValidator(6, txtMaBaoMat, "Mã bảo mật"));        
+        validators.add(new MinValidator(6, txtMaBaoMat, "Mã bảo mật")); 
+        validators.add(new NumberValidator(txtMaBaoMat, "Mã bảo mật"));
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
         validators.add(new RequireValidator(txtTaiKhoan, "Tài khoản"));

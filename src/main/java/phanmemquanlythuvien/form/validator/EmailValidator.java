@@ -5,27 +5,26 @@
  */
 package phanmemquanlythuvien.form.validator;
 
+import java.util.regex.Pattern;
 import javax.swing.text.JTextComponent;
 
 /**
  *
  * @author tainguyen
  */
-public class RequireValidator implements MyValidator{
-
+public class EmailValidator implements MyValidator{
     JTextComponent field;
     String label;
     
-    public RequireValidator(JTextComponent field, String label){
+    public EmailValidator(JTextComponent field, String label){
         this.field = field;
         this.label = label;
     }
     
     @Override
     public void run() throws InputError{
-        if(this.field.getText().isEmpty()){
-            throw new InputError(label + " không được để trống", this.field);
+        if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", this.field.getText()))){
+            throw new InputError(label + " không chính xác.", this.field);
         }
-    }
-    
+    }    
 }

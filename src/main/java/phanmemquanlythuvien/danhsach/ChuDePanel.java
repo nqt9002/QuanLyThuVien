@@ -12,7 +12,7 @@ import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.form.ChuDeForm;
 import org.apache.log4j.Logger;
-import phanmemquanlythuvien.permission.Quyen;
+import phanmemquanlythuvien.enums.Quyen;
 
 /**
  *

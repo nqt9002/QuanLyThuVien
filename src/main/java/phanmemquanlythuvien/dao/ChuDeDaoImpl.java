@@ -9,6 +9,7 @@ import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
 import com.querydsl.sql.SQLQueryFactory;
+import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import phanmemquanlythuvien.dto.QChuDe;
 import phanmemquanlythuvien.dto.ChuDe;
+import phanmemquanlythuvien.dto.Nxb;
 
 @Transactional
 public class ChuDeDaoImpl implements ChuDeDao {
@@ -72,5 +74,33 @@ public class ChuDeDaoImpl implements ChuDeDao {
             .where(chude.maCD.eq(p.getMaCD()))
             .execute();
     }
-
+    
+    static HashMap<Integer, String> mapChuDe;
+    
+    @Override
+    public HashMap<Integer, String> getMapChuDe(){
+        if(mapChuDe == null){
+            mapChuDe = new HashMap<>();
+            findAll().stream()
+                    .forEach(item -> mapChuDe.put(item.getMaCD(), item.getTenChuDe()));
+        }
+        
+        return mapChuDe;
+    }
+    
+    @Override
+    public String getTenChuDe(int maChuDe){
+        
+        HashMap<Integer, String> localMap = getMapChuDe();
+        
+        if(localMap.get(maChuDe) == null) {
+            ChuDe item = findById(maChuDe);
+            
+            if(chude != null){
+                localMap.put(item.getMaCD(), item.getTenChuDe());
+            }
+        }
+        
+        return localMap.get(maChuDe);
+    }
 }

@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.HashMap;
 import phanmemquanlythuvien.dto.TacGia;
 
 import java.util.List;
@@ -20,5 +21,8 @@ public interface TacgiaDao extends CommonDao {
 
     long count();
     void delete(TacGia p);
+    
+    HashMap<Integer, String> getMapTacGia();
+    String getTenTacGia(int maTG);
 
 }

@@ -12,7 +12,7 @@ import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TaikhoanDao;
 import phanmemquanlythuvien.dto.TaiKhoan;
 import phanmemquanlythuvien.form.TaiKhoanForm;
-import phanmemquanlythuvien.permission.Quyen;
+import phanmemquanlythuvien.enums.Quyen;
 
 /**
  *

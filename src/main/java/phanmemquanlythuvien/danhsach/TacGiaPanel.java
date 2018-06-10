@@ -11,7 +11,8 @@ import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.TacGia;
 import phanmemquanlythuvien.form.TacGiaForm;
-import phanmemquanlythuvien.permission.Quyen;
+import phanmemquanlythuvien.enums.Quyen;
+import phanmemquanlythuvien.chitiet.TacGiaCT;
 
 /**
  *
@@ -73,7 +74,7 @@ public class TacGiaPanel extends SubPanel {
     public void them(){
         sua(new TacGia());
     }
-    
+
     @Override
     public void sua() {
         TacgiaDao tgD = App.ctx.getBean(TacgiaDao.class);

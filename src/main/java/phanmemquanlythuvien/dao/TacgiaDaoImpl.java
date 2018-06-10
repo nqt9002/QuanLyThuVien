@@ -9,6 +9,7 @@ import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
 import com.querydsl.sql.SQLQueryFactory;
+import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -57,6 +58,8 @@ import phanmemquanlythuvien.dto.TacGia;
                 .populate(p)
                 .where(tacgia.maTG.eq(id)).execute();
         }
+        
+        mapTacGia.put(p.getMaTG(), p.getTen());
 
         return p;
     }
@@ -71,6 +74,35 @@ import phanmemquanlythuvien.dto.TacGia;
         queryFactory.delete(tacgia)
             .where(tacgia.maTG.eq(p.getMaTG()))
             .execute();
+    }
+    
+    static HashMap<Integer, String> mapTacGia;
+    
+    @Override
+    public HashMap<Integer, String> getMapTacGia(){
+        if(mapTacGia == null){
+            mapTacGia = new HashMap<>();
+            findAll().stream()
+                    .forEach(item -> mapTacGia.put(item.getMaTG(), item.getTen()));
+        }
+        
+        return mapTacGia;
+    }
+    
+    @Override
+    public String getTenTacGia(int maTG){
+        
+        HashMap<Integer, String> localMap = getMapTacGia();
+        
+        if(localMap.get(maTG) == null) {
+            TacGia item = findById(maTG);
+            
+            if(tacgia != null){
+                localMap.put(item.getMaTG(), item.getTen());
+            }
+        }
+        
+        return localMap.get(maTG);
     }
 
 }

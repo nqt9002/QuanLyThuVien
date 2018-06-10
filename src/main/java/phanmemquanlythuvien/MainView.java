@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.danhsach.ChuDePanel;
+import phanmemquanlythuvien.danhsach.DauSachPanel;
 import phanmemquanlythuvien.danhsach.NXBPanel;
 import phanmemquanlythuvien.danhsach.SubPanel;
 import phanmemquanlythuvien.danhsach.TacGiaPanel;
@@ -39,7 +40,8 @@ public class MainView extends javax.swing.JFrame {
             TaiKhoanPanel.create(),
             new ChuDePanel(),
             new TacGiaPanel(),
-            new NXBPanel()
+            new NXBPanel(),
+            new DauSachPanel(),
         };
         
         Arrays.asList(panels).stream()
