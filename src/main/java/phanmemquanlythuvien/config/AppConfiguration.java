@@ -76,10 +76,10 @@ public class AppConfiguration {
        return new SachDaoImpl();
    }
 
-//   @Bean
-//   public MuonTraDao muonTraDao(){
-//       return new MuonTraDaoImpl();
-//   }
+   @Bean
+   public MuonTraDao muonTraDao(){
+       return new MuonTraDaoImpl();
+   }
    
    @Bean
    public ChiTietMuonTraDao chiTietMuonTraDao(){

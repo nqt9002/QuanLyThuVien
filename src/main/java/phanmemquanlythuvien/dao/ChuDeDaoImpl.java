@@ -15,9 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QChuDe;
+import phanmemquanlythuvien.qdto.QChuDe;
 import phanmemquanlythuvien.dto.ChuDe;
-import phanmemquanlythuvien.dto.Nxb;
 
 @Transactional
 public class ChuDeDaoImpl implements ChuDeDao {

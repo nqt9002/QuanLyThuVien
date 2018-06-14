@@ -13,6 +13,7 @@ import java.util.List;
 public interface ChiTietMuonTraDao extends CommonDao {
     
     ChiTietMuonTra findById(int id);
+    ChiTietMuonTra findBySachId(int id);
 
     List<ChiTietMuonTra> findAll(Predicate... where);
 
@@ -20,5 +21,6 @@ public interface ChiTietMuonTraDao extends CommonDao {
 
     long count();
     void delete(ChiTietMuonTra p);
+//    List<ChiTietMuonTra> findByMaMT(int id);
     
 }

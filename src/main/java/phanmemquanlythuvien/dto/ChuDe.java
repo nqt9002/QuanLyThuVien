@@ -41,5 +41,10 @@ public class ChuDe {
     public String getTrangThaiString() {
         return trangThai ? "Kích hoạt" : "Khóa";
     }
+    
+    @Override
+    public String toString(){
+        return tenChuDe;
+    }
 }
 

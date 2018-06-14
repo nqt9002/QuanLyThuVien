@@ -85,6 +85,10 @@ public class TaiKhoan {
         return ChucVu.values()[getMaChucVu()];
     }
     
+    public void setChucVu(ChucVu value){
+        this.setMaChucVu(value.ordinal());
+    }
+    
     public boolean kiemTraQuyen(Quyen q){
         // TODO: if is admin, return true
         return q.kiemTra(getChucVu());

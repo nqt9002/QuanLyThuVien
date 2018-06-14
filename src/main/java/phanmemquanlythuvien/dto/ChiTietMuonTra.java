@@ -15,6 +15,8 @@ public class ChiTietMuonTra {
     private Integer maSach;
 
     private java.sql.Date ngayTra;
+    
+    private String tieuDe;
 
     public Integer getMaCTMT() {
         return maCTMT;
@@ -46,6 +48,19 @@ public class ChiTietMuonTra {
 
     public void setNgayTra(java.sql.Date ngayTra) {
         this.ngayTra = ngayTra;
+    }
+    
+    public void setTieuDe(String tieuDe){
+        this.tieuDe = tieuDe;
+    }
+    
+    public String getTieuDe(){
+        return this.tieuDe;
+    }
+    
+    @Override
+    public String toString(){
+        return this.tieuDe;
     }
 
 }

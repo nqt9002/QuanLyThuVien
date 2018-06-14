@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QChiTietMuonTra;
+import phanmemquanlythuvien.qdto.QChiTietMuonTra;
 import phanmemquanlythuvien.dto.ChiTietMuonTra;
 
 @Transactional
@@ -32,6 +32,14 @@ public class ChiTietMuonTraDaoImpl implements ChiTietMuonTraDao {
         return queryFactory.select(chitietmuontraBean)
                 .from(chitietmuontra)
                 .where(chitietmuontra.maCTMT.eq(id))
+                .fetchOne();
+    }
+    
+    @Override
+    public ChiTietMuonTra findBySachId(int id) {
+        return queryFactory.select(chitietmuontraBean)
+                .from(chitietmuontra)
+                .where(chitietmuontra.maSach.eq(id))
                 .fetchOne();
     }
 

@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto_test;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -20,7 +20,7 @@ import java.sql.Types;
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
 public class QPhat extends com.querydsl.sql.RelationalPathBase<Phat> {
 
-    private static final long serialVersionUID = 156984600;
+    private static final long serialVersionUID = -1290816491;
 
     public static final QPhat Phat = new QPhat("Phat");
 
@@ -34,9 +34,9 @@ public class QPhat extends com.querydsl.sql.RelationalPathBase<Phat> {
 
     public final NumberPath<Integer> soTien = createNumber("soTien", Integer.class);
 
-    public final com.querydsl.sql.PrimaryKey<Phat> _Phat_4AC072E27ECB103EPK = createPrimaryKey(maPhat);
+    public final com.querydsl.sql.PrimaryKey<Phat> _Phat_4AC072E26CE5BBE5PK = createPrimaryKey(maPhat);
 
-    public final com.querydsl.sql.ForeignKey<MuonTra> _Phat_MaMT_440B1D61FK = createForeignKey(maMT, "MaMT");
+    public final com.querydsl.sql.ForeignKey<MuonTra> _Phat_MaMT_4316F928FK = createForeignKey(maMT, "MaMT");
 
     public QPhat(String variable) {
         super(Phat.class, forVariable(variable), "dbo", "Phat");

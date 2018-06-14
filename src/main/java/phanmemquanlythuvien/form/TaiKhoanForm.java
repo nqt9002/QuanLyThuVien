@@ -65,6 +65,7 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         }
         txtTen.setText(item.getTen());
         txtTaiKhoan.setText(item.getTaiKhoan());
+        cboChucVu.setSelectedItem(item.getChucVu());
         cbxKichHoat.setSelected(item.getTrangThai());
     }
     
@@ -73,6 +74,7 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         item.setTen(txtTen.getText());
         item.setTaiKhoan(txtTaiKhoan.getText());
         item.setTrangThai(cbxKichHoat.isSelected());
+        item.setChucVu((ChucVu)cboChucVu.getSelectedItem());
         if(txtMatKhau.getText().length() > 0){
             item.setMatKhau(txtMatKhau.getText());
         }

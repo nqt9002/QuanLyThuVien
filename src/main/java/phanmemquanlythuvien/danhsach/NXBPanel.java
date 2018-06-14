@@ -31,8 +31,8 @@ public class NXBPanel extends SubPanel{
         tabName = "Nhà Xuất Bản";
     }
     
-    public static TaiKhoanPanel create(){
-        return new TaiKhoanPanel();
+    public static NXBPanel create(){
+        return new NXBPanel();
     }
     
     public Object[] data2Array(Nxb item){

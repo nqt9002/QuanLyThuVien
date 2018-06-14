@@ -14,11 +14,13 @@ public interface TaikhoanDao extends CommonDao {
 
     TaiKhoan findById(int id);
     TaiKhoan login(String user, String pass);
+    TaiKhoan reset(String user, String pass);
 
     List<TaiKhoan> findAll(Predicate... where);
 
     TaiKhoan save(TaiKhoan p);
-
+    
+    void resetPass(String user, String pass);
     long count();
     void delete(TaiKhoan p);
 

@@ -41,6 +41,12 @@ public class Nxb {
     public String getTrangThaiString() {
         return trangThai ? "Kích hoạt" : "Khóa";
     }    
+    
+    
+    @Override
+    public String toString(){
+        return tenNXB;
+    }
 
 }
 

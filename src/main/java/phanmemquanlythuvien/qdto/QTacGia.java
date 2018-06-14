@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,12 +15,12 @@ import java.sql.Types;
 
 
 /**
- * QTacGia is a Querydsl query type for TacGia
+ * QTacGia is a Querydsl query type for QTacGia
  */
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
-public class QTacGia extends com.querydsl.sql.RelationalPathBase<TacGia> {
+public class QTacGia extends com.querydsl.sql.RelationalPathBase<QTacGia> {
 
-    private static final long serialVersionUID = 1359340023;
+    private static final long serialVersionUID = -710859591;
 
     public static final QTacGia TacGia = new QTacGia("TacGia");
 
@@ -31,30 +31,30 @@ public class QTacGia extends com.querydsl.sql.RelationalPathBase<TacGia> {
     public final StringPath ten = createString("ten");
 
     public final StringPath tomTat = createString("tomTat");
-    
+
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<TacGia> _TacGia_27250074072E0D6APK = createPrimaryKey(maTG);
+    public final com.querydsl.sql.PrimaryKey<QTacGia> _TacGia_27250074CA809A3APK = createPrimaryKey(maTG);
 
-    public final com.querydsl.sql.ForeignKey<DauSach> __DauSach_MaTG_2D27B809FK = createInvForeignKey(maTG, "MaTG");
+    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaTG_30F848EDFK = createInvForeignKey(maTG, "MaTG");
 
     public QTacGia(String variable) {
-        super(TacGia.class, forVariable(variable), "dbo", "TacGia");
+        super(QTacGia.class, forVariable(variable), "dbo", "TacGia");
         addMetadata();
     }
 
     public QTacGia(String variable, String schema, String table) {
-        super(TacGia.class, forVariable(variable), schema, table);
+        super(QTacGia.class, forVariable(variable), schema, table);
         addMetadata();
     }
 
-    public QTacGia(Path<? extends TacGia> path) {
+    public QTacGia(Path<? extends QTacGia> path) {
         super(path.getType(), path.getMetadata(), "dbo", "TacGia");
         addMetadata();
     }
 
     public QTacGia(PathMetadata metadata) {
-        super(TacGia.class, metadata, "dbo", "TacGia");
+        super(QTacGia.class, metadata, "dbo", "TacGia");
         addMetadata();
     }
 

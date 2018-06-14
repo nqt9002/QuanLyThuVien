@@ -6,11 +6,18 @@
 package phanmemquanlythuvien;
 
 import java.util.Arrays;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
+import phanmemquanlythuvien.danhsach.BanDocPanel;
 import phanmemquanlythuvien.danhsach.ChuDePanel;
+import phanmemquanlythuvien.danhsach.CommonViewImpl;
 import phanmemquanlythuvien.danhsach.DauSachPanel;
+import phanmemquanlythuvien.danhsach.MuonTraPanel;
 import phanmemquanlythuvien.danhsach.NXBPanel;
+import phanmemquanlythuvien.danhsach.SachPanel;
 import phanmemquanlythuvien.danhsach.SubPanel;
 import phanmemquanlythuvien.danhsach.TacGiaPanel;
 import phanmemquanlythuvien.danhsach.TaiKhoanPanel;
@@ -31,8 +38,9 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         
-        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("quanly", "123456");
+//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("quanly", "123456");
 //        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
+        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thuthu", "123456");
         //set title
         setTitle("Phần Mềm Quản Lý Thư Viện");
         
@@ -42,11 +50,27 @@ public class MainView extends javax.swing.JFrame {
             new TacGiaPanel(),
             new NXBPanel(),
             new DauSachPanel(),
+            new SachPanel(),
+            new BanDocPanel(),
+            new MuonTraPanel(),
         };
+        
+        ChangeListener changeListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent changeEvent) {
+              JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
+              int index = sourceTabbedPane.getSelectedIndex();
+              CommonViewImpl activeTab = (CommonViewImpl) sourceTabbedPane.getComponentAt(index);
+              activeTab.showData();
+              activeTab.showHideButton();
+              System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+            }
+          };
+        
+        mainTab.addChangeListener(changeListener);
         
         Arrays.asList(panels).stream()
             .filter(panel -> panel.canRead())
-            .forEach(panel -> panel.addToTab(mainTab));
+            .forEach(panel -> mainTab.add(panel.tabName, panel));
     }
     
     /**

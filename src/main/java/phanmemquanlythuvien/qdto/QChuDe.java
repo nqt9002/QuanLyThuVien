@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,42 +15,42 @@ import java.sql.Types;
 
 
 /**
- * QChuDe is a Querydsl query type for ChuDe
+ * QChuDe is a Querydsl query type for QChuDe
  */
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
-public class QChuDe extends com.querydsl.sql.RelationalPathBase<ChuDe> {
+public class QChuDe extends com.querydsl.sql.RelationalPathBase<QChuDe> {
 
-    private static final long serialVersionUID = -1080003101;
+    private static final long serialVersionUID = 1762710241;
 
     public static final QChuDe ChuDe = new QChuDe("ChuDe");
 
     public final NumberPath<Integer> maCD = createNumber("maCD", Integer.class);
 
     public final StringPath tenChuDe = createString("tenChuDe");
-    
+
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<ChuDe> _ChuDe_27258E0452A6BB22PK = createPrimaryKey(maCD);
+    public final com.querydsl.sql.PrimaryKey<QChuDe> _ChuDe_27258E047C05298DPK = createPrimaryKey(maCD);
 
-    public final com.querydsl.sql.ForeignKey<DauSach> __DauSach_MaCD_2F10007BFK = createInvForeignKey(maCD, "MaCD");
+    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaCD_32E0915FFK = createInvForeignKey(maCD, "MaCD");
 
     public QChuDe(String variable) {
-        super(ChuDe.class, forVariable(variable), "dbo", "ChuDe");
+        super(QChuDe.class, forVariable(variable), "dbo", "ChuDe");
         addMetadata();
     }
 
     public QChuDe(String variable, String schema, String table) {
-        super(ChuDe.class, forVariable(variable), schema, table);
+        super(QChuDe.class, forVariable(variable), schema, table);
         addMetadata();
     }
 
-    public QChuDe(Path<? extends ChuDe> path) {
+    public QChuDe(Path<? extends QChuDe> path) {
         super(path.getType(), path.getMetadata(), "dbo", "ChuDe");
         addMetadata();
     }
 
     public QChuDe(PathMetadata metadata) {
-        super(ChuDe.class, metadata, "dbo", "ChuDe");
+        super(QChuDe.class, metadata, "dbo", "ChuDe");
         addMetadata();
     }
 

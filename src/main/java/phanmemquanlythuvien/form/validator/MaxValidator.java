@@ -29,7 +29,7 @@ public class MaxValidator implements MyValidator{
             return;
         }
         if(this.field.getText().length() > max){
-            throw new InputError(label + " vượt quá giớ hạn ký tự tối đa: "+max, this.field);
+            throw new InputError(label + " vượt quá giớ hạn ký tự tối đa "+max, this.field);
         }
     }
 }

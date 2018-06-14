@@ -9,12 +9,13 @@ import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
 import com.querydsl.sql.SQLQueryFactory;
+import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QBanDoc;
+import phanmemquanlythuvien.qdto.QBanDoc;
 import phanmemquanlythuvien.dto.BanDoc;
 
 @Transactional
@@ -72,5 +73,35 @@ public class BanDocDaoImpl implements BanDocDao {
             .where(bandoc.maBD.eq(p.getMaBD()))
             .execute();
     }
+    
+    static HashMap<Integer, String> mapBanDoc;
+    
+    @Override
+    public HashMap<Integer, String> getMapBanDoc(){
+        if(mapBanDoc == null){
+            mapBanDoc = new HashMap<>();
+            findAll().stream()
+                    .forEach(item -> mapBanDoc.put(item.getMaBD(), item.getTenBD()));
+        }
+        
+        return mapBanDoc;
+    }
+    
+    @Override
+    public String getTenBanDoc(int maBD){
+        
+        HashMap<Integer, String> localMap = getMapBanDoc();
+        
+        if(localMap.get(maBD) == null) {
+            BanDoc item = findById(maBD);
+            
+            if(bandoc != null){
+                localMap.put(item.getMaBD(), item.getTenBD());
+            }
+        }
+        
+        return localMap.get(maBD);
+    }
+    
 
 }

@@ -39,6 +39,15 @@ public class BanDoc {
     public java.sql.Date getNgaySinh() {
         return ngaySinh;
     }
+    
+    public String getNgaySinhString() {
+        // TODO convert date to string
+        if(this.getNgaySinh() != null){
+            return this.getNgaySinh().toString();
+        }
+        
+        return "";
+    }    
 
     public void setNgaySinh(java.sql.Date ngaySinh) {
         this.ngaySinh = ngaySinh;
@@ -71,5 +80,10 @@ public class BanDoc {
     public String getTrangThaiString() {
         return trangThai ? "Kích hoạt" : "Khóa";
     }
+    
+    public String toString(){
+        return "#"+String.format("%05d", maBD) + " " + tenBD;
+    }
+    
 }
 

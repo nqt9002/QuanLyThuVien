@@ -9,14 +9,14 @@ import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
 import com.querydsl.sql.SQLQueryFactory;
+import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QDauSach;
 import phanmemquanlythuvien.dto.DauSach;
-import phanmemquanlythuvien.dto.QTacGia;
+import phanmemquanlythuvien.qdto.QDauSach;
 
 @Transactional
 public class DauSachDaoImpl implements DauSachDao {
@@ -72,6 +72,35 @@ public class DauSachDaoImpl implements DauSachDao {
         queryFactory.delete(dausach)
             .where(dausach.maDS.eq(p.getMaDS()))
             .execute();
+    }
+
+    static HashMap<Integer, String> mapDauSach;
+    
+    @Override
+    public HashMap<Integer, String> getMapDauSach(){
+        if(mapDauSach == null){
+            mapDauSach = new HashMap<>();
+            findAll().stream()
+                    .forEach(item -> mapDauSach.put(item.getMaDS(), item.getTen()));
+        }
+        
+        return mapDauSach;
+    }
+    
+    @Override
+    public String getTenDauSach(int maDS){
+        
+        HashMap<Integer, String> localMap = getMapDauSach();
+        
+        if(localMap.get(maDS) == null) {
+            DauSach item = findById(maDS);
+            
+            if(dausach != null){
+                localMap.put(item.getMaDS(), item.getTen());
+            }
+        }
+        
+        return localMap.get(maDS);
     }
 
 }

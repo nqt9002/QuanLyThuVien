@@ -35,7 +35,7 @@ public enum Quyen {
     XOA_BAN_DOC(),
     // permission for book title
     THEM_DAU_SACH(ChucVu.THU_KHO),
-    XEM_DAU_SACH(ChucVu.THU_KHO,ChucVu.QUAN_LY),
+    XEM_DAU_SACH(ChucVu.THU_KHO,ChucVu.QUAN_LY,ChucVu.THU_THU),
     XOA_DAU_SACH(),
     // permission for book
     THEM_SACH(ChucVu.THU_KHO),
@@ -52,7 +52,9 @@ public enum Quyen {
     // permission for punish
     THEM_PHAT(ChucVu.THU_THU),
     XEM_PHAT(ChucVu.THU_THU,ChucVu.QUAN_LY),
-    XOA_PHAT();
+    XOA_PHAT(),
+    MUON(ChucVu.THU_THU);
+    
 
 
     private ChucVu[] chucVu;

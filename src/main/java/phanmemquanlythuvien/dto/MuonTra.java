@@ -1,5 +1,8 @@
 package phanmemquanlythuvien.dto;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 import javax.annotation.Generated;
 
 /**
@@ -11,10 +14,16 @@ public class MuonTra {
     private Integer maBD;
 
     private Integer maMT;
-
-    private java.sql.Date ngayMuon;
+    
+    private java.sql.Date ngayMuon = Date.valueOf(LocalDate.now());
 
     private java.sql.Date ngayPhaiTra;
+    
+    private Integer tongSoMuon;
+    
+    private Integer tongSoTra;
+    
+    private Boolean daTraHet;
 
     public Integer getMaBD() {
         return maBD;
@@ -26,7 +35,7 @@ public class MuonTra {
 
     public Integer getMaMT() {
         return maMT;
-    }
+    }     
 
     public void setMaMT(Integer maMT) {
         this.maMT = maMT;
@@ -47,6 +56,35 @@ public class MuonTra {
     public void setNgayPhaiTra(java.sql.Date ngayPhaiTra) {
         this.ngayPhaiTra = ngayPhaiTra;
     }
+    
+    public Integer getTongSoMuon(){
+        return tongSoMuon;
+    }
 
+    public void setTongSoMuon(Integer tongSoMuon){
+        this.tongSoMuon = tongSoMuon;
+    }
+    
+    public Integer getTongSoTra(){
+        return tongSoTra;
+    }
+    
+    public void setTongSoTra(Integer tongSoTra){
+        this.tongSoTra = tongSoTra;
+    }
+    
+    public Boolean getDaTraHet() {
+        return daTraHet;
+    }
+
+    public void setDaTraHet(Boolean daTraHet) {
+        this.daTraHet = daTraHet;
+    }    
+    
+    public void traThemSach(int soluong){
+        this.tongSoTra += soluong;
+        this.daTraHet = Objects.equals(tongSoMuon, tongSoTra);
+    }
+    
 }
 

@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.HashMap;
 import phanmemquanlythuvien.dto.BanDoc;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface BanDocDao extends CommonDao {
 
     long count();
     void delete(BanDoc p);
-    
+
+    HashMap<Integer, String> getMapBanDoc();
+    String getTenBanDoc(int maBD);    
 }

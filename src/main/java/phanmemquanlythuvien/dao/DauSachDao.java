@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
+import java.util.HashMap;
 import phanmemquanlythuvien.dto.DauSach;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface DauSachDao extends CommonDao {
 
     long count();
     void delete(DauSach p);
-    
+
+    HashMap<Integer, String> getMapDauSach();
+    String getTenDauSach(int maDS);
 }

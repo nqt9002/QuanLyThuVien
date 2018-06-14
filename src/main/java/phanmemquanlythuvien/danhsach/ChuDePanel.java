@@ -32,8 +32,8 @@ public class ChuDePanel extends SubPanel {
         tabName = "Chủ Đề";
     }
     
-    public static TaiKhoanPanel create(){
-        return new TaiKhoanPanel();
+    public static ChuDePanel create(){
+        return new ChuDePanel();
     }
     
     public Object[] data2Array(ChuDe item){

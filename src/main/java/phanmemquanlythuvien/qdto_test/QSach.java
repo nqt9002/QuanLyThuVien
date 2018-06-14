@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto_test;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -20,7 +20,7 @@ import java.sql.Types;
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
 public class QSach extends com.querydsl.sql.RelationalPathBase<Sach> {
 
-    private static final long serialVersionUID = 157067296;
+    private static final long serialVersionUID = -1290733795;
 
     public static final QSach Sach = new QSach("Sach");
 
@@ -28,13 +28,15 @@ public class QSach extends com.querydsl.sql.RelationalPathBase<Sach> {
 
     public final NumberPath<Integer> maSach = createNumber("maSach", Integer.class);
 
-    public final BooleanPath trangThai = createBoolean("trangThai");
+    public final StringPath tieuDe = createString("tieuDe");
 
-    public final com.querydsl.sql.PrimaryKey<Sach> _Sach_B235742D36192A93PK = createPrimaryKey(maSach);
+    public final NumberPath<Integer> trangThai = createNumber("trangThai", Integer.class);
 
-    public final com.querydsl.sql.ForeignKey<DauSach> _Sach_MaDS_3A81B327FK = createForeignKey(maDS, "MaDS");
+    public final com.querydsl.sql.PrimaryKey<Sach> _Sach_B235742D94403825PK = createPrimaryKey(maSach);
 
-    public final com.querydsl.sql.ForeignKey<ChiTietMuonTra> __ChiTietMu_MaSac_412EB0B6FK = createInvForeignKey(maSach, "MaSach");
+    public final com.querydsl.sql.ForeignKey<DauSach> _Sach_MaDS_36B12243FK = createForeignKey(maDS, "MaDS");
+
+    public final com.querydsl.sql.ForeignKey<ChiTietMuonTra> __ChiTietMu_MaSac_403A8C7DFK = createInvForeignKey(maSach, "MaSach");
 
     public QSach(String variable) {
         super(Sach.class, forVariable(variable), "dbo", "Sach");
@@ -59,7 +61,8 @@ public class QSach extends com.querydsl.sql.RelationalPathBase<Sach> {
     public void addMetadata() {
         addMetadata(maDS, ColumnMetadata.named("MaDS").withIndex(2).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(maSach, ColumnMetadata.named("MaSach").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
-        addMetadata(trangThai, ColumnMetadata.named("TrangThai").withIndex(3).ofType(Types.BIT).withSize(1));
+        addMetadata(tieuDe, ColumnMetadata.named("TieuDe").withIndex(4).ofType(Types.NVARCHAR).withSize(200).notNull());
+        addMetadata(trangThai, ColumnMetadata.named("TrangThai").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
     }
 
 }

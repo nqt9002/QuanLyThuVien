@@ -14,8 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QSach;
+import phanmemquanlythuvien.qdto.QSach;
 import phanmemquanlythuvien.dto.Sach;
+import phanmemquanlythuvien.enums.TrangThaiSach;
 
 @Transactional
 public class SachDaoImpl implements SachDao {
@@ -33,7 +34,7 @@ public class SachDaoImpl implements SachDao {
                 .from(sach)
                 .where(sach.maSach.eq(id))
                 .fetchOne();
-    }
+    }  
 
     @Override
     public List<Sach> findAll(Predicate... where) {
@@ -65,12 +66,31 @@ public class SachDaoImpl implements SachDao {
     public long count() {
         return queryFactory.from(sach).fetchCount();
     }
-
+    
+    @Override
+    public int countDS(int mDauSach,int trangthai){
+        return (int) queryFactory
+                .select(sachBean)
+                .from(sach)
+                .where(sach.maDS.eq(mDauSach),sach.trangThai.eq(trangthai))
+                .fetchCount();
+    }
+    
     @Override
     public void delete(Sach p) {
         queryFactory.delete(sach)
             .where(sach.maSach.eq(p.getMaSach()))
             .execute();
+    }
+
+    @Override
+    public int countDS(int mDauSach, TrangThaiSach trangthai) {
+        return countDS(mDauSach, trangthai.ordinal());
+    }
+
+    @Override
+    public int countDS(int mDauSach) {
+        return countDS(mDauSach, TrangThaiSach.SAN_SANG);
     }
 
 }

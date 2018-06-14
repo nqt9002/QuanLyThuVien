@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto_test;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -20,7 +20,7 @@ import java.sql.Types;
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
 public class QBanDoc extends com.querydsl.sql.RelationalPathBase<BanDoc> {
 
-    private static final long serialVersionUID = 131417174;
+    private static final long serialVersionUID = 363972627;
 
     public static final QBanDoc BanDoc = new QBanDoc("BanDoc");
 
@@ -36,9 +36,9 @@ public class QBanDoc extends com.querydsl.sql.RelationalPathBase<BanDoc> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<BanDoc> _BanDoc_272475A75C5D7F9FPK = createPrimaryKey(maBD);
+    public final com.querydsl.sql.PrimaryKey<BanDoc> _BanDoc_272475A72360E787PK = createPrimaryKey(maBD);
 
-    public final com.querydsl.sql.ForeignKey<MuonTra> __MuonTra_MaBD_3D5E1FD2FK = createInvForeignKey(maBD, "MaBD");
+    public final com.querydsl.sql.ForeignKey<MuonTra> __MuonTra_MaBD_3A81B327FK = createInvForeignKey(maBD, "MaBD");
 
     public QBanDoc(String variable) {
         super(BanDoc.class, forVariable(variable), "dbo", "BanDoc");

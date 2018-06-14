@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QPhat;
+import phanmemquanlythuvien.qdto.QPhat;
 import phanmemquanlythuvien.dto.Phat;
 
 @Transactional

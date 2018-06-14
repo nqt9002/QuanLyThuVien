@@ -8,6 +8,7 @@ package phanmemquanlythuvien.form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -16,8 +17,10 @@ import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.DauSachDao;
 import phanmemquanlythuvien.dao.NxbDao;
 import phanmemquanlythuvien.dao.TacgiaDao;
+import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.dto.DauSach;
-import phanmemquanlythuvien.form.validator.EmailValidator;
+import phanmemquanlythuvien.dto.Nxb;
+import phanmemquanlythuvien.dto.TacGia;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MaxValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
@@ -42,12 +45,14 @@ public class DauSachForm extends javax.swing.JFrame {
     NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
     ChuDeDao chudeDao = App.ctx.getBean(ChuDeDao.class); 
     
-    HashMap<String, Integer> tacgiaMap,chudeMap,nxbMap;
-    
-    DefaultComboBoxModel cboModel;
+    DefaultComboBoxModel<TacGia> cboTacGiaModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<ChuDe> cboChuDeModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<Nxb> cboNXBModel = new DefaultComboBoxModel<>();
     
     public DauSachForm(DauSach dausach) {
         initComponents();
+        
+        buildComboBox();
         
         this.item = dausach;
         validators.add(new MaxValidator(60, txtTenDauSach, "Tên đầu sách"));
@@ -56,41 +61,23 @@ public class DauSachForm extends javax.swing.JFrame {
         validators.add(new NumberValidator(txtLanTaiBan, "Lần tái bản"));
         validators.add(new MaxValidator(1000, txtTomTat, "Tóm tắt nội dung"));
         validators.add(new RequireValidator(txtTomTat, "Tóm tắt nội dung"));
-        cboTacGia();
-        cboChuDe();
-        cboNXB();
+        
         this.item2Form();
     }   
     
-    public final void cboTacGia(){
-        cboModel = new DefaultComboBoxModel();
-        tacgiaMap = new HashMap<>();
+    public final void buildComboBox(){
         tacgiaDao.findAll().stream().forEach(tacgia -> {
-            cboModel.addElement(tacgia.getTen());
-            tacgiaMap.put(tacgia.getTen(), tacgia.getMaTG());
+            cboTacGiaModel.addElement(tacgia);
         });
-        cboTacGia.setModel(cboModel);
-    }
-    
-    public final void cboNXB(){
-        cboModel = new DefaultComboBoxModel();
-        nxbMap = new HashMap<>();
+        
         nxbDao.findAll().stream().forEach(nxb -> {
-            cboModel.addElement(nxb.getTenNXB());
-            nxbMap.put(nxb.getTenNXB(), nxb.getMaNXB());
+            cboNXBModel.addElement(nxb);
         });
-        cboNXB.setModel(cboModel);
-    }
-
-    public final void cboChuDe(){
-        cboModel = new DefaultComboBoxModel();
-        chudeMap = new HashMap<>();
+        
         chudeDao.findAll().stream().forEach(chude -> {
-            cboModel.addElement(chude.getTenChuDe());
-            chudeMap.put(chude.getTenChuDe(), chude.getMaCD());
+            cboChuDeModel.addElement(chude);
         });
-        cboChuDe.setModel(cboModel);
-    }    
+    }
     
     public void item2Form(){
         if(item.getMaDS()== null){
@@ -99,9 +86,26 @@ public class DauSachForm extends javax.swing.JFrame {
         }
 
         txtTenDauSach.setText(item.getTen());
-        cboTacGia.setSelectedItem(tacgiaDao.getTenTacGia(item.getMaTG()));
-        cboNXB.setSelectedItem(nxbDao.getTenNXB(item.getMaNXB()));
-        cboChuDe.setSelectedItem(chudeDao.getTenChuDe(item.getMaCD()));
+        
+        for(int i = 0; i < cboChuDeModel.getSize();i++){
+            if(Objects.equals(cboChuDeModel.getElementAt(i).getMaCD(), item.getMaCD()))
+                cboChuDe.setSelectedIndex(i);
+        }
+        
+        for(int i = 0; i < cboTacGiaModel.getSize();i++){
+            if(Objects.equals(cboTacGiaModel.getElementAt(i).getMaTG(), item.getMaCD()))
+                cboTacGia.setSelectedIndex(i);
+        }
+        
+        for(int i = 0; i < cboNXBModel.getSize();i++){
+            if(Objects.equals(cboNXBModel.getElementAt(i).getMaNXB(), item.getMaCD()))
+                cboNXB.setSelectedIndex(i);
+        }
+        
+        
+//        cboTacGia.setSelectedItem(tacgiaDao.getTenTacGia(item.getMaTG()));
+//        cboNXB.setSelectedItem(nxbDao.getTenNXB(item.getMaNXB()));
+//        cboChuDe.setSelectedItem(chudeDao.getTenChuDe(item.getMaCD()));
         txtSoLuong.setText(item.getSoLuong().toString());
         txtSoLuong.setEnabled(false);
         txtLanTaiBan.setText(item.getLanTaiBan().toString());
@@ -112,9 +116,9 @@ public class DauSachForm extends javax.swing.JFrame {
     public void form2Item(){
         // bring data from txt to obj
         item.setTen(txtTenDauSach.getText());
-        item.setMaTG(tacgiaMap.get((String) cboTacGia.getSelectedItem()));
-        item.setMaNXB(nxbMap.get((String) cboNXB.getSelectedItem()));
-        item.setMaCD(chudeMap.get((String) cboChuDe.getSelectedItem()));
+        item.setMaTG(((TacGia) cboTacGia.getSelectedItem()).getMaTG());
+        item.setMaNXB(((Nxb) cboNXB.getSelectedItem()).getMaNXB());
+        item.setMaCD(((ChuDe) cboChuDe.getSelectedItem()).getMaCD());
         item.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
         item.setLanTaiBan(Integer.parseInt(txtLanTaiBan.getText()));
         item.setTtnd(txtTomTat.getText());
@@ -199,11 +203,11 @@ public class DauSachForm extends javax.swing.JFrame {
 
         jLabel27.setText("Lần tái bản");
 
-        cboTacGia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTacGia.setModel(cboTacGiaModel);
 
-        cboNXB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNXB.setModel(cboNXBModel);
 
-        cboChuDe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboChuDe.setModel(cboChuDeModel);
 
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
@@ -347,9 +351,9 @@ public class DauSachForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatLai;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JComboBox<String> cboChuDe;
-    private javax.swing.JComboBox<String> cboNXB;
-    private javax.swing.JComboBox<String> cboTacGia;
+    private javax.swing.JComboBox<ChuDe> cboChuDe;
+    private javax.swing.JComboBox<Nxb> cboNXB;
+    private javax.swing.JComboBox<TacGia> cboTacGia;
     private javax.swing.JCheckBox cbxTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel21;

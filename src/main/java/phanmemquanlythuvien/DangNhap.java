@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TaikhoanDao;
 import phanmemquanlythuvien.dto.TaiKhoan;
+import phanmemquanlythuvien.form.QuenMatKhauForm;
 
 /**
  *
@@ -20,15 +21,8 @@ public class DangNhap extends javax.swing.JFrame {
     private static Logger logger = Logger.getLogger(MainView.class);
     static TaikhoanDao tkDao = App.ctx.getBean(TaikhoanDao.class);
 
-//    Connection con = null;
     public DangNhap() {
         initComponents();
-//        try {
-//            con=KetNoi.getDBConnection(KetNoi.database,KetNoi.account,KetNoi.password);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,6 +37,7 @@ public class DangNhap extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnSubmit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        lblQuenMK = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phần Mềm Quản Lý Thư Viện");
@@ -63,7 +58,7 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(24, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,13 +76,13 @@ public class DangNhap extends javax.swing.JFrame {
         frmLogin.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         frmLogin.setForeground(new java.awt.Color(255, 255, 255));
         frmLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        frmLogin.setText("UserName");
+        frmLogin.setText("Tài khoản");
         frmLogin.setToolTipText("");
 
         frmPass.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         frmPass.setForeground(new java.awt.Color(255, 255, 255));
         frmPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        frmPass.setText("Password");
+        frmPass.setText("Mật khẩu");
 
         btnSubmit.setBackground(new java.awt.Color(255, 255, 255));
         btnSubmit.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
@@ -110,25 +105,37 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        lblQuenMK.setFont(new java.awt.Font("Lucida Grande", 3, 12)); // NOI18N
+        lblQuenMK.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuenMK.setText("Quên mật khẩu?");
+        lblQuenMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMKMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblQuenMK))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(frmPass)
                             .addComponent(frmLogin))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPassword)
-                            .addComponent(txtUser)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(txtUser)
+                            .addComponent(txtPassword)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,19 +149,21 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(frmPass)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblQuenMK)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,12 +178,7 @@ public class DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        logger.info("before query");
         TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
-       
-        logger.info("post query");
-        logger.info(nguoiDung);
-        
         if(nguoiDung != null) {
             App.activeUser = nguoiDung;
             MainView QL = new MainView();
@@ -183,51 +187,24 @@ public class DangNhap extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác.");
         }
-//        try {
-//           if(con == null)
-//           {
-//               JOptionPane.showMessageDialog(null, "Không thể kết nối tới CSDL.");
-//           }
-//           else
-//           {               
-//                String sql = "Select * from TaiKhoan where TaiKhoan=? and MatKhau=?";
-//                ResultSet rs;
-//                PreparedStatement pst = con.prepareStatement(sql);
-//                pst.setString(1,txtUser.getText());
-//                pst.setString(2,txtPassword.getText());
-//                rs = pst.executeQuery();
-//                if(rs.next())
-//                {
-//                    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-//                    if(rs.getString("MaChucVu").equalsIgnoreCase("1"))
-//                    {
-//                        MainView QL = new MainView();
-//                        QL.setVisible(true);
-//                        setVisible(false);
-//                    }
-//                    else if(rs.getString("MaChucVu").equalsIgnoreCase("2"))
-//                    {
-//                        //thủ kho
-//                    }
-//                    else if(rs.getString("MaChucVu").equalsIgnoreCase("3"))
-//                    {
-//                        //thủ thư
-//                    }
-//                }
-//                else
-//                {
-//                    JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác.");
-//                }
-//           }            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         txtUser.setText("");
         txtPassword.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lblQuenMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMKMouseClicked
+        QuenMatKhauForm QMK = new QuenMatKhauForm();
+        QMK.setVisible(true);
+        setVisible(false);
+        QMK.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                setVisible(true);
+            }
+        });        
+    }//GEN-LAST:event_lblQuenMKMouseClicked
 
     public static void main(String args[]) {
 
@@ -265,6 +242,7 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblQuenMK;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

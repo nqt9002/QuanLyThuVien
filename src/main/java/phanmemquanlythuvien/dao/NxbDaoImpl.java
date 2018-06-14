@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QNxb;
+import phanmemquanlythuvien.qdto.QNxb;
 import phanmemquanlythuvien.dto.Nxb;
 
 @Transactional

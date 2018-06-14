@@ -7,12 +7,12 @@ package phanmemquanlythuvien.danhsach;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.TacGia;
 import phanmemquanlythuvien.form.TacGiaForm;
 import phanmemquanlythuvien.enums.Quyen;
-import phanmemquanlythuvien.chitiet.TacGiaCT;
 
 /**
  *
@@ -21,6 +21,7 @@ import phanmemquanlythuvien.chitiet.TacGiaCT;
 public class TacGiaPanel extends SubPanel {
 
     List<TacGia> allTacGia;
+    private static final Logger LOGGER = Logger.getLogger(TaiKhoanPanel.class);
     
     String[] header = new String[] {"Mã Tác Giả", "Tên Tác Giả", "Ngày Sinh", "Tiểu Sử","Trạng Thái"};    
     
@@ -32,8 +33,8 @@ public class TacGiaPanel extends SubPanel {
         tabName = "Tác Giả";
     }
     
-    public static TaiKhoanPanel create(){
-        return new TaiKhoanPanel();
+    public static TacGiaPanel create(){
+        return new TacGiaPanel();
     }
     
     public Object[] data2Array(TacGia item){
@@ -57,6 +58,8 @@ public class TacGiaPanel extends SubPanel {
     }
     
     public void showData(String filterValue){
+        
+        LOGGER.debug("reload Tacgia data");
 
         TacgiaDao tgD = App.ctx.getBean(TacgiaDao.class);
         allTacGia = tgD.findAll();

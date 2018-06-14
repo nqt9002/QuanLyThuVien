@@ -1,6 +1,8 @@
 package phanmemquanlythuvien.dto;
 
+import java.util.Arrays;
 import javax.annotation.Generated;
+import phanmemquanlythuvien.enums.TrangThaiSach;
 
 /**
  * Sach is a Querydsl bean type
@@ -12,7 +14,9 @@ public class Sach {
 
     private Integer maSach;
 
-    private Boolean trangThai;
+    private Integer trangThai;
+    
+    private String tieuDe;
 
     public Integer getMaDS() {
         return maDS;
@@ -30,16 +34,38 @@ public class Sach {
         this.maSach = maSach;
     }
 
-    public Boolean getTrangThai() {
+    public Integer getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(Boolean trangThai) {
+    public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
     
-    public String getTrangThaiString() {
-        return trangThai ? "Kích hoạt" : "Khóa";
+    public void setTrangThai(TrangThaiSach value){
+        setTrangThai(value.ordinal());
     }
+    
+    public TrangThaiSach getTrangThaiEnum(){
+        return TrangThaiSach.values()[getTrangThai()];
+    }
+    
+    public void setTieuDe(String tieuDe){
+        this.tieuDe = tieuDe;
+    }
+    
+    public String getTieuDe(){
+        return this.tieuDe;
+    }
+    
+    public boolean isReady(){
+        return this.getTrangThaiEnum() == TrangThaiSach.SAN_SANG;
+    }
+    
+    @Override
+    public String toString(){
+        return "#"+this.maSach +" "+ this.tieuDe;
+    }
+    
 }
 

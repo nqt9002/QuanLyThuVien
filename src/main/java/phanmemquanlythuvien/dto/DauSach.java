@@ -101,5 +101,10 @@ public class DauSach {
     public String getTrangThaiString() {
         return trangThai ? "Kích hoạt" : "Khóa";
     }    
+    
+    @Override
+    public String toString(){
+        return this.ten;
+    }
 }
 

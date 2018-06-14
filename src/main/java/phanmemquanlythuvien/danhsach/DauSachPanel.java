@@ -5,9 +5,9 @@
  */
 package phanmemquanlythuvien.danhsach;
 
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import phanmemquanlythuvien.chitiet.DauSachCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.DauSachDao;
@@ -23,7 +23,6 @@ import phanmemquanlythuvien.enums.Quyen;
  */
 public class DauSachPanel extends SubPanel{
     List<DauSach> allDauSach;
-    HashMap<Integer, String> mapTacGia;
     
     TacgiaDao tacgiaDao = App.ctx.getBean(TacgiaDao.class);
     NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
@@ -40,8 +39,8 @@ public class DauSachPanel extends SubPanel{
         tabName = "Đầu Sách";        
     }
     
-    public static TaiKhoanPanel create(){
-        return new TaiKhoanPanel();
+    public static DauSachPanel create(){
+        return new DauSachPanel();
     }
     
     public Object[] data2Array(DauSach item){
@@ -56,6 +55,26 @@ public class DauSachPanel extends SubPanel{
             item.getTrangThaiString()
         };
     }
+    
+    @Override
+    public void chiTiet(){
+        DauSachDao dsD = App.ctx.getBean(DauSachDao.class);
+        DauSach selectedDauSach = dsD.findById(getSelectedId());
+        chiTiet(selectedDauSach);
+    }
+ 
+    public void chiTiet(DauSach dausach){
+        DauSachCT form = new DauSachCT(dausach);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }    
+    
       
     @Override
     public void showData(){

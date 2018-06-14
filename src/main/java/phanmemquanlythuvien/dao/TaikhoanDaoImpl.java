@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-import phanmemquanlythuvien.dto.QTaiKhoan;
+import phanmemquanlythuvien.qdto.QTaiKhoan;
 import phanmemquanlythuvien.dto.TaiKhoan;
 
 @Transactional
@@ -60,6 +60,14 @@ public class TaikhoanDaoImpl implements TaikhoanDao {
 
         return p;
     }
+    
+    @Override
+    public void resetPass(String user, String pass){
+        queryFactory.update(taikhoan)
+                .set(taikhoan.matKhau, TaiKhoan.hashPass(pass))
+                .where(taikhoan.taiKhoan.eq(user))
+                .execute();
+    }
 
     @Override
     public long count() {
@@ -80,5 +88,14 @@ public class TaikhoanDaoImpl implements TaikhoanDao {
             .where(taikhoan.taiKhoan.eq(user),taikhoan.matKhau.eq(TaiKhoan.hashPass(pass)))
             .fetchOne();
     }
+    //kiem tra ma bao mat
+    @Override
+    public TaiKhoan reset(String user, String pass) {
+        return queryFactory.select(taikhoanBean)
+            .from(taikhoan)
+            .where(taikhoan.taiKhoan.eq(user),taikhoan.maBaoMat.eq(pass))
+            .fetchOne();
+    }    
+    
 
 }

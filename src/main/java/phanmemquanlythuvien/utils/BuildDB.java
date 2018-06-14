@@ -26,9 +26,9 @@ public class BuildDB {
         // TODO code application logic here
         
         MetaDataExporter exporter = new MetaDataExporter();
-        exporter.setPackageName("phanmemquanlythuvien.dto_new");
+        exporter.setPackageName("phanmemquanlythuvien.qdto_test");
         exporter.setTargetFolder(new File("src/main/java"));
-//        exporter.setBeanSerializer(new BeanSerializer());
+        exporter.setBeanSerializer(new BeanSerializer());
         exporter.setExportViews(false);
         try { 
             javax.sql.DataSource dataSource = App.ctx.getBean(javax.sql.DataSource.class);

@@ -1,4 +1,4 @@
-package phanmemquanlythuvien.dto;
+package phanmemquanlythuvien.qdto_test;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -20,7 +20,7 @@ import java.sql.Types;
 @Generated("com.querydsl.sql.codegen.MetaDataSerializer")
 public class QNxb extends com.querydsl.sql.RelationalPathBase<Nxb> {
 
-    private static final long serialVersionUID = -1006698262;
+    private static final long serialVersionUID = 374001326;
 
     public static final QNxb nxb = new QNxb("NXB");
 
@@ -29,10 +29,10 @@ public class QNxb extends com.querydsl.sql.RelationalPathBase<Nxb> {
     public final StringPath tenNXB = createString("tenNXB");
 
     public final BooleanPath trangThai = createBoolean("trangThai");
-    
-    public final com.querydsl.sql.PrimaryKey<Nxb> _nxb_3a19482cd0ec836aPk = createPrimaryKey(maNXB);
 
-    public final com.querydsl.sql.ForeignKey<DauSach> __DauSach_MaNXB_2E1BDC42FK = createInvForeignKey(maNXB, "MaNXB");
+    public final com.querydsl.sql.PrimaryKey<Nxb> _nxb_3a19482c364a0bdcPk = createPrimaryKey(maNXB);
+
+    public final com.querydsl.sql.ForeignKey<DauSach> __DauSach_MaNXB_31EC6D26FK = createInvForeignKey(maNXB, "MaNXB");
 
     public QNxb(String variable) {
         super(Nxb.class, forVariable(variable), "dbo", "NXB");

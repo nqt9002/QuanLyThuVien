@@ -34,7 +34,7 @@ public class CommonViewImpl extends javax.swing.JPanel implements CommonView {
     public boolean canDelete(){
         return this.quyenXoa.kiemTra(App.activeUser);
     }
-
+    
     @Override
     public void doEdit() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

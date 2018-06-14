@@ -5,6 +5,8 @@
  */
 package phanmemquanlythuvien.form.validator;
 
+import java.math.BigInteger;
+import java.util.regex.Pattern;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -23,12 +25,8 @@ public class NumberValidator implements MyValidator{
     
     @Override
     public void run() throws InputError{
-        try{
-            Integer.parseInt(this.field.getText());
-        } 
-        catch (NumberFormatException e){
+         if (!(Pattern.matches("\\d+", this.field.getText()))){
             throw new InputError(label + " phải là số.", this.field);
-        }
+        }       
     }
-    
 }

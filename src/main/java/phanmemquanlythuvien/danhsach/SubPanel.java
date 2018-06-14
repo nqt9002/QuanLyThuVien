@@ -5,6 +5,8 @@
  */
 package phanmemquanlythuvien.danhsach;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author tainguyen
@@ -12,6 +14,7 @@ package phanmemquanlythuvien.danhsach;
 public class SubPanel extends CommonViewImpl implements CommonView {
     
     public String tabName = "TAB_NAME";
+    private static final Logger LOGGER = Logger.getLogger(ChuDePanel.class);
     
     public SubPanel() {
         initComponents();
@@ -23,6 +26,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         btnThem.setVisible(canWrite());
         btnSua.setVisible(canWrite());
         btnXoa.setVisible(canDelete());
+        btnMuon.setVisible(false);
     }
     
     public void addToTab(javax.swing.JTabbedPane parent){
@@ -47,6 +51,10 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         
     }
     
+    public void muon(){
+        
+    }
+    
     public int getSelectedId(){
         return (int) table.getModel().getValueAt(table.getSelectedRow(),0);
     }
@@ -67,9 +75,16 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        btnMuon = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txtTim = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
+
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -135,6 +150,13 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        btnMuon.setText("Mượn");
+        btnMuon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,6 +169,8 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 .addGap(18, 18, 18)
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -158,7 +182,8 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                     .addComponent(btnChiTiet)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa))
+                    .addComponent(btnXoa)
+                    .addComponent(btnMuon))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -251,9 +276,20 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimActionPerformed
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        LOGGER.info("on focus to this panel");
+    }//GEN-LAST:event_formFocusGained
+
+    private void btnMuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuonActionPerformed
+        // TODO add your handling code here:
+        muon();
+    }//GEN-LAST:event_btnMuonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnChiTiet;
+    public javax.swing.JButton btnMuon;
     public javax.swing.JButton btnSua;
     public javax.swing.JButton btnThem;
     private javax.swing.JButton btnTim;
