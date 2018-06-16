@@ -7,7 +7,7 @@ import javax.annotation.Generated;
  * TacGia is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class TacGia {
+public class TacGia implements MyObject{
 
     private Integer maTG;
 
@@ -79,6 +79,26 @@ public class TacGia {
     @Override
     public String toString(){
         return ten;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

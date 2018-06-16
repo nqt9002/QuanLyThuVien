@@ -11,7 +11,7 @@ import phanmemquanlythuvien.dto.DauSach;
 
 import java.util.List;
 
-public interface DauSachDao extends CommonDao {
+public interface DauSachDao extends CommonDao<DauSach> {
     
     DauSach findById(int id);
 
@@ -24,4 +24,5 @@ public interface DauSachDao extends CommonDao {
 
     HashMap<Integer, String> getMapDauSach();
     String getTenDauSach(int maDS);
+    void updateSoLuong(int mDauSach, int soluong);
 }

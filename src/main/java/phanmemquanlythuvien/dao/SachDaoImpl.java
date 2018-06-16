@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
+import phanmemquanlythuvien.dto.MyObject;
 
 import phanmemquanlythuvien.qdto.QSach;
 import phanmemquanlythuvien.dto.Sach;
@@ -93,4 +95,16 @@ public class SachDaoImpl implements SachDao {
         return countDS(mDauSach, TrangThaiSach.SAN_SANG);
     }
 
+    @Override
+    public void doiTrangThai(Set<Integer> idSach, TrangThaiSach trangthai) {
+        queryFactory.update(sach)
+                .set(sach.trangThai, trangthai.ordinal())
+                .where(sach.maSach.in(idSach))
+                .execute();
+    }
+
+    @Override
+    public Sach getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

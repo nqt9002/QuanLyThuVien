@@ -73,4 +73,9 @@ public class MuonTraDaoImpl implements MuonTraDao {
             .execute();
     }
 
+    @Override
+    public MuonTra getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

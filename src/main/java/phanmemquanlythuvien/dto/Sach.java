@@ -8,7 +8,7 @@ import phanmemquanlythuvien.enums.TrangThaiSach;
  * Sach is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class Sach {
+public class Sach implements MyObject{
 
     private Integer maDS;
 
@@ -65,6 +65,35 @@ public class Sach {
     @Override
     public String toString(){
         return "#"+this.maSach +" "+ this.tieuDe;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        return searchText != null 
+                ? toString().toLowerCase().contains(searchText.toLowerCase()) 
+                : true;
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        int count = 0;
+        
+        for(String text: arrString){
+            if(isMatch(text))
+                count += 1;
+        }
+        
+        return count == arrString.length;
     }
     
 }

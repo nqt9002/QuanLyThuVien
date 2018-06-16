@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import phanmemquanlythuvien.dto.MyObject;
 
 import phanmemquanlythuvien.qdto.QPhat;
 import phanmemquanlythuvien.dto.Phat;
@@ -73,4 +74,8 @@ public class PhatDaoImpl implements PhatDao {
             .execute();
     }
 
+    @Override
+    public Phat getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -6,14 +6,16 @@
 package phanmemquanlythuvien.form;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
+import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.DauSachDao;
+import phanmemquanlythuvien.dao.NxbDao;
 import phanmemquanlythuvien.dao.SachDao;
+import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.DauSach;
 import phanmemquanlythuvien.dto.Sach;
 import phanmemquanlythuvien.enums.TrangThaiSach;
@@ -103,13 +105,19 @@ public class SachForm extends javax.swing.JFrame {
     public void saveData(){
         if(!check()) return; 
         SachDao sD = App.ctx.getBean(SachDao.class);
+        ChuDeDao chudeDao = App.ctx.getBean(ChuDeDao.class);
+        TacgiaDao tacgiaDao = App.ctx.getBean(TacgiaDao.class);
+        NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
         DauSach dauSach = (DauSach) cboDauSach.getSelectedItem();
         int i = Integer.parseInt(txtSoLuong.getText());
         
         for(int j = 0; j < i;j++){
             Sach sach = new Sach();
             sach.setMaDS(dauSach.getMaDS());
-            sach.setTieuDe(dauSach.getTen());
+            sach.setTieuDe(dauSach.getTen() 
+                    +" - "+chudeDao.getTenChuDe(dauSach.getMaCD())
+                    +" - "+tacgiaDao.getTenTacGia(dauSach.getMaTG())
+                    +" - "+nxbDao.getTenNXB(dauSach.getMaNXB()));
             sach.setTrangThai((TrangThaiSach) cboTrangThai.getSelectedItem());
             sD.save(sach);
         }

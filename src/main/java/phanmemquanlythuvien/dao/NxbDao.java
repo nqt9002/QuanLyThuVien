@@ -11,7 +11,7 @@ import phanmemquanlythuvien.dto.Nxb;
 
 import java.util.List;
 
-public interface NxbDao extends CommonDao {
+public interface NxbDao extends CommonDao<Nxb> {
 
     Nxb findById(int id);
 

@@ -105,4 +105,9 @@ import phanmemquanlythuvien.dto.TacGia;
         return localMap.get(maTG);
     }
 
+    @Override
+    public TacGia getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

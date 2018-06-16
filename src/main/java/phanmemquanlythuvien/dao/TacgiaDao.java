@@ -11,7 +11,7 @@ import phanmemquanlythuvien.dto.TacGia;
 
 import java.util.List;
 
-public interface TacgiaDao extends CommonDao {
+public interface TacgiaDao extends CommonDao<TacGia> {
 
     TacGia findById(int id);
 

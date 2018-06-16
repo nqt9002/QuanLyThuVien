@@ -25,8 +25,10 @@ import javax.inject.Provider;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
+
 @Configuration
-@PropertySource({"classpath:jdbc.properties"})
+@PropertySource(value = {"classpath:jdbc.properties"}, ignoreResourceNotFound = true)
+@PropertySource(value = {"file:jdbc.properties"}, ignoreResourceNotFound = true)
 public class JdbcConfiguration {
 
     @Inject Environment env;
@@ -38,9 +40,12 @@ public class JdbcConfiguration {
         dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
         dataSource.setURL(env.getRequiredProperty("jdbc.url"));
         dataSource.setDatabaseName(env.getRequiredProperty("jdbc.database"));
+        
+        System.out.print("config" + env.getRequiredProperty("jdbc.test"));
+        
         return dataSource;
     }
-
+    
     @Bean
     public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());

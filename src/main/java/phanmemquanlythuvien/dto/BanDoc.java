@@ -6,7 +6,7 @@ import javax.annotation.Generated;
  * BanDoc is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class BanDoc {
+public class BanDoc implements MyObject {
 
     private String email;
 
@@ -83,6 +83,26 @@ public class BanDoc {
     
     public String toString(){
         return "#"+String.format("%05d", maBD) + " " + tenBD;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

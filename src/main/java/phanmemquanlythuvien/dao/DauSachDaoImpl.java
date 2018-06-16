@@ -103,4 +103,17 @@ public class DauSachDaoImpl implements DauSachDao {
         return localMap.get(maDS);
     }
 
+    @Override
+    public void updateSoLuong(int mDauSach, int soluong) {
+        queryFactory.update(dausach)
+                .set(dausach.soLuong, soluong)
+                .where(dausach.maDS.eq(mDauSach))
+                .execute();
+    }
+
+    @Override
+    public DauSach getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

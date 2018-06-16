@@ -9,9 +9,10 @@ import com.querydsl.core.types.Predicate;
 import phanmemquanlythuvien.dto.Sach;
 
 import java.util.List;
+import java.util.Set;
 import phanmemquanlythuvien.enums.TrangThaiSach;
 
-public interface SachDao extends CommonDao {
+public interface SachDao extends CommonDao<Sach> {
     
     Sach findById(int id);
 
@@ -21,6 +22,8 @@ public interface SachDao extends CommonDao {
 
     long count();
     void delete(Sach p);
+    
+    void doiTrangThai(Set<Integer> idSach, TrangThaiSach trangthai);
     int countDS(int mDauSach, int trangthai);
     int countDS(int mDauSach, TrangThaiSach trangthai);
     int countDS(int mDauSach);

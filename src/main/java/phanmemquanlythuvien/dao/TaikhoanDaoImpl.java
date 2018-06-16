@@ -80,6 +80,7 @@ public class TaikhoanDaoImpl implements TaikhoanDao {
             .where(taikhoan.maTaiKhoan.eq(p.getMaTaiKhoan()))
             .execute();
     }
+    
     //kiem tra login
     @Override
     public TaiKhoan login(String user, String pass) {
@@ -96,6 +97,11 @@ public class TaikhoanDaoImpl implements TaikhoanDao {
             .where(taikhoan.taiKhoan.eq(user),taikhoan.maBaoMat.eq(pass))
             .fetchOne();
     }    
+
+    @Override
+    public TaiKhoan getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 }

@@ -5,16 +5,24 @@
  */
 package phanmemquanlythuvien.danhsach;
 
+import java.util.List;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.dto.MyObject;
 
 /**
  *
  * @author tainguyen
+ * @param <T>
+ * @param <U>
  */
 public class SubPanel extends CommonViewImpl implements CommonView {
     
     public String tabName = "TAB_NAME";
     private static final Logger LOGGER = Logger.getLogger(ChuDePanel.class);
+    
+    List<MyObject> allObject;
+    
+    
     
     public SubPanel() {
         initComponents();
@@ -194,6 +202,17 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 txtTimActionPerformed(evt);
             }
         });
+        txtTim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKeyReleased(evt);
+            }
+        });
 
         btnTim.setText("Tìm");
         btnTim.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +304,21 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         // TODO add your handling code here:
         muon();
     }//GEN-LAST:event_btnMuonActionPerformed
+
+    private void txtTimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtTimKeyTyped
+
+    private void txtTimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtTimKeyPressed
+
+    private void txtTimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKeyReleased
+        // TODO add your handling code here:
+        tim();
+    }//GEN-LAST:event_txtTimKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,7 +11,7 @@ import phanmemquanlythuvien.dto.ChuDe;
 
 import java.util.List;
 
-public interface ChuDeDao extends CommonDao {
+public interface ChuDeDao extends CommonDao<ChuDe> {
 
     ChuDe findById(int id);
 

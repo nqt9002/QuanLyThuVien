@@ -6,7 +6,7 @@ import javax.annotation.Generated;
  * Phat is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class Phat {
+public class Phat implements MyObject{
 
     private Integer maMT;
 
@@ -56,6 +56,26 @@ public class Phat {
 
     public void setSoTien(Integer soTien) {
         this.soTien = soTien;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

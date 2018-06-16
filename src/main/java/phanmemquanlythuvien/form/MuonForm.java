@@ -8,10 +8,11 @@ package phanmemquanlythuvien.form;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
@@ -119,21 +120,29 @@ public class MuonForm extends javax.swing.JFrame {
         form2Item();
         muontraDao.save(item);
         int size = listSach.getModel().getSize();
+        
+        Set<Integer> idSachChoMuon = new HashSet<>();
+        Set<Integer> idDauSachChoMuon = new HashSet<>();
+        
         for(int i = 0;i<size;i++){
             Sach sach = listSach.getModel().getElementAt(i);
-            sach.setTrangThai(TrangThaiSach.CHO_MUON);
-            sachDao.save(sach);
-            
-            DauSach dauSach = dausachDao.findById(sach.getMaDS());
-            int soluong = (int)(sachDao.countDS(dauSach.getMaDS(), TrangThaiSach.SAN_SANG.ordinal()));
-            dauSach.setSoLuong(soluong);
-            dausachDao.save(dauSach);       
-            
+            idSachChoMuon.add(sach.getMaSach());
+            idDauSachChoMuon.add(sach.getMaDS());
+                        
             ChiTietMuonTra chitiet = new ChiTietMuonTra();
             chitiet.setMaMT(item.getMaMT());
             chitiet.setMaSach(sach.getMaSach());
             chitiet.setTieuDe(sach.getTieuDe());
             ctmtDao.save(chitiet);
+        }
+        
+        // O(2*n) => O(1)
+        sachDao.doiTrangThai(idSachChoMuon, TrangThaiSach.CHO_MUON);
+        
+        // 3*O(n) => 2*O(logn)
+        for(int maDauSach: idDauSachChoMuon){
+            int soluong = (int)(sachDao.countDS(maDauSach, TrangThaiSach.SAN_SANG.ordinal()));
+            dausachDao.updateSoLuong(maDauSach, soluong);  
         }
 
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);

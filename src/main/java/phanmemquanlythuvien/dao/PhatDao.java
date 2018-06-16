@@ -10,7 +10,7 @@ import phanmemquanlythuvien.dto.Phat;
 
 import java.util.List;
 
-public interface PhatDao extends CommonDao {
+public interface PhatDao extends CommonDao<Phat> {
     
     Phat findById(int id);
 

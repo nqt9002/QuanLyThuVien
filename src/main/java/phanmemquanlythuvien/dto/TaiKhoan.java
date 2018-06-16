@@ -8,7 +8,7 @@ import javax.annotation.Generated;
  * TaiKhoan is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class TaiKhoan {
+public class TaiKhoan implements MyObject{
     
     private String maBaoMat;
 
@@ -104,6 +104,21 @@ public class TaiKhoan {
 
     public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

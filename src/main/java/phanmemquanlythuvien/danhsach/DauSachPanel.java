@@ -93,7 +93,17 @@ public class DauSachPanel extends SubPanel{
         
         Object[][] data;
         data = allDauSach.stream()
-            .filter(ds -> filterValue == null || ds.getTen().toLowerCase().contains(filterValue))
+            .filter(ds -> filterValue == null 
+                    || ds.getTen().toLowerCase().contains(filterValue) 
+                    || ds.getMaDS().toString().contains(filterValue)
+                    || ds.getMaCD().toString().contains(filterValue)
+                    || chudeDao.getTenChuDe(ds.getMaCD()).toLowerCase().contains(filterValue)
+                    || ds.getMaNXB().toString().contains(filterValue)
+                    || nxbDao.getTenNXB(ds.getMaNXB()).toLowerCase().contains(filterValue)
+                    || ds.getMaTG().toString().contains(filterValue)
+                    || tacgiaDao.getTenTacGia(ds.getMaTG()).toLowerCase().contains(filterValue)
+                    || ds.getLanTaiBan().toString().contains(filterValue)
+                    || ds.getSoLuong().toString().contains(filterValue))
             .map(ds -> data2Array(ds))
             .toArray(size -> new Object[size][]);
         

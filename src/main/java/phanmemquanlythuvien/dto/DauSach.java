@@ -6,7 +6,7 @@ import javax.annotation.Generated;
  * DauSach is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class DauSach {
+public class DauSach implements MyObject{
 
     private Integer lanTaiBan;
 
@@ -105,6 +105,26 @@ public class DauSach {
     @Override
     public String toString(){
         return this.ten;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

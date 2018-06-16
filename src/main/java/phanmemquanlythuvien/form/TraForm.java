@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
@@ -34,9 +35,6 @@ import phanmemquanlythuvien.qdto.QChiTietMuonTra;
 public class TraForm extends javax.swing.JFrame {
 
     MuonTra item;
-    ChiTietMuonTra itemCTMT = new ChiTietMuonTra();
-    Sach itemS;
-    DauSach itemDS = new DauSach();
     
     List<ChiTietMuonTra> allCTMT;
     
@@ -54,6 +52,7 @@ public class TraForm extends javax.swing.JFrame {
     DauSachDao dausachDao = App.ctx.getBean(DauSachDao.class);   
         
     DefaultListModel<ChiTietMuonTra> listModel;    
+    List<ChiTietMuonTra> chiTietDaSua = new ArrayList<>();
     
     public TraForm(MuonTra tra) {
         initComponents();
@@ -74,8 +73,8 @@ public class TraForm extends javax.swing.JFrame {
         );
         
         for(ChiTietMuonTra chitiet: chiTietList){
-            if(chitiet.getNgayTra() == null)
-                listModel.addElement(chitiet);
+            listModel.addElement(chitiet);
+            LOGGER.info(chitiet.getNgayTra() == null);
         }
         
         txtBanDoc.setText(bandocDao.getTenBanDoc(item.getMaBD()));
@@ -90,21 +89,21 @@ public class TraForm extends javax.swing.JFrame {
         
     }
     
-    public void removeSach(){
+    public void traSach(){
         int index = listSach.getSelectedIndex();
         if(index >= 0){
-            listModel.removeElementAt(index);
+            ChiTietMuonTra chitiet = listModel.getElementAt(index);
+            if(!chitiet.isDaTra()){
+                chitiet.setNgayTra(Date.valueOf(LocalDate.now()));
+                listSach.setModel(listModel);
+                chiTietDaSua.add(chitiet);
+            }
+                
         }
     }    
     
     public void form2Item(){
-        item.setNgayMuon(Date.valueOf(txtNgayMuon.getText()));
-        item.setNgayPhaiTra(Date.valueOf(txtNgayPhaiTra.getText()));
-        itemCTMT.setNgayTra(Date.valueOf(txtNgayTra.getText()));
-        item.traThemSach(listModel.size());
-        LOGGER.info(item.getTongSoMuon());
-        LOGGER.info(item.getTongSoTra());
-        LOGGER.info(item.getDaTraHet());
+        item.traThemSach(chiTietDaSua.size());
     }
     
     public boolean check(){
@@ -124,10 +123,7 @@ public class TraForm extends javax.swing.JFrame {
         if(!check()) return;
         form2Item();
         muontraDao.save(item);
-        int size = listSach.getModel().getSize();
-        for(int i = 0;i<size;i++){
-            ChiTietMuonTra chitiet = listModel.getElementAt(i);
-            chitiet.setNgayTra(Date.valueOf(LocalDate.now()));
+        for(ChiTietMuonTra chitiet: chiTietDaSua){
             ctmtDao.save(chitiet);
             Sach sach = sachDao.findById(chitiet.getMaSach());
             sach.setTrangThai(TrangThaiSach.SAN_SANG);
@@ -288,7 +284,7 @@ public class TraForm extends javax.swing.JFrame {
 
     private void listSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSachMouseClicked
         if(evt.getClickCount() == 2){
-            removeSach();
+            traSach();
         }
     }//GEN-LAST:event_listSachMouseClicked
 

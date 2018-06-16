@@ -6,7 +6,7 @@ import javax.annotation.Generated;
  * ChiTietMuonTra is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class ChiTietMuonTra {
+public class ChiTietMuonTra implements MyObject {
 
     private Integer maCTMT;
 
@@ -58,9 +58,33 @@ public class ChiTietMuonTra {
         return this.tieuDe;
     }
     
+    public boolean isDaTra(){
+        return this.ngayTra != null;
+    }
+    
     @Override
     public String toString(){
-        return this.tieuDe;
+        return "["+(isDaTra() ? "x" : " ")+"] - "+ this.tieuDe.trim();
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -11,7 +11,7 @@ import phanmemquanlythuvien.dto.BanDoc;
 
 import java.util.List;
 
-public interface BanDocDao extends CommonDao {
+public interface BanDocDao extends CommonDao<BanDoc> {
     
     BanDoc findById(int id);
 

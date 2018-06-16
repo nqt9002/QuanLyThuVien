@@ -72,7 +72,9 @@ public class MuonTraPanel extends SubPanel {
         allMuonTra = mtD.findAll();
         Object[][] data;
         data = allMuonTra.stream()
-            .filter(mt -> filterValue == null || bandocDao.getTenBanDoc(mt.getMaBD()).toLowerCase().contains(filterValue))
+            .filter(mt -> filterValue == null 
+                    || bandocDao.getTenBanDoc(mt.getMaBD()).toLowerCase().contains(filterValue) 
+                    || mt.getMaBD().toString().contains(filterValue))
             .map(mt -> data2Array(mt))
             .toArray(size -> new Object[size][]);
         

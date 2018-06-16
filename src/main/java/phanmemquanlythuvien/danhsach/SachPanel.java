@@ -34,7 +34,7 @@ public class SachPanel extends SubPanel{
     
     private static final Logger LOGGER = Logger.getLogger(SachForm.class); 
     
-    String[] header = new String[] {"Mã Sách","Tên Đầu Sách","Trạng Thái"};
+    String[] header = new String[] {"Tên Sách","Trạng Thái"};
 
     public SachPanel(){
         txtLabel.setText("Quản lý sách");
@@ -65,7 +65,6 @@ public class SachPanel extends SubPanel{
     
     public Object[] data2Array(Sach item){
         return new Object[]{
-            item.getMaSach(),
             item,
             item.getTrangThaiEnum()
         };
@@ -88,8 +87,11 @@ public class SachPanel extends SubPanel{
         allSach = sD.findAll();
         
         Object[][] data;
+        
+        String[] arrSearchValue = filterValue != null ? filterValue.split(" ") :  new String[0];
+         
         data = allSach.stream()
-            .filter(s -> filterValue == null || dausachDao.getTenDauSach(s.getMaDS()).toLowerCase().contains(filterValue))
+            .filter(s -> s.isMatch(arrSearchValue))
             .map(s -> data2Array(s))
             .toArray(size -> new Object[size][]);
         
@@ -146,7 +148,7 @@ public class SachPanel extends SubPanel{
     }
 
     public Sach getSelected(){
-        return (Sach) table.getModel().getValueAt(table.getSelectedRow(),1);
+        return (Sach) table.getModel().getValueAt(table.getSelectedRow(),0);
     }       
     
     public void sua(Sach sach){
@@ -161,7 +163,7 @@ public class SachPanel extends SubPanel{
     }
     
     public TrangThaiSach getSelectedTrangThai(){
-        return (TrangThaiSach) table.getModel().getValueAt(table.getSelectedRow(),2);
+        return (TrangThaiSach) table.getModel().getValueAt(table.getSelectedRow(),0);
     }
     
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {                                   

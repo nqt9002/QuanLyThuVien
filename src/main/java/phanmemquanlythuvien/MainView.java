@@ -17,6 +17,7 @@ import phanmemquanlythuvien.danhsach.CommonViewImpl;
 import phanmemquanlythuvien.danhsach.DauSachPanel;
 import phanmemquanlythuvien.danhsach.MuonTraPanel;
 import phanmemquanlythuvien.danhsach.NXBPanel;
+import phanmemquanlythuvien.danhsach.PhatPanel;
 import phanmemquanlythuvien.danhsach.SachPanel;
 import phanmemquanlythuvien.danhsach.SubPanel;
 import phanmemquanlythuvien.danhsach.TacGiaPanel;
@@ -39,8 +40,8 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         
 //        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("quanly", "123456");
-//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
-        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thuthu", "123456");
+        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
+//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thuthu", "123456");
         //set title
         setTitle("Phần Mềm Quản Lý Thư Viện");
         
@@ -53,6 +54,7 @@ public class MainView extends javax.swing.JFrame {
             new SachPanel(),
             new BanDocPanel(),
             new MuonTraPanel(),
+            new PhatPanel(),
         };
         
         ChangeListener changeListener = new ChangeListener() {

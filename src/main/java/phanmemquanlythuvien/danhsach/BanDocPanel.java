@@ -22,7 +22,7 @@ public class BanDocPanel extends SubPanel{
     
     List<BanDoc> allBanDoc;
     
-    String[] header = new String[] {"ban doc", "ngay sinh ", "sodt", "email", "Trạng Thái"};
+    String[] header = new String[] {"Bạn Đọc", "Ngày Sinh", "Điện Thoại", "Email", "Trạng Thái"};
     
     public BanDocPanel() {
         txtLabel.setText("Quản lý nhà bạn đọc");
@@ -72,14 +72,32 @@ public class BanDocPanel extends SubPanel{
         form.setVisible(true);
     }
     
-    public void showData(String filterValue){
-
+    public void loadData(boolean forceRefresh){
         BanDocDao bdD = App.ctx.getBean(BanDocDao.class);
-        allBanDoc = bdD.findAll();
+        if(allBanDoc == null)
+            allBanDoc = bdD.findAll();
+    }
+    
+    public void loadData(){
+        loadData(false);
+    }
+    
+    public void refreshTable(){
+        loadData(true);
+        showData();
+    }
+    
+    public void showData(String filterValue){
+        loadData();
         
         Object[][] data;
         data = allBanDoc.stream()
-            .filter(bandoc -> filterValue == null || bandoc.getTenBD().toLowerCase().contains(filterValue))
+            .filter(bandoc -> filterValue == null 
+                    || bandoc.getTenBD().toLowerCase().contains(filterValue)
+                    || bandoc.getMaBD().toString().contains(filterValue) 
+                    || bandoc.getEmail().toLowerCase().contains(filterValue) 
+                    || bandoc.getNgaySinhString().contains(filterValue) 
+                    || bandoc.getSoDT().contains(filterValue))
             .map(bandoc -> data2Array(bandoc))
             .toArray(size -> new Object[size][]);
         
@@ -103,6 +121,7 @@ public class BanDocPanel extends SubPanel{
     }
     
     public void sua(BanDoc bandoc){
+        boolean isNew = bandoc.getMaBD() == null;
         BanDocForm form = BanDocForm.getInstance();
         form.setItem(bandoc);
         form.setVisible(true);
@@ -110,6 +129,8 @@ public class BanDocPanel extends SubPanel{
         form.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                if(isNew)
+                    allBanDoc.add(bandoc);
                 showData();
             }
         });

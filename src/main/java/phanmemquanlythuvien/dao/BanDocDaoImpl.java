@@ -18,6 +18,7 @@ import java.util.List;
 import phanmemquanlythuvien.qdto.QBanDoc;
 import phanmemquanlythuvien.dto.BanDoc;
 
+
 @Transactional
 public class BanDocDaoImpl implements BanDocDao {
 
@@ -27,7 +28,6 @@ public class BanDocDaoImpl implements BanDocDao {
     final QBanDoc bandoc = QBanDoc.BanDoc;
     final QBean<BanDoc> bandocBean = bean(BanDoc.class, bandoc.all());
     
-
     @Override
     public BanDoc findById(int id) {
         return queryFactory.select(bandocBean)
@@ -102,6 +102,9 @@ public class BanDocDaoImpl implements BanDocDao {
         
         return localMap.get(maBD);
     }
-    
 
+    @Override
+    public BanDoc getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

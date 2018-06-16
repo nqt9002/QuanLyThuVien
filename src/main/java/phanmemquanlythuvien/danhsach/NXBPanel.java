@@ -60,7 +60,9 @@ public class NXBPanel extends SubPanel{
         
         Object[][] data;
         data = allNXB.stream()
-            .filter(nxb -> filterValue == null || nxb.getTenNXB().toLowerCase().contains(filterValue))
+            .filter(nxb -> filterValue == null 
+                    || nxb.getTenNXB().toLowerCase().contains(filterValue)
+                    || nxb.getMaNXB().toString().contains(filterValue))
             .map(nxb -> data2Array(nxb))
             .toArray(size -> new Object[size][]);
         

@@ -61,7 +61,9 @@ public class ChuDePanel extends SubPanel {
         
         Object[][] data;
         data = allChuDe.stream()
-            .filter(cd -> filterValue == null || cd.getTenChuDe().toLowerCase().contains(filterValue))
+            .filter(cd -> filterValue == null 
+                    || cd.getTenChuDe().toLowerCase().contains(filterValue) 
+                    || cd.getMaCD().toString().contains(filterValue))
             .map(cd -> data2Array(cd))
             .toArray(size -> new Object[size][]);
         

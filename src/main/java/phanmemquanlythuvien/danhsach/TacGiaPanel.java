@@ -23,7 +23,7 @@ public class TacGiaPanel extends SubPanel {
     List<TacGia> allTacGia;
     private static final Logger LOGGER = Logger.getLogger(TaiKhoanPanel.class);
     
-    String[] header = new String[] {"Mã Tác Giả", "Tên Tác Giả", "Ngày Sinh", "Tiểu Sử","Trạng Thái"};    
+    String[] header = new String[] {"Mã Tác Giả", "Tên Tác Giả", "Ngày Sinh","Trạng Thái"};    
     
     public TacGiaPanel(){
         txtLabel.setText("Quản lý tác giả");
@@ -42,8 +42,9 @@ public class TacGiaPanel extends SubPanel {
             item.getMaTG(),
             item.getTen(),
             item.getNgaySinhString(),
+            item.getTrangThaiString(),
             item.getTomTat(),
-            item.getTrangThaiString()
+                
         };
     }
       
@@ -66,7 +67,11 @@ public class TacGiaPanel extends SubPanel {
         
         Object[][] data;
         data = allTacGia.stream()
-            .filter(tg -> filterValue == null || tg.getTen().toLowerCase().contains(filterValue))
+            .filter(tg -> filterValue == null 
+                    || tg.getTen().toLowerCase().contains(filterValue)
+                    || tg.getMaTG().toString().contains(filterValue)
+                    || tg.getNgaySinhString().contains(filterValue)
+                    || tg.getTomTat().contains(filterValue))
             .map(tg -> data2Array(tg))
             .toArray(size -> new Object[size][]);
         

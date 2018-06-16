@@ -9,7 +9,7 @@ import javax.annotation.Generated;
  * MuonTra is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class MuonTra {
+public class MuonTra implements MyObject {
 
     private Integer maBD;
 
@@ -84,6 +84,26 @@ public class MuonTra {
     public void traThemSach(int soluong){
         this.tongSoTra += soluong;
         this.daTraHet = Objects.equals(tongSoMuon, tongSoTra);
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

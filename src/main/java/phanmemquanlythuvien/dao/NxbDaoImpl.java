@@ -103,4 +103,9 @@ public class NxbDaoImpl implements NxbDao {
         return localMap.get(maNXB);
     }
 
+    @Override
+    public Nxb getById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

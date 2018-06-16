@@ -6,7 +6,7 @@ import javax.annotation.Generated;
  * ChuDe is a Querydsl bean type
  */
 @Generated("com.querydsl.codegen.BeanSerializer")
-public class ChuDe {
+public class ChuDe implements MyObject{
 
     private Integer maCD;
 
@@ -45,6 +45,26 @@ public class ChuDe {
     @Override
     public String toString(){
         return tenChuDe;
+    }
+
+    @Override
+    public boolean isNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String searchText) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMatch(String[] arrString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

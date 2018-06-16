@@ -178,6 +178,7 @@ public class DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        
         TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
         if(nguoiDung != null) {
             App.activeUser = nguoiDung;

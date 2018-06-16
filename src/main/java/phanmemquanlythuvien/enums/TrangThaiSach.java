@@ -12,10 +12,10 @@ import java.util.Arrays;
  * @author tainguyen
  */
 public enum TrangThaiSach {
-    KHOA("Khoa"),
-    SAN_SANG("San sang"),
-    CHO_MUON("Cho muon"),
-    MAT("Mat");
+    KHOA("Khóa"),
+    SAN_SANG("Sẵn sàng"),
+    CHO_MUON("Cho mượn"),
+    MAT("Mất");
     
     private final String text;
    

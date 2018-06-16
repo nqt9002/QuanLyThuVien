@@ -7,11 +7,18 @@ package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
 import java.util.List;
+import phanmemquanlythuvien.dto.MyObject;
 
 /**
  *
  * @author tainguyen
+ * @param <T>
  */
-public interface CommonDao {
-    List<?> findAll(Predicate... where);
+public interface CommonDao<T extends MyObject> {
+//    T findById(int id);
+//    List<T> findAll(Predicate... where);
+//    T save(T p);
+//    long count();
+//    void delete(T p);
+    T getById(int id);
 }
