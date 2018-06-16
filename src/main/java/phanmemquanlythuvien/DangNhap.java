@@ -181,6 +181,11 @@ public class DangNhap extends javax.swing.JFrame {
         
         TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
         if(nguoiDung != null) {
+            if(nguoiDung.getTrangThai() == false){
+                JOptionPane.showMessageDialog(this, "Tài khoản "+txtUser.getText()+" hiện đang khóa. Truy cập bị từ chối.");
+                return;
+            }
+                
             App.activeUser = nguoiDung;
             MainView QL = new MainView();
             QL.setVisible(true);

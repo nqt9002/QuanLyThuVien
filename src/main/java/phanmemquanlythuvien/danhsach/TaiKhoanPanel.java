@@ -60,7 +60,7 @@ public class TaiKhoanPanel extends SubPanel {
     }
     
     public void showData(String filterValue){
-        LOGGER.info("load tk data");
+//        LOGGER.info("load tk data");
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
         allTK = tgD.findAll();
         

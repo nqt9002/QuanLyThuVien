@@ -86,7 +86,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         btnMuon = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txtTim = new javax.swing.JTextField();
-        btnTim = new javax.swing.JButton();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -214,13 +213,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
-        btnTim.setText("Tìm");
-        btnTim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -228,18 +220,14 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtTim)
-                .addGap(18, 18, 18)
-                .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTim))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -287,10 +275,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         xoa();
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        tim();
-    }//GEN-LAST:event_btnTimActionPerformed
-
     private void txtTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimActionPerformed
@@ -326,7 +310,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
     public javax.swing.JButton btnMuon;
     public javax.swing.JButton btnSua;
     public javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTim;
     public javax.swing.JButton btnXoa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

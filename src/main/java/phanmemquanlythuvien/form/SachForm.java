@@ -66,7 +66,7 @@ public class SachForm extends javax.swing.JFrame {
     }
     
     public final void cboDauSach(){
-        dausachDao.findAll().stream().forEach(dausach -> {
+        dausachDao.findAll().stream().filter(ds -> ds.getTrangThai() == true).forEach(dausach -> {
             cboModel.addElement(dausach);
         });
     }

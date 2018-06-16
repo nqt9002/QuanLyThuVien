@@ -111,13 +111,24 @@ public class SachPanel extends SubPanel{
             MuonForm form = MuonForm.getInstance();
             form.addSach(sach);
             form.setVisible(true);
+            form.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    showData();
+                }
+            });              
         } else {
             ChiTietMuonTraDao chitietDao = App.ctx.getBean(ChiTietMuonTraDao.class);
             ChiTietMuonTra chitiet = chitietDao.findBySachId(sach.getMaSach());
             MuonTra muon = App.ctx.getBean(MuonTraDao.class).findById(chitiet.getMaMT());
             TraForm form = new TraForm(muon);
             form.setVisible(true);
-            // goi form tra 
+            form.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    showData();
+                }
+            });        
         }
     }    
     
@@ -125,7 +136,7 @@ public class SachPanel extends SubPanel{
     public void sua() {
         if(!canWrite()) return;
         SachDao sD = App.ctx.getBean(SachDao.class);
-        Sach selectedSach = sD.findById(getSelectedId());
+        Sach selectedSach = sD.findById(getSelected().getMaSach());
         DauSach selectedDauSach = dausachDao.findById(selectedSach.getMaDS());
         int soluong;
         switch (selectedSach.getTrangThaiEnum()) {
@@ -146,7 +157,7 @@ public class SachPanel extends SubPanel{
         dausachDao.save(selectedDauSach);
         showData();
     }
-
+    
     public Sach getSelected(){
         return (Sach) table.getModel().getValueAt(table.getSelectedRow(),0);
     }       
@@ -163,7 +174,7 @@ public class SachPanel extends SubPanel{
     }
     
     public TrangThaiSach getSelectedTrangThai(){
-        return (TrangThaiSach) table.getModel().getValueAt(table.getSelectedRow(),0);
+        return (TrangThaiSach) table.getModel().getValueAt(table.getSelectedRow(),1);
     }
     
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {                                   

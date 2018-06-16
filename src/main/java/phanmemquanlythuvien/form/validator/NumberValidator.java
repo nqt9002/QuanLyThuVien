@@ -25,6 +25,10 @@ public class NumberValidator implements MyValidator{
     
     @Override
     public void run() throws InputError{
+        if(this.field.getText().length() == 0)
+        {
+            return;
+        }        
          if (!(Pattern.matches("\\d+", this.field.getText()))){
             throw new InputError(label + " phải là số.", this.field);
         }       

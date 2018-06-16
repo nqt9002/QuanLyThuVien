@@ -19,15 +19,15 @@ public enum Quyen {
     XOA_TAI_KHOAN(),
     // permission for category
     THEM_CHU_DE(ChucVu.QUAN_LY),
-    XEM_CHU_DE(ChucVu.QUAN_LY,ChucVu.THU_KHO,ChucVu.THU_THU),
+    XEM_CHU_DE(ChucVu.QUAN_LY,ChucVu.THU_KHO),
     XOA_CHU_DE(),
     // permission for author
     THEM_TAC_GIA(ChucVu.QUAN_LY),
-    XEM_TAC_GIA(ChucVu.QUAN_LY,ChucVu.THU_KHO,ChucVu.THU_THU),
+    XEM_TAC_GIA(ChucVu.QUAN_LY,ChucVu.THU_KHO),
     XOA_TAC_GIA(),
     // permission for publisher
     THEM_NXB(ChucVu.QUAN_LY),
-    XEM_NXB(ChucVu.QUAN_LY,ChucVu.THU_KHO,ChucVu.THU_THU),
+    XEM_NXB(ChucVu.QUAN_LY,ChucVu.THU_KHO),
     XOA_NXB(),
     // permission for reader
     THEM_BAN_DOC(ChucVu.THU_THU),
@@ -35,7 +35,7 @@ public enum Quyen {
     XOA_BAN_DOC(),
     // permission for book title
     THEM_DAU_SACH(ChucVu.THU_KHO),
-    XEM_DAU_SACH(ChucVu.THU_KHO,ChucVu.QUAN_LY,ChucVu.THU_THU),
+    XEM_DAU_SACH(ChucVu.THU_KHO,ChucVu.QUAN_LY),
     XOA_DAU_SACH(),
     // permission for book
     THEM_SACH(ChucVu.THU_KHO),

@@ -6,6 +6,7 @@
 package phanmemquanlythuvien.danhsach;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
@@ -24,12 +25,15 @@ public class BanDocPanel extends SubPanel{
     
     String[] header = new String[] {"Bạn Đọc", "Ngày Sinh", "Điện Thoại", "Email", "Trạng Thái"};
     
+    static final String MSG_TRANG_THAI = "Bạn đọc đang bị khóa. Không thể mượn sách.";    
+    static final String MSG_CHON_BANG = "Bạn chưa chọn vào bảng.";  
+
     public BanDocPanel() {
         txtLabel.setText("Quản lý nhà bạn đọc");
         quyenThem = Quyen.THEM_BAN_DOC;
         quyenXem = Quyen.XEM_BAN_DOC;
         quyenXoa = Quyen.XOA_BAN_DOC;
-        tabName = "Bạn Đọc";
+        tabName = "Bạn Đọc";         
     }
     
     @Override
@@ -64,12 +68,25 @@ public class BanDocPanel extends SubPanel{
     public void tim(){
         showData(txtTim.getText().toLowerCase());
     }
+      
     
     @Override
     public void muon(){
-        MuonForm form = MuonForm.getInstance();
-        form.setBanDoc(getSelected());
-        form.setVisible(true);
+//        MuonForm form = MuonForm.getInstance();
+//        form.setBanDoc(getSelected());
+//        form.setVisible(true);
+        if(table.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, MSG_CHON_BANG);
+            return;
+        }
+        BanDoc bandoc = getSelected();
+        if(bandoc.isReady()){
+            MuonForm form = MuonForm.getInstance();
+            form.setBanDoc(getSelected());
+            form.setVisible(true);
+        } else{
+            JOptionPane.showMessageDialog(this, MSG_TRANG_THAI);
+        }
     }
     
     public void loadData(boolean forceRefresh){
@@ -83,18 +100,17 @@ public class BanDocPanel extends SubPanel{
     }
     
     public void refreshTable(){
-        loadData(true);
+        loadData(true);     
         showData();
     }
     
     public void showData(String filterValue){
         loadData();
-        
         Object[][] data;
         data = allBanDoc.stream()
             .filter(bandoc -> filterValue == null 
                     || bandoc.getTenBD().toLowerCase().contains(filterValue)
-                    || bandoc.getMaBD().toString().contains(filterValue) 
+                    || bandoc.toString().contains(filterValue) 
                     || bandoc.getEmail().toLowerCase().contains(filterValue) 
                     || bandoc.getNgaySinhString().contains(filterValue) 
                     || bandoc.getSoDT().contains(filterValue))
@@ -111,13 +127,20 @@ public class BanDocPanel extends SubPanel{
     
     @Override
     public void sua() {
-        if(table.getSelectedRow() == -1)
+        if(table.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, MSG_CHON_BANG);
             return;
+        }
+            
         sua(getSelected());
     }
     
     public BanDoc getSelected(){
         return (BanDoc) table.getModel().getValueAt(table.getSelectedRow(),0);
+    }
+    
+    public BanDoc getTrangThai(){
+        return (BanDoc) table.getModel().getValueAt(table.getSelectedRow(),4);
     }
     
     public void sua(BanDoc bandoc){

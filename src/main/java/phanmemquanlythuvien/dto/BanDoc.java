@@ -105,5 +105,9 @@ public class BanDoc implements MyObject {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public boolean isReady(){
+        return this.getTrangThai() == true;
+    }    
+    
 }
 

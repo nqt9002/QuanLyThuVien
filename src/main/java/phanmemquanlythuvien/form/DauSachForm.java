@@ -65,15 +65,15 @@ public class DauSachForm extends javax.swing.JFrame {
     }   
     
     public final void buildComboBox(){
-        tacgiaDao.findAll().stream().forEach(tacgia -> {
+        tacgiaDao.findAll().stream().filter(tg -> tg.getTrangThai() == true).forEach(tacgia -> {
             cboTacGiaModel.addElement(tacgia);
         });
         
-        nxbDao.findAll().stream().forEach(nxb -> {
+        nxbDao.findAll().stream().filter(nxb -> nxb.getTrangThai() == true).forEach(nxb -> {
             cboNXBModel.addElement(nxb);
         });
         
-        chudeDao.findAll().stream().forEach(chude -> {
+        chudeDao.findAll().stream().filter(cd ->cd.getTrangThai() == true).forEach(chude -> {
             cboChuDeModel.addElement(chude);
         });
     }

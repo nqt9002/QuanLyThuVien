@@ -40,8 +40,8 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         
 //        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("quanly", "123456");
-        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
-//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thuthu", "123456");
+//        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thukho", "123456");
+        App.activeUser = App.ctx.getBean(TaikhoanDao.class).login("thuthu", "123456");
         //set title
         setTitle("Phần Mềm Quản Lý Thư Viện");
         
