@@ -15,6 +15,7 @@ import phanmemquanlythuvien.danhsach.BanDocPanel;
 import phanmemquanlythuvien.danhsach.ChuDePanel;
 import phanmemquanlythuvien.danhsach.CommonViewImpl;
 import phanmemquanlythuvien.danhsach.DauSachPanel;
+import phanmemquanlythuvien.danhsach.HeThongPanel;
 import phanmemquanlythuvien.danhsach.MuonTraPanel;
 import phanmemquanlythuvien.danhsach.NXBPanel;
 import phanmemquanlythuvien.danhsach.PhatPanel;
@@ -64,7 +65,7 @@ public class MainView extends javax.swing.JFrame {
               CommonViewImpl activeTab = (CommonViewImpl) sourceTabbedPane.getComponentAt(index);
               activeTab.showData();
               activeTab.showHideButton();
-              System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+             // System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
             }
           };
         
@@ -73,6 +74,9 @@ public class MainView extends javax.swing.JFrame {
         Arrays.asList(panels).stream()
             .filter(panel -> panel.canRead())
             .forEach(panel -> mainTab.add(panel.tabName, panel));
+        
+        HeThongPanel heThong = new HeThongPanel();
+        mainTab.add("Hệ Thống", heThong);
     }
     
     /**

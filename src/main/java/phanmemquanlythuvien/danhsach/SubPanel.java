@@ -5,7 +5,10 @@
  */
 package phanmemquanlythuvien.danhsach;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.validation.Validator;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.dto.MyObject;
 
@@ -22,7 +25,9 @@ public class SubPanel extends CommonViewImpl implements CommonView {
     
     List<MyObject> allObject;
     
-    
+    List<Validator> validators = new ArrayList<>();    
+
+    static final String MSG_CHON_BANG = "Chọn dữ liệu trên bảng để thực hiện tính năng này."; 
     
     public SubPanel() {
         initComponents();
@@ -35,6 +40,14 @@ public class SubPanel extends CommonViewImpl implements CommonView {
         btnSua.setVisible(canWrite());
         btnXoa.setVisible(canDelete());
         btnMuon.setVisible(false);
+    }
+    
+    public boolean checkSelectedRow(){
+        if(table.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, MSG_CHON_BANG);
+            return false;
+        }
+        return true;
     }
     
     public void addToTab(javax.swing.JTabbedPane parent){
@@ -111,7 +124,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(txtLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -191,7 +204,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
                     .addComponent(btnMuon))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());

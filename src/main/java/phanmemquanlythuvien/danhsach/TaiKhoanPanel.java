@@ -43,7 +43,7 @@ public class TaiKhoanPanel extends SubPanel {
         return new Object[]{
             item.getMaTaiKhoan(),
             item.getTen(),
-            item.getChucVu().getText(),
+            item.getChucVu(),
             item.getTaiKhoan(),
             item.getTrangThaiString()
         };

@@ -5,6 +5,7 @@
  */
 package phanmemquanlythuvien.danhsach;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,7 @@ import phanmemquanlythuvien.dto.BanDoc;
 import phanmemquanlythuvien.form.BanDocForm;
 import phanmemquanlythuvien.enums.Quyen;
 import phanmemquanlythuvien.form.MuonForm;
+import phanmemquanlythuvien.form.validator.MyValidator;
 
 /**
  *
@@ -26,14 +28,13 @@ public class BanDocPanel extends SubPanel{
     String[] header = new String[] {"Bạn Đọc", "Ngày Sinh", "Điện Thoại", "Email", "Trạng Thái"};
     
     static final String MSG_TRANG_THAI = "Bạn đọc đang bị khóa. Không thể mượn sách.";    
-    static final String MSG_CHON_BANG = "Bạn chưa chọn vào bảng.";  
 
     public BanDocPanel() {
         txtLabel.setText("Quản lý nhà bạn đọc");
         quyenThem = Quyen.THEM_BAN_DOC;
         quyenXem = Quyen.XEM_BAN_DOC;
         quyenXoa = Quyen.XOA_BAN_DOC;
-        tabName = "Bạn Đọc";         
+        tabName = "Bạn Đọc";    
     }
     
     @Override
@@ -69,16 +70,13 @@ public class BanDocPanel extends SubPanel{
         showData(txtTim.getText().toLowerCase());
     }
       
-    
     @Override
     public void muon(){
 //        MuonForm form = MuonForm.getInstance();
 //        form.setBanDoc(getSelected());
 //        form.setVisible(true);
-        if(table.getSelectedRow() == -1){
-            JOptionPane.showMessageDialog(this, MSG_CHON_BANG);
+        if(checkSelectedRow() == false)
             return;
-        }
         BanDoc bandoc = getSelected();
         if(bandoc.isReady()){
             MuonForm form = MuonForm.getInstance();
@@ -127,11 +125,8 @@ public class BanDocPanel extends SubPanel{
     
     @Override
     public void sua() {
-        if(table.getSelectedRow() == -1){
-            JOptionPane.showMessageDialog(this, MSG_CHON_BANG);
+        if(checkSelectedRow() == false)
             return;
-        }
-            
         sua(getSelected());
     }
     

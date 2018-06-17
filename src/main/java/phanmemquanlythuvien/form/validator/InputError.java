@@ -5,6 +5,7 @@
  */
 package phanmemquanlythuvien.form.validator;
 
+import javax.swing.JTable;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -19,5 +20,5 @@ public class InputError extends Exception {
         super(msg);
         this.field = field;
     }
-
+    
 }

@@ -12,10 +12,10 @@ import java.util.Arrays;
  * @author tainguyen
  */
 public enum ChucVu {
-    GUEST("Khach", false),
-    QUAN_LY("Quan ly", true),
-    THU_KHO("Thu kho", true),
-    THU_THU("Thu thu", true);  
+    GUEST("Khách", false),
+    QUAN_LY("Quản lý", true),
+    THU_KHO("Thủ kho", true),
+    THU_THU("Thủ thư", true);  
     
     private final String text;
     public final boolean enable;

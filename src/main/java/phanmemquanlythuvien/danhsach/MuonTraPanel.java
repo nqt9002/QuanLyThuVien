@@ -45,11 +45,11 @@ public class MuonTraPanel extends SubPanel {
     public static MuonTraPanel create(){
         return new MuonTraPanel();
     }
-    
+   
     public Object[] data2Array(MuonTra item){
         return new Object[]{
             item.getMaMT(),
-            bandocDao.getTenBanDoc(item.getMaBD()),
+            "#"+String.format("%05d", item.getMaBD()) +" "+ bandocDao.getTenBanDoc(item.getMaBD()),
             item.getNgayMuon(),
             item.getNgayPhaiTra(),
             item.getDaTraHet() ? "Đã trả hết" : "Chưa trả"
@@ -73,7 +73,7 @@ public class MuonTraPanel extends SubPanel {
         Object[][] data;
         data = allMuonTra.stream()
             .filter(mt -> filterValue == null 
-                    || bandocDao.getTenBanDoc(mt.getMaBD()).toLowerCase().contains(filterValue) 
+                    || bandocDao.getTenBanDoc(mt.getMaBD()).toLowerCase().contains(filterValue)
                     || mt.getMaBD().toString().contains(filterValue))
             .map(mt -> data2Array(mt))
             .toArray(size -> new Object[size][]);
