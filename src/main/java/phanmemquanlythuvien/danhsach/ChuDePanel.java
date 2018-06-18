@@ -12,6 +12,7 @@ import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.form.ChuDeForm;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.chitiet.ChuDeCT;
 import phanmemquanlythuvien.enums.Quyen;
 
 /**
@@ -78,7 +79,7 @@ public class ChuDePanel extends SubPanel {
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;        
+            return;
         ChuDeDao cdD = App.ctx.getBean(ChuDeDao.class);
         ChuDe selectedChuDe = cdD.findById(getSelectedId());
         sua(selectedChuDe);
@@ -86,6 +87,25 @@ public class ChuDePanel extends SubPanel {
     
     public void sua(ChuDe chude){
         ChuDeForm form = new ChuDeForm(chude);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+        ChuDeDao tgC = App.ctx.getBean(ChuDeDao.class);
+        ChuDe selectedChuDe = tgC.findById(getSelectedId());
+        chiTiet(selectedChuDe);
+    }
+    
+    public void chiTiet(ChuDe chude){
+        ChuDeCT form = new ChuDeCT(chude);
         form.setVisible(true);
         //check if dispose
         form.addWindowListener(new java.awt.event.WindowAdapter() {

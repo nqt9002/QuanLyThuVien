@@ -7,6 +7,7 @@ package phanmemquanlythuvien.danhsach;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import phanmemquanlythuvien.chitiet.NXBCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.NxbDao;
 import phanmemquanlythuvien.dto.Nxb;
@@ -77,7 +78,7 @@ public class NXBPanel extends SubPanel{
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         NxbDao cdD = App.ctx.getBean(NxbDao.class);
         Nxb selectedNxb = cdD.findById(getSelectedId());
         sua(selectedNxb);
@@ -85,6 +86,26 @@ public class NXBPanel extends SubPanel{
     
     public void sua(Nxb nxb){
         NXBForm form = new NXBForm(nxb);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
+    
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+        NxbDao tgN = App.ctx.getBean(NxbDao.class);
+        Nxb selectedNXB = tgN.findById(getSelectedId());
+        chiTiet(selectedNXB);
+    }
+    
+    public void chiTiet(Nxb NXB){
+        NXBCT form = new NXBCT(NXB);
         form.setVisible(true);
         //check if dispose
         form.addWindowListener(new java.awt.event.WindowAdapter() {

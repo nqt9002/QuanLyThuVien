@@ -106,26 +106,34 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(59, 89, 152));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setForeground(new java.awt.Color(0, 0, 153));
 
+        txtLabel.setBackground(new java.awt.Color(139, 157, 195));
+        txtLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtLabel.setForeground(new java.awt.Color(255, 255, 255));
         txtLabel.setText("Label Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtLabel)
-                .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(txtLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(txtLabel)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(txtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jScrollPane1.setBackground(new java.awt.Color(204, 204, 255));
+        jScrollPane1.setForeground(new java.awt.Color(204, 204, 255));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,10 +146,15 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.setGridColor(new java.awt.Color(255, 255, 255));
+        table.setSelectionBackground(new java.awt.Color(59, 89, 152));
         jScrollPane1.setViewportView(table);
 
+        jPanel2.setBackground(new java.awt.Color(59, 89, 152));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnChiTiet.setBackground(new java.awt.Color(139, 157, 195));
+        btnChiTiet.setForeground(new java.awt.Color(0, 0, 157));
         btnChiTiet.setText("Chi tiết");
         btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +162,8 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        btnThem.setBackground(new java.awt.Color(139, 157, 195));
+        btnThem.setForeground(new java.awt.Color(0, 0, 157));
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +171,8 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        btnSua.setBackground(new java.awt.Color(139, 157, 195));
+        btnSua.setForeground(new java.awt.Color(0, 0, 157));
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +180,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        btnXoa.setForeground(new java.awt.Color(0, 0, 157));
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +188,8 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             }
         });
 
+        btnMuon.setBackground(new java.awt.Color(139, 157, 195));
+        btnMuon.setForeground(new java.awt.Color(0, 0, 157));
         btnMuon.setText("Mượn");
         btnMuon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,7 +260,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -268,7 +288,7 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

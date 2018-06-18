@@ -16,7 +16,6 @@ import phanmemquanlythuvien.dao.SachDao;
 import phanmemquanlythuvien.dto.MuonTra;
 import phanmemquanlythuvien.enums.Quyen;
 import phanmemquanlythuvien.form.MuonForm;
-import phanmemquanlythuvien.form.PhatForm;
 import phanmemquanlythuvien.form.TraForm;
 
 /**
@@ -51,6 +50,9 @@ public class MuonTraPanel extends SubPanel {
         btnXoa.setVisible(canDelete());
         btnMuon.setVisible(Quyen.MUON.kiemTra(App.activeUser));
         btnMuon.setText("Phạt");
+        btnSua.setVisible(false);
+        btnMuon.setVisible(false);
+        btnThem.setVisible(false);
     }
     
     public static MuonTraPanel create(){
@@ -98,27 +100,9 @@ public class MuonTraPanel extends SubPanel {
     }
     
     @Override
-    public void muon(){
-        if(checkSelectedRow() == false)
-            return;   
-        muon(new MuonTra());
-    }
-
-    public void muon(MuonTra muontra){
-        PhatForm form = new PhatForm(muontra);
-        form.setVisible(true);
-        form.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                showData();
-            }
-        });           
-    }
-    
-    @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         MuonTraDao mtD = App.ctx.getBean(MuonTraDao.class);
         MuonTra selectedMuonTra = mtD.findById(getSelectedId());
         sua(selectedMuonTra);
@@ -127,7 +111,7 @@ public class MuonTraPanel extends SubPanel {
     @Override
     public void chiTiet(){
         if(checkSelectedRow() == false)
-            return;   
+            return;
         MuonTraDao mtD = App.ctx.getBean(MuonTraDao.class);
         MuonTra selectedMuonTra = mtD.findById(getSelectedId());
         

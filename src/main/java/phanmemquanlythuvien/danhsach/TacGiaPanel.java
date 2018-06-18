@@ -8,6 +8,7 @@ package phanmemquanlythuvien.danhsach;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.chitiet.TacGiaCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.TacGia;
@@ -86,7 +87,7 @@ public class TacGiaPanel extends SubPanel {
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         TacgiaDao tgD = App.ctx.getBean(TacgiaDao.class);
         TacGia selectedTacGia = tgD.findById(getSelectedId());
         sua(selectedTacGia);
@@ -94,6 +95,26 @@ public class TacGiaPanel extends SubPanel {
     
     public void sua(TacGia tacgia){
         TacGiaForm form = new TacGiaForm(tacgia);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
+     @Override
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+        TacgiaDao tgD = App.ctx.getBean(TacgiaDao.class);
+        TacGia selectedTacGia = tgD.findById(getSelectedId());
+        chiTiet(selectedTacGia);
+    }
+    
+    public void chiTiet(TacGia tacgia){
+        TacGiaCT form = new TacGiaCT(tacgia);
         form.setVisible(true);
         //check if dispose
         form.addWindowListener(new java.awt.event.WindowAdapter() {

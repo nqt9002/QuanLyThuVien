@@ -178,9 +178,9 @@ public class DauSachForm extends javax.swing.JFrame {
         txtSoLuong = new javax.swing.JTextField();
         txtTenDauSach = new javax.swing.JTextField();
         txtLanTaiBan = new javax.swing.JTextField();
-        cboTacGia = new javax.swing.JComboBox<>();
-        cboNXB = new javax.swing.JComboBox<>();
-        cboChuDe = new javax.swing.JComboBox<>();
+        cboTacGia = new javax.swing.JComboBox<TacGia>();
+        cboNXB = new javax.swing.JComboBox<Nxb>();
+        cboChuDe = new javax.swing.JComboBox<ChuDe>();
         btnLuu = new javax.swing.JButton();
         btnDatLai = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -212,6 +212,8 @@ public class DauSachForm extends javax.swing.JFrame {
 
         cboChuDe.setModel(cboChuDeModel);
 
+        btnLuu.setBackground(new java.awt.Color(139, 157, 195));
+        btnLuu.setForeground(new java.awt.Color(0, 0, 157));
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

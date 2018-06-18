@@ -143,10 +143,10 @@ public class SachForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
         btnDatLai = new javax.swing.JButton();
-        cboDauSach = new javax.swing.JComboBox<>();
+        cboDauSach = new javax.swing.JComboBox<DauSach>();
         jLabel2 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
-        cboTrangThai = new javax.swing.JComboBox<>();
+        cboTrangThai = new javax.swing.JComboBox<TrangThaiSach>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -154,6 +154,8 @@ public class SachForm extends javax.swing.JFrame {
 
         jLabel1.setText("Trạng thái");
 
+        btnLuu.setBackground(new java.awt.Color(139, 157, 195));
+        btnLuu.setForeground(new java.awt.Color(0, 0, 157));
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +163,8 @@ public class SachForm extends javax.swing.JFrame {
             }
         });
 
+        btnDatLai.setBackground(new java.awt.Color(139, 157, 195));
+        btnDatLai.setForeground(new java.awt.Color(0, 0, 157));
         btnDatLai.setText("Đặt lại");
         btnDatLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,12 +199,12 @@ public class SachForm extends javax.swing.JFrame {
                         .addComponent(btnLuu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDatLai)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(cboDauSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

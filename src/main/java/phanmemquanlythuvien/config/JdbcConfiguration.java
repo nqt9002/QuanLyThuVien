@@ -41,8 +41,6 @@ public class JdbcConfiguration {
         dataSource.setURL(env.getRequiredProperty("jdbc.url"));
         dataSource.setDatabaseName(env.getRequiredProperty("jdbc.database"));
         
-        System.out.print("config" + env.getRequiredProperty("jdbc.test"));
-        
         return dataSource;
     }
     

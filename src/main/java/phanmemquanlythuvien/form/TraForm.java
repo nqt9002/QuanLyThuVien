@@ -6,25 +6,26 @@
 package phanmemquanlythuvien.form;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
 import phanmemquanlythuvien.dao.DauSachDao;
 import phanmemquanlythuvien.dao.MuonTraDao;
+import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dao.SachDao;
 import phanmemquanlythuvien.dto.ChiTietMuonTra;
 import phanmemquanlythuvien.dto.DauSach;
 import phanmemquanlythuvien.dto.MuonTra;
+import phanmemquanlythuvien.dto.Phat;
 import phanmemquanlythuvien.dto.Sach;
 import phanmemquanlythuvien.enums.TrangThaiSach;
 import phanmemquanlythuvien.form.validator.DateValidator;
@@ -54,13 +55,11 @@ public class TraForm extends javax.swing.JFrame {
     MuonTraDao muontraDao = App.ctx.getBean(MuonTraDao.class);
     ChiTietMuonTraDao ctmtDao= App.ctx.getBean(ChiTietMuonTraDao.class);
     SachDao sachDao = App.ctx.getBean(SachDao.class);
-    DauSachDao dausachDao = App.ctx.getBean(DauSachDao.class);   
+    DauSachDao dausachDao = App.ctx.getBean(DauSachDao.class); 
+    PhatDao phatDao = App.ctx.getBean(PhatDao.class);
         
     DefaultListModel<ChiTietMuonTra> listModel;    
     List<ChiTietMuonTra> chiTietDaSua = new ArrayList<>();
-    
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-    Calendar cal = Calendar.getInstance();    
     
     public TraForm(MuonTra tra) {
         initComponents();
@@ -91,7 +90,7 @@ public class TraForm extends javax.swing.JFrame {
         txtNgayMuon.setText(item.getNgayMuon().toString());
         listSach.setModel(listModel);
         txtNgayPhaiTra.setText(item.getNgayPhaiTra().toString());
-        txtNgayTra.setText(Calendar.getInstance().toString());
+        txtNgayTra.setText(Date.valueOf(LocalDate.now()).toString());
         txtBanDoc.setEditable(false);
         txtNgayMuon.setEditable(false);
         txtNgayPhaiTra.setEditable(false);
@@ -102,7 +101,7 @@ public class TraForm extends javax.swing.JFrame {
         if(index >= 0){
             ChiTietMuonTra chitiet = listModel.getElementAt(index);
             if(!chitiet.isDaTra()){
-                chitiet.setNgayTra(Date.valueOf(Calendar.getInstance().toString()));
+                chitiet.setNgayTra(Date.valueOf(LocalDate.now()));
                 listSach.setModel(listModel);
                 chiTietDaSua.add(chitiet);
             }
@@ -127,12 +126,34 @@ public class TraForm extends javax.swing.JFrame {
         return true;
     }
     
+    public static int daysBetween(Date d1, Date d2){
+        return (int) (d1.getTime() - d2.getTime())/86400000;
+    }
+    
     public void saveData(){
         if(!check()) return;
         form2Item();
         muontraDao.save(item);
         for(ChiTietMuonTra chitiet: chiTietDaSua){
             ctmtDao.save(chitiet);
+            if(chitiet.getNgayTra().compareTo(item.getNgayPhaiTra()) > 0 ){
+               // Phat phat = new Phat();
+                // set ma muon tra
+                // set ma chi tiet muon tra
+                // set gia tien mac dinh
+                // save
+                Phat phat = new Phat();
+                phat.setMaMT(chitiet.getMaMT());
+                phat.setMaCTMT(chitiet.getMaCTMT());
+                phat.setMaSach(chitiet.getMaSach());
+                phat.setTieuDe(chitiet.getTieuDe());
+                int soNgay = daysBetween(chitiet.getNgayTra(),item.getNgayPhaiTra());
+                phat.setSoNgay(soNgay);
+                phat.setNgayPhat(Date.valueOf(LocalDate.now()));
+                phat.setSoTien(soNgay*5000);
+                phatDao.save(phat);
+            }
+            
             Sach sach = sachDao.findById(chitiet.getMaSach());
             sach.setTrangThai(TrangThaiSach.SAN_SANG);
             sachDao.save(sach);
@@ -316,6 +337,7 @@ public class TraForm extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TraForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

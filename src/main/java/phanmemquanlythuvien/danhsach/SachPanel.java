@@ -8,6 +8,7 @@ package phanmemquanlythuvien.danhsach;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.chitiet.SachCT1;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
 import phanmemquanlythuvien.dao.DauSachDao;
@@ -92,8 +93,7 @@ public class SachPanel extends SubPanel{
          
         data = allSach.stream()
             .filter(s -> s.isMatch(arrSearchValue))
-//            .map(s -> data2Array(s))
-            .map(s -> s.toTable())
+            .map(s -> data2Array(s))
             .toArray(size -> new Object[size][]);
         
         table.setModel(new DefaultTableModel(data, header));
@@ -108,7 +108,7 @@ public class SachPanel extends SubPanel{
     @Override
     public void muon(){
         if(checkSelectedRow() == false)
-            return;   
+            return;
         Sach sach = getSelected();
         if(sach.isReady()){
             MuonForm form = MuonForm.getInstance();
@@ -138,7 +138,7 @@ public class SachPanel extends SubPanel{
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         if(!canWrite()) return;
         SachDao sD = App.ctx.getBean(SachDao.class);
         Sach selectedSach = sD.findById(getSelected().getMaSach());
@@ -213,6 +213,25 @@ public class SachPanel extends SubPanel{
                 btnMuon.setVisible(false);
                 break;
         }
-    }  
+    } 
+      @Override
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+       SachDao tgB = App.ctx.getBean(SachDao.class);
+       chiTiet(getSelected());
+    }
+    
+    public void chiTiet(Sach sach){
+        SachCT1 form = new SachCT1(sach);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
         
 }

@@ -150,6 +150,8 @@ public class BanDocForm extends javax.swing.JFrame {
 
         jLabel1.setText("Trạng thái");
 
+        btnLuu.setBackground(new java.awt.Color(139, 157, 195));
+        btnLuu.setForeground(new java.awt.Color(0, 0, 157));
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +159,8 @@ public class BanDocForm extends javax.swing.JFrame {
             }
         });
 
+        btnDatLai.setBackground(new java.awt.Color(139, 157, 195));
+        btnDatLai.setForeground(new java.awt.Color(0, 0, 157));
         btnDatLai.setText("Đặt lại");
         btnDatLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

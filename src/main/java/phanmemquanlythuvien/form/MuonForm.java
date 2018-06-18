@@ -167,7 +167,7 @@ public class MuonForm extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listSach = new javax.swing.JList<>();
+        listSach = new javax.swing.JList<Sach>();
         btnMuonSach = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -187,6 +187,8 @@ public class MuonForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listSach);
 
+        btnMuonSach.setBackground(new java.awt.Color(139, 157, 195));
+        btnMuonSach.setForeground(new java.awt.Color(0, 0, 157));
         btnMuonSach.setText("Mượn sách");
         btnMuonSach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +196,8 @@ public class MuonForm extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(139, 157, 195));
+        btnHuy.setForeground(new java.awt.Color(0, 0, 157));
         btnHuy.setText("Hủy");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

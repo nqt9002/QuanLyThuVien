@@ -59,7 +59,7 @@ public class DauSachPanel extends SubPanel{
     @Override
     public void chiTiet(){
         if(checkSelectedRow() == false)
-            return;   
+            return;
         DauSachDao dsD = App.ctx.getBean(DauSachDao.class);
         DauSach selectedDauSach = dsD.findById(getSelectedId());
         chiTiet(selectedDauSach);
@@ -120,7 +120,7 @@ public class DauSachPanel extends SubPanel{
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         DauSachDao dsD = App.ctx.getBean(DauSachDao.class);
         DauSach selectedDauSach = dsD.findById(getSelectedId());
         sua(selectedDauSach);

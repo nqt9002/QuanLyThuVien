@@ -42,9 +42,10 @@ public class DangNhap extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phần Mềm Quản Lý Thư Viện");
 
-        jPanel1.setBackground(new java.awt.Color(255, 89, 0));
+        jPanel1.setBackground(new java.awt.Color(59, 89, 152));
 
-        Title.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        Title.setBackground(new java.awt.Color(59, 89, 152));
+        Title.setFont(new java.awt.Font("Lucida Grande", 3, 24)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Đăng Nhập");
@@ -62,7 +63,7 @@ public class DangNhap extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 47, Short.MAX_VALUE)
+            .addGap(0, 56, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(11, 11, 11)
@@ -70,22 +71,23 @@ public class DangNhap extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(247, 247, 247));
 
         frmLogin.setBackground(new java.awt.Color(255, 255, 255));
         frmLogin.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        frmLogin.setForeground(new java.awt.Color(255, 255, 255));
+        frmLogin.setForeground(new java.awt.Color(0, 51, 153));
         frmLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         frmLogin.setText("Tài khoản");
         frmLogin.setToolTipText("");
 
         frmPass.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        frmPass.setForeground(new java.awt.Color(255, 255, 255));
+        frmPass.setForeground(new java.awt.Color(0, 51, 153));
         frmPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         frmPass.setText("Mật khẩu");
 
-        btnSubmit.setBackground(new java.awt.Color(255, 255, 255));
+        btnSubmit.setBackground(new java.awt.Color(139, 157, 195));
         btnSubmit.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(0, 51, 153));
         btnSubmit.setText("Đăng Nhập");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,8 +95,9 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(139, 157, 195));
         jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 51, 153));
         jButton1.setText("Nhập Lại");
         jButton1.setMaximumSize(new java.awt.Dimension(158, 33));
         jButton1.setMinimumSize(new java.awt.Dimension(158, 33));
@@ -106,7 +109,7 @@ public class DangNhap extends javax.swing.JFrame {
         });
 
         lblQuenMK.setFont(new java.awt.Font("Lucida Grande", 3, 12)); // NOI18N
-        lblQuenMK.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuenMK.setForeground(new java.awt.Color(0, 51, 153));
         lblQuenMK.setText("Quên mật khẩu?");
         lblQuenMK.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

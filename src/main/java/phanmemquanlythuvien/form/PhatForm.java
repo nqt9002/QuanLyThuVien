@@ -146,7 +146,7 @@ public class PhatForm extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listSach = new javax.swing.JList<>();
+        listSach = new javax.swing.JList<ChiTietMuonTra>();
         jLabel12 = new javax.swing.JLabel();
         txtBanDoc = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -184,6 +184,8 @@ public class PhatForm extends javax.swing.JFrame {
 
         jLabel6.setText("Số tiền");
 
+        btnLuu.setBackground(new java.awt.Color(139, 157, 195));
+        btnLuu.setForeground(new java.awt.Color(0, 0, 157));
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

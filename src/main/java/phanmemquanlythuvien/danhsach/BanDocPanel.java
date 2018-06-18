@@ -5,15 +5,18 @@
  */
 package phanmemquanlythuvien.danhsach;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import phanmemquanlythuvien.chitiet.BanDocCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dto.BanDoc;
 import phanmemquanlythuvien.form.BanDocForm;
 import phanmemquanlythuvien.enums.Quyen;
 import phanmemquanlythuvien.form.MuonForm;
+import phanmemquanlythuvien.form.validator.MyValidator;
 
 /**
  *
@@ -147,6 +150,25 @@ public class BanDocPanel extends SubPanel{
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 if(isNew)
                     allBanDoc.add(bandoc);
+                showData();
+            }
+        });
+    }
+     @Override
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+        BanDocDao tgB = App.ctx.getBean(BanDocDao.class);
+        chiTiet(getSelected());
+    }
+    
+    public void chiTiet(BanDoc bandoc){
+        BanDocCT form = new BanDocCT(bandoc);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 showData();
             }
         });

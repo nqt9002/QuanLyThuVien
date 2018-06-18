@@ -80,6 +80,8 @@ public class QuenMatKhauForm extends javax.swing.JFrame {
             }
         });
 
+        btnGui.setBackground(new java.awt.Color(139, 157, 195));
+        btnGui.setForeground(new java.awt.Color(0, 0, 157));
         btnGui.setText("Gửi");
         btnGui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +89,8 @@ public class QuenMatKhauForm extends javax.swing.JFrame {
             }
         });
 
+        btnDatLai.setBackground(new java.awt.Color(139, 157, 195));
+        btnDatLai.setForeground(new java.awt.Color(0, 0, 157));
         btnDatLai.setText("Đặt lại");
         btnDatLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

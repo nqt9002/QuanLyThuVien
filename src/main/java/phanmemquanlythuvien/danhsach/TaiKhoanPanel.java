@@ -8,6 +8,7 @@ package phanmemquanlythuvien.danhsach;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.chitiet.TaiKhoanCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TaikhoanDao;
 import phanmemquanlythuvien.dto.TaiKhoan;
@@ -32,6 +33,8 @@ public class TaiKhoanPanel extends SubPanel {
         quyenXoa = Quyen.XOA_TAI_KHOAN;
         tabName = "Tài Khoản";
     }
+    
+    
     
     public static TaiKhoanPanel create(){
         return new TaiKhoanPanel();
@@ -58,7 +61,7 @@ public class TaiKhoanPanel extends SubPanel {
     }
     
     public void showData(String filterValue){
-
+//        LOGGER.info("load tk data");
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
         allTK = tgD.findAll();
         
@@ -79,7 +82,7 @@ public class TaiKhoanPanel extends SubPanel {
     @Override
     public void sua() {
         if(checkSelectedRow() == false)
-            return;   
+            return;
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
         TaiKhoan selectedTaiKhoan = tgD.findById(getSelectedId());
         sua(selectedTaiKhoan);
@@ -95,6 +98,26 @@ public class TaiKhoanPanel extends SubPanel {
                 showData();
             }
         });
-    }    
+    } 
+    @Override
+    public void chiTiet() {
+        if(checkSelectedRow() == false)
+            return;
+        TaikhoanDao tgT = App.ctx.getBean(TaikhoanDao.class);
+        TaiKhoan selectedTaikhoan = tgT.findById(getSelectedId());
+        chiTiet(selectedTaikhoan);
+    }
+    
+    public void chiTiet(TaiKhoan taikhoan){
+        TaiKhoanCT form = new TaiKhoanCT(taikhoan);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
     
 }
