@@ -77,6 +77,8 @@ public class ChuDePanel extends SubPanel {
     
     @Override
     public void sua() {
+        if(checkSelectedRow() == false)
+            return;        
         ChuDeDao cdD = App.ctx.getBean(ChuDeDao.class);
         ChuDe selectedChuDe = cdD.findById(getSelectedId());
         sua(selectedChuDe);

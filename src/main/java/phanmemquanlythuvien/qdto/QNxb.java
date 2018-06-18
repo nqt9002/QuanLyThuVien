@@ -30,9 +30,9 @@ public class QNxb extends com.querydsl.sql.RelationalPathBase<QNxb> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<QNxb> _nxb_3a19482c364a0bdcPk = createPrimaryKey(maNXB);
+    public final com.querydsl.sql.PrimaryKey<QNxb> _nxb_3a19482ce36b2e7ePk = createPrimaryKey(maNXB);
 
-    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaNXB_31EC6D26FK = createInvForeignKey(maNXB, "MaNXB");
+    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaNXB_34C8D9D1FK = createInvForeignKey(maNXB, "MaNXB");
 
     public QNxb(String variable) {
         super(QNxb.class, forVariable(variable), "dbo", "NXB");

@@ -5,11 +5,8 @@
  */
 package phanmemquanlythuvien.form;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -23,6 +20,8 @@ import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
 import phanmemquanlythuvien.enums.ChucVu;
 import phanmemquanlythuvien.form.validator.NumberValidator;
+import phanmemquanlythuvien.form.validator.UniqueValidator;
+import phanmemquanlythuvien.qdto.QTaiKhoan;
 
 /**
  *
@@ -36,20 +35,16 @@ public class TaiKhoanForm extends javax.swing.JFrame {
 
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
     
-    List<MyValidator> validators = new ArrayList<MyValidator>();
-    List<MyValidator> createValidators = new ArrayList<MyValidator>();
+    List<MyValidator> validators = new ArrayList<>();
+    List<MyValidator> createValidators = new ArrayList<>();
     
     DefaultComboBoxModel<String> cboModel = new DefaultComboBoxModel<>();
     
     public TaiKhoanForm(TaiKhoan taikhoan) {
         initComponents();
         this.item = taikhoan;
-        this.item2Form();
-//        this.Test();
         cboChucVu.setModel(new DefaultComboBoxModel(ChucVu.available()));
-    //    LOGGER.info("TEST: "+ChucVu.available().getClass().getName());
-    //    LOGGER.info("TEST2: "+item.getChucVu().getClass().getName());
-    //    LOGGER.info("TEST3: "+cboChucVu.getItemAt(1).getClass().getName());
+        this.item2Form();
         validators.add(new MaxValidator(40, txtMatKhau, "Mật khẩu"));
         validators.add(new MinValidator(6, txtMatKhau, "Mật khẩu")); 
         validators.add(new MaxValidator(40, txtMaBaoMat, "Mã bảo mật"));
@@ -59,21 +54,14 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         validators.add(new RequireValidator(txtTen, "Tên"));
         validators.add(new RequireValidator(txtTaiKhoan, "Tài khoản"));
         validators.add(new MaxValidator(60, txtTaiKhoan, "Tài khoản"));
+        TaikhoanDao tkD = App.ctx.getBean(TaikhoanDao.class);
+        validators.add(new UniqueValidator(txtTaiKhoan, "tài khoản", tkD, QTaiKhoan.TaiKhoan.taiKhoan));
         
         createValidators.add(new RequireValidator(txtMatKhau, "Mật khẩu"));
         createValidators.add(new RequireValidator(txtMaBaoMat, "Mã bảo mật"));
         
     }
     
-//    public void Test(){
-//        List list = Arrays.asList(ChucVu.available());
-//        for(int i = 0; i < list.size();i++){
-//            cboModel.addElement(list.get(i));
-//         
-//        }
-//        cboChucVu.setModel(cboModel);
-//    }
-
     public final void item2Form(){
         if(item.isNew()){
             deleteText();
@@ -81,13 +69,6 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         }
         txtTen.setText(item.getTen());
         txtTaiKhoan.setText(item.getTaiKhoan());
-//        for(int j = 0; j<cboChucVu.getItemCount();j++){
-//            if(cboChucVu.getItemAt(j).toString().toLowerCase().equals(item.getChucVu().toString().toLowerCase())){
-//               cboChucVu.setSelectedItem(cboModel.getElementAt(j));
-//            }
-//        }
-//        cboChucVu.setSelectedIndex(2);
-//        cboChucVu.setSelectedItem(cboModel.getElementAt(2));
         cboChucVu.setSelectedItem(item.getChucVu());
         cbxKichHoat.setSelected(item.getTrangThai());
     }

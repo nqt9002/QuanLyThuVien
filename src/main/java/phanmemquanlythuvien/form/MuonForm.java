@@ -6,8 +6,12 @@
 package phanmemquanlythuvien.form;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -26,8 +30,10 @@ import phanmemquanlythuvien.dto.ChiTietMuonTra;
 import phanmemquanlythuvien.dto.MuonTra;
 import phanmemquanlythuvien.dto.Sach;
 import phanmemquanlythuvien.enums.TrangThaiSach;
+import phanmemquanlythuvien.form.validator.DateValidator;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.RequireValidator;
 
 /**
  *
@@ -54,10 +60,15 @@ public class MuonForm extends javax.swing.JFrame {
     DefaultListModel<Sach> listModel = new DefaultListModel<>();
     int idBanDoc;
     
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate localDate = LocalDate.now(); 
+    
     public MuonForm(MuonTra muon) {
         initComponents();
         this.item = muon;  
         listSach.setModel(listModel);
+        validators.add(new RequireValidator(txtNgayPhaiTra, "Ngày phải trả"));
+        validators.add(new DateValidator(txtNgayPhaiTra, "Ngày phải trả"));
     }
     
     public static MuonForm getInstance(){
@@ -70,7 +81,7 @@ public class MuonForm extends javax.swing.JFrame {
     public void setBanDoc(BanDoc bandoc){
         txtBanDoc.setText(bandoc.toString());
         txtBanDoc.setEditable(false);
-        txtNgayMuon.setText(LocalDate.now().toString());
+        txtNgayMuon.setText(dtf.format(localDate));
         txtNgayMuon.setEditable(false);
         idBanDoc = bandoc.getMaBD();
     }
@@ -81,9 +92,9 @@ public class MuonForm extends javax.swing.JFrame {
                 return;
         }
         listModel.addElement(sach);
-        txtNgayMuon.setText(LocalDate.now().toString());
+        txtNgayMuon.setText(dtf.format(localDate));
         txtNgayMuon.setEditable(false);
-        txtNgayPhaiTra.setText(LocalDate.now().plusDays(7).toString());
+        txtNgayPhaiTra.setText(dtf.format(localDate.plusDays(7)));
     }
     
     public void removeSach(){

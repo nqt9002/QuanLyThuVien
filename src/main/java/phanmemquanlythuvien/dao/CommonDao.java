@@ -7,6 +7,7 @@ package phanmemquanlythuvien.dao;
 
 import com.querydsl.core.types.Predicate;
 import java.util.List;
+import phanmemquanlythuvien.dto.BanDoc;
 import phanmemquanlythuvien.dto.MyObject;
 
 /**
@@ -21,4 +22,8 @@ public interface CommonDao<T extends MyObject> {
 //    long count();
 //    void delete(T p);
     T getById(int id);
+    List<T> findAll2(Predicate... where);
+    T save2(T p);
+    int count2(Predicate... where);
+    void delete2(T p);
 }

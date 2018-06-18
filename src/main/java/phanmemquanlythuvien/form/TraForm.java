@@ -6,13 +6,16 @@
 package phanmemquanlythuvien.form;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
@@ -24,8 +27,10 @@ import phanmemquanlythuvien.dto.DauSach;
 import phanmemquanlythuvien.dto.MuonTra;
 import phanmemquanlythuvien.dto.Sach;
 import phanmemquanlythuvien.enums.TrangThaiSach;
+import phanmemquanlythuvien.form.validator.DateValidator;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.RequireValidator;
 import phanmemquanlythuvien.qdto.QChiTietMuonTra;
 
 /**
@@ -54,17 +59,22 @@ public class TraForm extends javax.swing.JFrame {
     DefaultListModel<ChiTietMuonTra> listModel;    
     List<ChiTietMuonTra> chiTietDaSua = new ArrayList<>();
     
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    Calendar cal = Calendar.getInstance();    
+    
     public TraForm(MuonTra tra) {
         initComponents();
         this.item = tra;  
         listModel = new DefaultListModel();
         this.item2Form();
+        
+        validators.add(new RequireValidator(txtNgayTra, "Ngày trả"));
+        validators.add(new DateValidator(txtNgayTra, "Ngày trả"));
     }
     
     
     public void item2Form(){
         if(item.getMaMT() == null){
-            deleteText();
             return;
         }
         
@@ -81,12 +91,10 @@ public class TraForm extends javax.swing.JFrame {
         txtNgayMuon.setText(item.getNgayMuon().toString());
         listSach.setModel(listModel);
         txtNgayPhaiTra.setText(item.getNgayPhaiTra().toString());
-        txtNgayTra.setText(LocalDate.now().toString());
+        txtNgayTra.setText(Calendar.getInstance().toString());
         txtBanDoc.setEditable(false);
-        txtNgayTra.setEditable(false);
         txtNgayMuon.setEditable(false);
         txtNgayPhaiTra.setEditable(false);
-        
     }
     
     public void traSach(){
@@ -94,7 +102,7 @@ public class TraForm extends javax.swing.JFrame {
         if(index >= 0){
             ChiTietMuonTra chitiet = listModel.getElementAt(index);
             if(!chitiet.isDaTra()){
-                chitiet.setNgayTra(Date.valueOf(LocalDate.now()));
+                chitiet.setNgayTra(Date.valueOf(Calendar.getInstance().toString()));
                 listSach.setModel(listModel);
                 chiTietDaSua.add(chitiet);
             }
@@ -136,11 +144,6 @@ public class TraForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
         item = new MuonTra();
         dispose();
-    }
-    
-    public void deleteText()
-    {
-
     }
     
     @SuppressWarnings("unchecked")

@@ -5,7 +5,6 @@
  */
 package phanmemquanlythuvien.danhsach;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +14,6 @@ import phanmemquanlythuvien.dto.BanDoc;
 import phanmemquanlythuvien.form.BanDocForm;
 import phanmemquanlythuvien.enums.Quyen;
 import phanmemquanlythuvien.form.MuonForm;
-import phanmemquanlythuvien.form.validator.MyValidator;
 
 /**
  *

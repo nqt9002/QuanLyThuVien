@@ -15,7 +15,6 @@ import phanmemquanlythuvien.dao.MuonTraDao;
 import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dto.Phat;
 import phanmemquanlythuvien.enums.Quyen;
-import phanmemquanlythuvien.form.PhatForm;
 
 /**
  *
@@ -30,7 +29,7 @@ public class PhatPanel extends SubPanel{
     BanDocDao banDocDao = App.ctx.getBean(BanDocDao.class);
     ChiTietMuonTraDao ctMuonTraDao = App.ctx.getBean(ChiTietMuonTraDao.class);
     
-    String[] header = new String[] {"Mã Phạt", "Mã mượn trả","Tên bạn đọc","Tên sách", "Số ngày quá hạn", "Ngày phạt","Số tiền"};    
+    String[] header = new String[] {"Mã Phạt", "Mã Mượn Trả","Tên Bạn Đọc","Tên Sách", "Số Ngày Quá Hạn"};    
     
     public PhatPanel(){
         txtLabel.setText("Quản lý phạt");
@@ -45,14 +44,13 @@ public class PhatPanel extends SubPanel{
     }
     
     public Object[] data2Array(Phat item){
+        int mBanDoc = muonTraDao.findById(item.getMaMT()).getMaBD();
         return new Object[]{
             item.getMaPhat(),
             item.getMaMT(),
-            banDocDao.findById(muonTraDao.findById(item.getMaMT()).getMaBD()).getTenBD(),
-            ctMuonTraDao.findById(item.getMaMT()).getTieuDe(),
+            "#"+String.format("%05d", mBanDoc) +" "+banDocDao.findById(mBanDoc).getTenBD(),
+            item.getTieuDe(),
             item.getSoNgay(),
-            item.getNgayPhat(),
-            item.getSoTien()
         };
     }
       
@@ -73,41 +71,41 @@ public class PhatPanel extends SubPanel{
         
         Object[][] data;
         data = allPhat.stream()
-            .filter(phat -> filterValue == null 
-                    || phat.getMaMT().toString().contains(filterValue)
-                    || phat.getMaPhat().toString().contains(filterValue)
-                    || banDocDao.findById(muonTraDao.findById(phat.getMaMT()).getMaBD()).getTenBD().toLowerCase().contains(filterValue) 
-                    || ctMuonTraDao.findById(phat.getMaMT()).getTieuDe().toLowerCase().contains(filterValue)
-                    || ctMuonTraDao.findById(phat.getMaMT()).getMaSach().toString().contains(filterValue)
-                    || muonTraDao.findById(phat.getMaMT()).getMaBD().toString().contains(filterValue) )
+            .filter(phat -> filterValue == null )
+//                    || phat.getMaMT().toString().contains(filterValue)
+//                    || phat.getMaPhat().toString().contains(filterValue)
+//                    || banDocDao.findById(muonTraDao.findById(phat.getMaMT()).getMaBD()).getTenBD().toLowerCase().contains(filterValue) 
+//                    || ctMuonTraDao.findById(phat.getMaMT()).getTieuDe().toLowerCase().contains(filterValue)
+//                    || ctMuonTraDao.findById(phat.getMaMT()).getMaSach().toString().contains(filterValue)
+//                    || muonTraDao.findById(phat.getMaMT()).getMaBD().toString().contains(filterValue) )
             .map(phat -> data2Array(phat))
             .toArray(size -> new Object[size][]);
         
         table.setModel(new DefaultTableModel(data, header));
     }
     
-    @Override
-    public void them(){
-        sua(new Phat());
-    }
-
-    @Override
-    public void sua() {
-        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
-        Phat selectedPhat = phatDao.findById(getSelectedId());
-        sua(selectedPhat);
-    }
+//    @Override
+//    public void them(){
+//        sua(new Phat());
+//    }
+//
+//    @Override
+//    public void sua() {
+//        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
+//        Phat selectedPhat = phatDao.findById(getSelectedId());
+//        sua(selectedPhat);
+//    }
     
-    public void sua(Phat phat){
-        PhatForm form = new PhatForm(phat);
-        form.setVisible(true);
-        //check if dispose
-        form.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                showData();
-            }
-        });
-    }
+//    public void sua(Phat phat){
+//        PhatFormnk form = new PhatFormnk(phat);
+//        form.setVisible(true);
+//        //check if dispose
+//        form.addWindowListener(new java.awt.event.WindowAdapter() {
+//            @Override
+//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//                showData();
+//            }
+//        });
+//    }
     
 }

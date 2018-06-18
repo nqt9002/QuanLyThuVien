@@ -102,6 +102,26 @@ public class TaikhoanDaoImpl implements TaikhoanDao {
     public TaiKhoan getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<TaiKhoan> findAll2(Predicate... where) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TaiKhoan save2(TaiKhoan p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int count2(Predicate... where) {
+        return (int) queryFactory.from(taikhoan).where(where).fetchCount();
+    }
+
+    @Override
+    public void delete2(TaiKhoan p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 }

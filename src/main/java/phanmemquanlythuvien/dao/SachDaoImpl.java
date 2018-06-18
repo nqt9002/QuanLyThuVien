@@ -107,4 +107,24 @@ public class SachDaoImpl implements SachDao {
     public Sach getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Sach> findAll2(Predicate... where) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Sach save2(Sach p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int count2(Predicate... where) {
+        return (int) queryFactory.from(sach).where(where).fetchCount();
+    }
+
+    @Override
+    public void delete2(Sach p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

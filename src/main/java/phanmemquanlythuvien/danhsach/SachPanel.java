@@ -92,7 +92,8 @@ public class SachPanel extends SubPanel{
          
         data = allSach.stream()
             .filter(s -> s.isMatch(arrSearchValue))
-            .map(s -> data2Array(s))
+//            .map(s -> data2Array(s))
+            .map(s -> s.toTable())
             .toArray(size -> new Object[size][]);
         
         table.setModel(new DefaultTableModel(data, header));
@@ -106,6 +107,8 @@ public class SachPanel extends SubPanel{
     
     @Override
     public void muon(){
+        if(checkSelectedRow() == false)
+            return;   
         Sach sach = getSelected();
         if(sach.isReady()){
             MuonForm form = MuonForm.getInstance();
@@ -134,6 +137,8 @@ public class SachPanel extends SubPanel{
     
     @Override
     public void sua() {
+        if(checkSelectedRow() == false)
+            return;   
         if(!canWrite()) return;
         SachDao sD = App.ctx.getBean(SachDao.class);
         Sach selectedSach = sD.findById(getSelected().getMaSach());

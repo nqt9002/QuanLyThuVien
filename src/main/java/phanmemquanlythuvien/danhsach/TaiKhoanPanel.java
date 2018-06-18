@@ -33,8 +33,6 @@ public class TaiKhoanPanel extends SubPanel {
         tabName = "Tài Khoản";
     }
     
-    
-    
     public static TaiKhoanPanel create(){
         return new TaiKhoanPanel();
     }
@@ -60,7 +58,7 @@ public class TaiKhoanPanel extends SubPanel {
     }
     
     public void showData(String filterValue){
-//        LOGGER.info("load tk data");
+
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
         allTK = tgD.findAll();
         
@@ -80,6 +78,8 @@ public class TaiKhoanPanel extends SubPanel {
     
     @Override
     public void sua() {
+        if(checkSelectedRow() == false)
+            return;   
         TaikhoanDao tgD = App.ctx.getBean(TaikhoanDao.class);
         TaiKhoan selectedTaiKhoan = tgD.findById(getSelectedId());
         sua(selectedTaiKhoan);

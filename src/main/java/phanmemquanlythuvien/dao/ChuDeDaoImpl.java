@@ -107,4 +107,24 @@ public class ChuDeDaoImpl implements ChuDeDao {
     public ChuDe getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<ChuDe> findAll2(Predicate... where) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ChuDe save2(ChuDe p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int count2(Predicate... where) {
+        return (int) queryFactory.from(chude).where(where).fetchCount();
+    }
+
+    @Override
+    public void delete2(ChuDe p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

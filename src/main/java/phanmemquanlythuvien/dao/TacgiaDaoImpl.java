@@ -110,4 +110,24 @@ import phanmemquanlythuvien.dto.TacGia;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<TacGia> findAll2(Predicate... where) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TacGia save2(TacGia p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int count2(Predicate... where) {
+        return (int) queryFactory.from(tacgia).where(where).fetchCount();
+    }
+
+    @Override
+    public void delete2(TacGia p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

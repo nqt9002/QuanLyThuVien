@@ -15,6 +15,8 @@ import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MaxValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
+import phanmemquanlythuvien.form.validator.UniqueValidator;
+import phanmemquanlythuvien.qdto.QChuDe;
 
 
 
@@ -37,8 +39,10 @@ public class ChuDeForm extends javax.swing.JFrame {
         this.item = chude;
         this.item2Form();
         
+        ChuDeDao chuDeDao = App.ctx.getBean(ChuDeDao.class);
         validators.add(new MaxValidator(60, txtTen, "Tên"));
-        validators.add(new RequireValidator(txtTen, "Tên"));        
+        validators.add(new RequireValidator(txtTen, "Tên"));
+        validators.add(new UniqueValidator(txtTen, "tên", chuDeDao, QChuDe.ChuDe.tenChuDe));
     }
 
     public void item2Form(){

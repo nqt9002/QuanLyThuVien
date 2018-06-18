@@ -76,6 +76,8 @@ public class NXBPanel extends SubPanel{
     
     @Override
     public void sua() {
+        if(checkSelectedRow() == false)
+            return;   
         NxbDao cdD = App.ctx.getBean(NxbDao.class);
         Nxb selectedNxb = cdD.findById(getSelectedId());
         sua(selectedNxb);

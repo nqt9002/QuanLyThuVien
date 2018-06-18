@@ -21,6 +21,8 @@ import phanmemquanlythuvien.form.validator.MinValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.NumberValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
+import phanmemquanlythuvien.form.validator.UniqueValidator;
+import phanmemquanlythuvien.qdto.QBanDoc;
 
 /**
  *
@@ -38,7 +40,7 @@ public class BanDocForm extends javax.swing.JFrame {
 
     public BanDocForm() {
         initComponents();
-        
+        BanDocDao banDocDao = App.ctx.getBean(BanDocDao.class);
         validators.add(new RequireValidator(txtTen, "Tên"));
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtNgaySinh, "Ngày sinh"));
@@ -47,8 +49,10 @@ public class BanDocForm extends javax.swing.JFrame {
         validators.add(new NumberValidator(txtSDT, "Số điện thoại"));
         validators.add(new MinValidator(10, txtSDT, "Số điện thoại"));
         validators.add(new MaxValidator(11, txtSDT, "Số điện thoại"));
+        validators.add(new UniqueValidator(txtTen, "số điện thoại", banDocDao, QBanDoc.BanDoc.soDT));
         validators.add(new RequireValidator(txtEmail, "Email"));
-        validators.add(new EmailValidator(txtEmail, "Email"));        
+        validators.add(new EmailValidator(txtEmail, "Email"));
+        validators.add(new UniqueValidator(txtTen, "email", banDocDao, QBanDoc.BanDoc.email));
     }
     
     public static BanDocForm getInstance(){

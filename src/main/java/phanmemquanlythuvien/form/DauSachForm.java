@@ -25,6 +25,8 @@ import phanmemquanlythuvien.form.validator.MaxValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.NumberValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
+import phanmemquanlythuvien.form.validator.UniqueValidator;
+import phanmemquanlythuvien.qdto.QDauSach;
 
 /**
  *
@@ -38,7 +40,7 @@ public class DauSachForm extends javax.swing.JFrame {
     
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
     
-    List<MyValidator> validators = new ArrayList<MyValidator>();
+    List<MyValidator> validators = new ArrayList<>();
     
     TacgiaDao tacgiaDao = App.ctx.getBean(TacgiaDao.class);
     NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
@@ -54,8 +56,10 @@ public class DauSachForm extends javax.swing.JFrame {
         buildComboBox();
         
         this.item = dausach;
+        DauSachDao dauSachDao = App.ctx.getBean(DauSachDao.class);
         validators.add(new MaxValidator(60, txtTenDauSach, "Tên đầu sách"));
         validators.add(new RequireValidator(txtTenDauSach, "Tên đầu sách"));
+        validators.add(new UniqueValidator(txtTenDauSach, "tên đầu sách", dauSachDao, QDauSach.DauSach.ten));
         validators.add(new RequireValidator(txtLanTaiBan, "Lần tái bản"));
         validators.add(new NumberValidator(txtLanTaiBan, "Lần tái bản"));
         validators.add(new MaxValidator(1000, txtTomTat, "Tóm tắt nội dung"));

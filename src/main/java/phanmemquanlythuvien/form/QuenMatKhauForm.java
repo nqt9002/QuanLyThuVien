@@ -27,6 +27,8 @@ public class QuenMatKhauForm extends javax.swing.JFrame {
     
     public QuenMatKhauForm() {
         initComponents();
+        
+        validators.add(new RequireValidator(txtTaiKhoan, "Tài khoản"));
         validators.add(new RequireValidator(txtMaBaoMat, "Mã bảo mật"));
         validators.add(new NumberValidator(txtMaBaoMat, "Mã bảo mật"));        
         validators.add(new RequireValidator(txtMatKhau, "Mật khẩu"));

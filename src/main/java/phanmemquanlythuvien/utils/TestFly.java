@@ -5,13 +5,17 @@
  */
 package phanmemquanlythuvien.utils;
 
+import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.dto.TaiKhoan;
 import phanmemquanlythuvien.config.AppConfiguration;
 import org.springframework.context.annotation.*;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
+import phanmemquanlythuvien.dao.CommonDao;
 import phanmemquanlythuvien.dao.TaikhoanDao;
+import phanmemquanlythuvien.dto.MyObject;
+
 
 class Parent
 {
@@ -54,8 +58,9 @@ public class TestFly {
 //        testChuDe();
 
         java.sql.Date.valueOf("1990-32-12");
-
     }
+    
+    
     public static void testChuDe(){
         ChuDeDao cDD = App.ctx.getBean(ChuDeDao.class);
         logger.info("So chu de:");

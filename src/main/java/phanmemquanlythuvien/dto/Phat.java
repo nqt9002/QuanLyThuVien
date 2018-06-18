@@ -8,7 +8,11 @@ import javax.annotation.Generated;
 @Generated("com.querydsl.codegen.BeanSerializer")
 public class Phat implements MyObject{
 
+    private Integer maCTMT;
+    
     private Integer maMT;
+    
+    private Integer maSach;
 
     private Integer maPhat;
 
@@ -18,14 +22,32 @@ public class Phat implements MyObject{
 
     private Integer soTien;
 
+    private String tieuDe;
+
+    public Integer getMaCTMT() {
+        return maCTMT;
+    }
+
+    public void setMaCTMT(Integer maCTMT) {
+        this.maCTMT = maCTMT;
+    }
+    
     public Integer getMaMT() {
         return maMT;
     }
 
     public void setMaMT(Integer maMT) {
         this.maMT = maMT;
+    }    
+
+    public Integer getMaSach() {
+        return maSach;
     }
 
+    public void setMaSach(Integer maSach) {
+        this.maSach = maSach;
+    }    
+    
     public Integer getMaPhat() {
         return maPhat;
     }
@@ -58,6 +80,14 @@ public class Phat implements MyObject{
         this.soTien = soTien;
     }
 
+    public String getTieuDe() {
+        return tieuDe;
+    }
+
+    public void setTieuDe(String tieuDe) {
+        this.tieuDe = tieuDe;
+    }
+    
     @Override
     public boolean isNew() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

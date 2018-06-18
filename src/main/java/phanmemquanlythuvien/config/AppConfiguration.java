@@ -85,11 +85,10 @@ public class AppConfiguration {
    public ChiTietMuonTraDao chiTietMuonTraDao(){
        return new ChiTietMuonTraDaoImpl();
    }
-
+   
    @Bean
    public PhatDao phatDao(){
        return new PhatDaoImpl();
-   }   
-   
+   }
 
 }

@@ -15,6 +15,8 @@ import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MaxValidator;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
+import phanmemquanlythuvien.form.validator.UniqueValidator;
+import phanmemquanlythuvien.qdto.QNxb;
 
 /**
  *
@@ -33,8 +35,10 @@ public class NXBForm extends javax.swing.JFrame {
         this.item = nxb;
         this.item2Form();
         
+        NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
+        validators.add(new UniqueValidator(txtTen, "tên nxb", nxbDao, QNxb.nxb.tenNXB));
     }
 
     public void item2Form(){

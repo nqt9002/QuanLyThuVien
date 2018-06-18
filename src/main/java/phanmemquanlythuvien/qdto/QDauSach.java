@@ -42,15 +42,15 @@ public class QDauSach extends com.querydsl.sql.RelationalPathBase<QDauSach> {
 
     public final StringPath ttnd = createString("ttnd");
 
-    public final com.querydsl.sql.PrimaryKey<QDauSach> _DauSach_2725865424D5B1AEPK = createPrimaryKey(maDS);
+    public final com.querydsl.sql.PrimaryKey<QDauSach> _DauSach_272586541A065DD8PK = createPrimaryKey(maDS);
 
-    public final com.querydsl.sql.ForeignKey<QTacGia> _DauSach_MaTG_30F848EDFK = createForeignKey(maTG, "MaTG");
+    public final com.querydsl.sql.ForeignKey<QChuDe> _DauSach_MaCD_35BCFE0AFK = createForeignKey(maCD, "MaCD");
 
-    public final com.querydsl.sql.ForeignKey<QChuDe> _DauSach_MaCD_32E0915FFK = createForeignKey(maCD, "MaCD");
+    public final com.querydsl.sql.ForeignKey<QNxb> _DauSach_MaNXB_34C8D9D1FK = createForeignKey(maNXB, "MaNXB");
 
-    public final com.querydsl.sql.ForeignKey<QNxb> _DauSach_MaNXB_31EC6D26FK = createForeignKey(maNXB, "MaNXB");
+    public final com.querydsl.sql.ForeignKey<QTacGia> _DauSach_MaTG_33D4B598FK = createForeignKey(maTG, "MaTG");
 
-    public final com.querydsl.sql.ForeignKey<QSach> __Sach_MaDS_36B12243FK = createInvForeignKey(maDS, "MaDS");
+    public final com.querydsl.sql.ForeignKey<QSach> __Sach_MaDS_398D8EEEFK = createInvForeignKey(maDS, "MaDS");
 
     public QDauSach(String variable) {
         super(QDauSach.class, forVariable(variable), "dbo", "DauSach");

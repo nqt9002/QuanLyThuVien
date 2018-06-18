@@ -85,6 +85,8 @@ public class TacGiaPanel extends SubPanel {
 
     @Override
     public void sua() {
+        if(checkSelectedRow() == false)
+            return;   
         TacgiaDao tgD = App.ctx.getBean(TacgiaDao.class);
         TacGia selectedTacGia = tgD.findById(getSelectedId());
         sua(selectedTacGia);

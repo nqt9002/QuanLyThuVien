@@ -96,5 +96,12 @@ public class Sach implements MyObject{
         return count == arrString.length;
     }
     
+    public Object[] toTable() {
+        return new Object[]{
+           this,
+           this.getTrangThaiEnum()
+        };
+    }
+    
 }
 

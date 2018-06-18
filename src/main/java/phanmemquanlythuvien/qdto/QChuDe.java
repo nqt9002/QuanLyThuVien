@@ -30,9 +30,9 @@ public class QChuDe extends com.querydsl.sql.RelationalPathBase<QChuDe> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<QChuDe> _ChuDe_27258E047C05298DPK = createPrimaryKey(maCD);
+    public final com.querydsl.sql.PrimaryKey<QChuDe> _ChuDe_27258E04D10D7900PK = createPrimaryKey(maCD);
 
-    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaCD_32E0915FFK = createInvForeignKey(maCD, "MaCD");
+    public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaCD_35BCFE0AFK = createInvForeignKey(maCD, "MaCD");
 
     public QChuDe(String variable) {
         super(QChuDe.class, forVariable(variable), "dbo", "ChuDe");

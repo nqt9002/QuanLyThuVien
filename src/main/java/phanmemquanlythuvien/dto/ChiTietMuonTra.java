@@ -79,12 +79,21 @@ public class ChiTietMuonTra implements MyObject {
 
     @Override
     public boolean isMatch(String searchText) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return searchText != null 
+                ? toString().toLowerCase().contains(searchText.toLowerCase()) 
+                : true;
     }
 
     @Override
     public boolean isMatch(String[] arrString) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int count = 0;
+        
+        for(String text: arrString){
+            if(isMatch(text))
+                count += 1;
+        }
+        
+        return count == arrString.length;
     }
 
 }

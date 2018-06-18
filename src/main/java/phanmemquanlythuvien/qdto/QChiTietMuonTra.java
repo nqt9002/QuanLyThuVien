@@ -34,11 +34,13 @@ public class QChiTietMuonTra extends com.querydsl.sql.RelationalPathBase<QChiTie
 
     public final StringPath tieuDe = createString("tieuDe");
 
-    public final com.querydsl.sql.PrimaryKey<QChiTietMuonTra> _ChiTietM_1E4E398D3DCEB1FAPK = createPrimaryKey(maCTMT);
+    public final com.querydsl.sql.PrimaryKey<QChiTietMuonTra> _ChiTietM_1E4E398D24CB7BF9PK = createPrimaryKey(maCTMT);
 
-    public final com.querydsl.sql.ForeignKey<QMuonTra> _ChiTietMuo_MaMT_3F466844FK = createForeignKey(maMT, "MaMT");
+    public final com.querydsl.sql.ForeignKey<QMuonTra> _ChiTietMuo_MaMT_4222D4EFFK = createForeignKey(maMT, "MaMT");
 
-    public final com.querydsl.sql.ForeignKey<QSach> _ChiTietMu_MaSac_403A8C7DFK = createForeignKey(maSach, "MaSach");
+    public final com.querydsl.sql.ForeignKey<QSach> _ChiTietMu_MaSac_4316F928FK = createForeignKey(maSach, "MaSach");
+
+    public final com.querydsl.sql.ForeignKey<QPhat> __Phat_MaCTMT_45F365D3FK = createInvForeignKey(maCTMT, "MaCTMT");
 
     public QChiTietMuonTra(String variable) {
         super(QChiTietMuonTra.class, forVariable(variable), "dbo", "ChiTietMuonTra");
