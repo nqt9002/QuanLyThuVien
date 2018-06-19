@@ -15,7 +15,7 @@ public class MuonTra implements MyObject {
 
     private Integer maMT;
     
-    private java.sql.Date ngayMuon = Date.valueOf(LocalDate.now());
+    private java.sql.Date ngayMuon;
 
     private java.sql.Date ngayPhaiTra;
     
@@ -46,6 +46,7 @@ public class MuonTra implements MyObject {
     }
 
     public void setNgayMuon(java.sql.Date ngayMuon) {
+        System.out.print("set ngay muon: "+ngayMuon);
         this.ngayMuon = ngayMuon;
     }
 

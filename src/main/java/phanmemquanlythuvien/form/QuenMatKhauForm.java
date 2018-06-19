@@ -67,12 +67,18 @@ public class QuenMatKhauForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đổi mật khẩu");
 
+        jPanel1.setBackground(new java.awt.Color(139, 157, 195));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tài khoản");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Mã bảo mật");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Mật khẩu mới");
 
+        cbxMatKhau.setForeground(new java.awt.Color(255, 255, 255));
         cbxMatKhau.setText("Hiện mật khẩu");
         cbxMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,17 +180,22 @@ public class QuenMatKhauForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDatLaiActionPerformed
 
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
-        TaiKhoan nguoiDung = tkDao.reset(txtTaiKhoan.getText(), txtMaBaoMat.getText());
-        if(!check()) return;
-        if(nguoiDung != null) {
-                tkDao.resetPass(txtTaiKhoan.getText(), txtMatKhau.getText());
-                JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
-                dispose();
-                DangNhap DN = new DangNhap();
-                DN.setVisible(true);
-        }else {
-            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mã bảo mật không chính xác.");
+        try {
+            TaiKhoan nguoiDung = tkDao.reset(txtTaiKhoan.getText(), txtMaBaoMat.getText());
+            if(!check()) return;
+            if(nguoiDung != null) {
+                    tkDao.resetPass(txtTaiKhoan.getText(), txtMatKhau.getText());
+                    JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
+                    dispose();
+                    DangNhap DN = new DangNhap();
+                    DN.setVisible(true);
+            }else {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mã bảo mật không chính xác.");
+            }            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Kết nối bị lỗi vui lòng kiểm tra lại.");
         }
+
     }//GEN-LAST:event_btnGuiActionPerformed
 
     private void cbxMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMatKhauActionPerformed

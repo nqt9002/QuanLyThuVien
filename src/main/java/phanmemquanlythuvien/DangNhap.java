@@ -5,6 +5,7 @@
  */
 package phanmemquanlythuvien;
 
+import java.sql.SQLException;
 import javax.swing.*;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
@@ -182,19 +183,23 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         
-        TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
-        if(nguoiDung != null) {
-            if(nguoiDung.getTrangThai() == false){
-                JOptionPane.showMessageDialog(this, "Tài khoản "+txtUser.getText()+" hiện đang khóa. Truy cập bị từ chối.");
-                return;
-            }
-                
-            App.activeUser = nguoiDung;
-            MainView QL = new MainView();
-            QL.setVisible(true);
-            setVisible(false);
-        }else {
+        try { 
+            TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
+            if(nguoiDung != null) {
+                if(nguoiDung.getTrangThai() == false){
+                    JOptionPane.showMessageDialog(this, "Tài khoản "+txtUser.getText()+" hiện đang khóa. Truy cập bị từ chối.");
+                    return;
+                }
+
+                App.activeUser = nguoiDung;
+                MainView QL = new MainView();
+                QL.setVisible(true);
+                setVisible(false);
+            }else {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác.");
+        }
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(this, "Kết nối bị lỗi vui lòng kiểm tra lại.");
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 

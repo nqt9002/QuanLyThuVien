@@ -5,9 +5,11 @@
  */
 package phanmemquanlythuvien.dao;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Predicate;
 import static com.querydsl.core.types.Projections.bean;
 import com.querydsl.core.types.QBean;
+import com.querydsl.sql.SQLQuery;
 import com.querydsl.sql.SQLQueryFactory;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +77,10 @@ public class MuonTraDaoImpl implements MuonTraDao {
 
     @Override
     public MuonTra getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(muontraBean)
+                .from(muontra)
+                .where(muontra.maMT.eq(id))
+                .fetchOne();
     }
 
     @Override
@@ -96,6 +101,17 @@ public class MuonTraDaoImpl implements MuonTraDao {
     @Override
     public void delete2(MuonTra p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object test(int id) {
+        SQLQuery<Tuple> query = queryFactory.select(muontra.all())
+                .from(muontra)
+                .where(muontra.maMT.eq(id));
+        
+        System.out.print(query.getSQL().getSQL());
+        
+        return query.fetchOne();
     }
 
 }

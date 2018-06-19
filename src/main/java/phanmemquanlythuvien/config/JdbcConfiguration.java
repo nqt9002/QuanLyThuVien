@@ -40,9 +40,9 @@ public class JdbcConfiguration {
         dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
         dataSource.setURL(env.getRequiredProperty("jdbc.url"));
         dataSource.setDatabaseName(env.getRequiredProperty("jdbc.database"));
-        
         return dataSource;
     }
+    
     
     @Bean
     public PlatformTransactionManager transactionManager() {

@@ -21,4 +21,6 @@ public interface MuonTraDao extends CommonDao<MuonTra> {
     long count();
     void delete(MuonTra p);
     
+    Object test(int id);
+    
 }
