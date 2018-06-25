@@ -38,7 +38,7 @@ public class NXBForm extends javax.swing.JFrame {
         NxbDao nxbDao = App.ctx.getBean(NxbDao.class);
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
-        validators.add(new UniqueValidator(txtTen, "tên nxb", nxbDao, QNxb.nxb.tenNXB));
+        validators.add(new UniqueValidator(txtTen, "tên nxb", nxbDao, QNxb.nxb.tenNXB, this.item));
     }
 
     public void item2Form(){

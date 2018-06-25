@@ -43,7 +43,7 @@ public class TacGiaForm extends javax.swing.JFrame {
         TacgiaDao tacGiaDao = App.ctx.getBean(TacgiaDao.class);
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
-        validators.add(new UniqueValidator(txtTen, "tên", tacGiaDao, QTacGia.TacGia.ten));
+        validators.add(new UniqueValidator(txtTen, "tên", tacGiaDao, QTacGia.TacGia.ten, this.item));
         validators.add(new RequireValidator(txtNgaySinh, "Ngày sinh"));
         validators.add(new DateValidator(txtNgaySinh, "Ngày sinh"));
         validators.add(new MaxValidator(1000, txtTieuSu, "Tiểu sử"));

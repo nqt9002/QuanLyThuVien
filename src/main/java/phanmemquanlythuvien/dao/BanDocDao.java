@@ -16,6 +16,7 @@ public interface BanDocDao extends CommonDao<BanDoc> {
     BanDoc findById(int id);
 
     List<BanDoc> findAll(Predicate... where);
+    
 
     BanDoc save(BanDoc p);
 

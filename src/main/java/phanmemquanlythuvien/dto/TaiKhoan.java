@@ -107,8 +107,8 @@ public class TaiKhoan implements MyObject{
     }
 
     @Override
-    public int getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer getID() {
+        return maTaiKhoan;
     }
 
     @Override

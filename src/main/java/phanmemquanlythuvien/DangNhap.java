@@ -5,13 +5,16 @@
  */
 package phanmemquanlythuvien;
 
-import java.sql.SQLException;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.TaikhoanDao;
 import phanmemquanlythuvien.dto.TaiKhoan;
 import phanmemquanlythuvien.form.QuenMatKhauForm;
+import java.sql.SQLException;
+import javafx.scene.input.KeyCode;
+
 
 /**
  *
@@ -25,6 +28,30 @@ public class DangNhap extends javax.swing.JFrame {
     public DangNhap() {
         initComponents();
     }
+    
+    public void Login(){
+        try { 
+            TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
+            if(nguoiDung != null) {
+                if(nguoiDung.getTrangThai() == false){
+                    JOptionPane.showMessageDialog(this, "Tài khoản "+txtUser.getText()+" hiện đang khóa. Truy cập bị từ chối.");
+                    return;
+                }
+
+                App.activeUser = nguoiDung;
+                MainView QL = new MainView();
+                QL.setVisible(true);
+                setVisible(false);
+            }else {
+            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác.");
+        }
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(this, "Kết nối bị lỗi vui lòng kiểm tra lại.");
+        }        
+    }
+    
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -81,10 +108,22 @@ public class DangNhap extends javax.swing.JFrame {
         frmLogin.setText("Tài khoản");
         frmLogin.setToolTipText("");
 
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserKeyPressed(evt);
+            }
+        });
+
         frmPass.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         frmPass.setForeground(new java.awt.Color(0, 51, 153));
         frmPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         frmPass.setText("Mật khẩu");
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         btnSubmit.setBackground(new java.awt.Color(139, 157, 195));
         btnSubmit.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
@@ -182,25 +221,7 @@ public class DangNhap extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        
-        try { 
-            TaiKhoan nguoiDung = tkDao.login(txtUser.getText(), txtPassword.getText());
-            if(nguoiDung != null) {
-                if(nguoiDung.getTrangThai() == false){
-                    JOptionPane.showMessageDialog(this, "Tài khoản "+txtUser.getText()+" hiện đang khóa. Truy cập bị từ chối.");
-                    return;
-                }
-
-                App.activeUser = nguoiDung;
-                MainView QL = new MainView();
-                QL.setVisible(true);
-                setVisible(false);
-            }else {
-            JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác.");
-        }
-        } catch (Exception ex) {
-           JOptionPane.showMessageDialog(this, "Kết nối bị lỗi vui lòng kiểm tra lại.");
-        }
+        Login();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -219,6 +240,18 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });        
     }//GEN-LAST:event_lblQuenMKMouseClicked
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Login();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Login();
+        }        
+    }//GEN-LAST:event_txtUserKeyPressed
 
     public static void main(String args[]) {
 

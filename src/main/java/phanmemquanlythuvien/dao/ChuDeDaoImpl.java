@@ -110,7 +110,10 @@ public class ChuDeDaoImpl implements ChuDeDao {
 
     @Override
     public List<ChuDe> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(chudeBean)
+                .from(chude)
+                .where(where)
+                .fetch();       
     }
 
     @Override

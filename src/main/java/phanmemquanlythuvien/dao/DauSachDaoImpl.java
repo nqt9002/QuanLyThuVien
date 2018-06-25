@@ -118,7 +118,10 @@ public class DauSachDaoImpl implements DauSachDao {
 
     @Override
     public List<DauSach> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(dausachBean)
+                .from(dausach)
+                .where(where)
+                .fetch();       
     }
 
     @Override

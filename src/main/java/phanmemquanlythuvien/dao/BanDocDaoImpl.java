@@ -110,7 +110,10 @@ public class BanDocDaoImpl implements BanDocDao {
 
     @Override
     public List<BanDoc> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(bandocBean)
+                .from(bandoc)
+                .where(where)
+                .fetch();    
     }
 
     @Override

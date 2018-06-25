@@ -11,7 +11,8 @@ package phanmemquanlythuvien.dto;
  */
 public interface MyObject {
     boolean isNew();
-    int getID();
+    Integer getID();
     boolean isMatch(String searchText);
     boolean isMatch(String[] arrString);
+    
 }

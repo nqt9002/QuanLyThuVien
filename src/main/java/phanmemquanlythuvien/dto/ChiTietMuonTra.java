@@ -73,7 +73,7 @@ public class ChiTietMuonTra implements MyObject {
     }
 
     @Override
-    public int getID() {
+    public Integer getID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -46,7 +46,6 @@ public class MuonTra implements MyObject {
     }
 
     public void setNgayMuon(java.sql.Date ngayMuon) {
-        System.out.print("set ngay muon: "+ngayMuon);
         this.ngayMuon = ngayMuon;
     }
 
@@ -93,7 +92,7 @@ public class MuonTra implements MyObject {
     }
 
     @Override
-    public int getID() {
+    public Integer getID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

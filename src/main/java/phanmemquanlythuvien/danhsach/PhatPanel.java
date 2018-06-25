@@ -15,7 +15,6 @@ import phanmemquanlythuvien.dao.MuonTraDao;
 import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dto.Phat;
 import phanmemquanlythuvien.enums.Quyen;
-import phanmemquanlythuvien.form.PhatForm;
 
 /**
  *
@@ -45,6 +44,8 @@ public class PhatPanel extends SubPanel{
            btnThem.setVisible(false);
            btnSua.setVisible(false);
            btnXoa.setVisible(false);
+           btnChiTiet.setVisible(false);
+           btnMuon.setVisible(false);
        }    
     
     public static PhatPanel create(){

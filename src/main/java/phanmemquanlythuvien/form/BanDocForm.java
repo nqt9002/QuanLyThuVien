@@ -49,10 +49,10 @@ public class BanDocForm extends javax.swing.JFrame {
         validators.add(new NumberValidator(txtSDT, "Số điện thoại"));
         validators.add(new MinValidator(10, txtSDT, "Số điện thoại"));
         validators.add(new MaxValidator(11, txtSDT, "Số điện thoại"));
-        validators.add(new UniqueValidator(txtTen, "số điện thoại", banDocDao, QBanDoc.BanDoc.soDT));
+        validators.add(new UniqueValidator(txtSDT, "số điện thoại", banDocDao, QBanDoc.BanDoc.soDT, this.item));
         validators.add(new RequireValidator(txtEmail, "Email"));
         validators.add(new EmailValidator(txtEmail, "Email"));
-        validators.add(new UniqueValidator(txtTen, "email", banDocDao, QBanDoc.BanDoc.email));
+        validators.add(new UniqueValidator(txtEmail, "email", banDocDao, QBanDoc.BanDoc.email, this.item));
     }
     
     public static BanDocForm getInstance(){
@@ -65,6 +65,12 @@ public class BanDocForm extends javax.swing.JFrame {
     
     public void setItem(BanDoc bandoc){
         item = bandoc;
+        validators.stream()
+          .filter((validator) -> (validator instanceof UniqueValidator))
+          .forEachOrdered((validator) -> {
+            ((UniqueValidator) validator).item = item;
+        });
+        
         item2Form();
     }
 
@@ -294,7 +300,10 @@ public class BanDocForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BanDocForm().setVisible(true);
+                BanDocForm form = BanDocForm.getInstance();
+                form.setItem(new BanDoc());
+                form.setVisible(true);
+//                new BanDocForm().setVisible(true);
             }
         });
     }

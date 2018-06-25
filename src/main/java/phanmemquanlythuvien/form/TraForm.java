@@ -8,14 +8,10 @@ package phanmemquanlythuvien.form;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
 import phanmemquanlythuvien.dao.DauSachDao;
@@ -33,6 +29,9 @@ import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MyValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
 import phanmemquanlythuvien.qdto.QChiTietMuonTra;
+import phanmemquanlythuvien.config.App;
+import phanmemquanlythuvien.enums.Quyen;
+
 
 /**
  *
@@ -45,6 +44,8 @@ public class TraForm extends javax.swing.JFrame {
     List<ChiTietMuonTra> allCTMT;
     
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
+    static final String MSG_KIEM_TRA_NGAY = "Ngày trả không được nhỏ hơn ngày mượn.";
+    static final String MSG_KIEM_TRA_NGAY_HIEN_TAI = "Ngày trả không được lớn hơn ngày hiện tại.";
     
     private static final Logger LOGGER = Logger.getLogger(SachForm.class);    
     
@@ -69,10 +70,11 @@ public class TraForm extends javax.swing.JFrame {
         
         validators.add(new RequireValidator(txtNgayTra, "Ngày trả"));
         validators.add(new DateValidator(txtNgayTra, "Ngày trả"));
+        btnMuonSach.setVisible(Quyen.MUON.kiemTra(App.activeUser));
+        btnHuy.setVisible(Quyen.MUON.kiemTra(App.activeUser));
     }
     
-    
-    public void item2Form(){
+    public final void item2Form(){
         if(item.getMaMT() == null){
             return;
         }
@@ -83,7 +85,6 @@ public class TraForm extends javax.swing.JFrame {
         
         for(ChiTietMuonTra chitiet: chiTietList){
             listModel.addElement(chitiet);
-            LOGGER.info(chitiet.getNgayTra() == null);
         }
         
         txtBanDoc.setText(bandocDao.getTenBanDoc(item.getMaBD()));
@@ -126,31 +127,45 @@ public class TraForm extends javax.swing.JFrame {
         return true;
     }
     
-    public static int daysBetween(Date d1, Date d2){
-        return (int) (d1.getTime() - d2.getTime())/86400000;
+    public static long daysBetween(Date d1, Date d2){
+        return (int) ((d1.getTime() - d2.getTime())/86400000);
+    }
+    
+    public boolean checkDate(){
+        for(ChiTietMuonTra chitiet: chiTietDaSua){
+            long soNgay = daysBetween(Date.valueOf(txtNgayTra.getText()),item.getNgayMuon());
+            if(soNgay < 0){
+                JOptionPane.showMessageDialog(this, MSG_KIEM_TRA_NGAY);
+                return false;
+            }
+            else{
+                long soNgay2 = daysBetween(Date.valueOf(LocalDate.now()),Date.valueOf(txtNgayTra.getText()));
+                if(soNgay2 < 0){
+                    JOptionPane.showMessageDialog(this, MSG_KIEM_TRA_NGAY_HIEN_TAI);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     public void saveData(){
         if(!check()) return;
+        if(checkDate() == false) return;
         form2Item();
         muontraDao.save(item);
         for(ChiTietMuonTra chitiet: chiTietDaSua){
             ctmtDao.save(chitiet);
-            if(chitiet.getNgayTra().compareTo(item.getNgayPhaiTra()) > 0 ){
-               // Phat phat = new Phat();
-                // set ma muon tra
-                // set ma chi tiet muon tra
-                // set gia tien mac dinh
-                // save
+            if(Date.valueOf(txtNgayTra.getText()).compareTo(item.getNgayPhaiTra()) > 0 ){
                 Phat phat = new Phat();
                 phat.setMaMT(chitiet.getMaMT());
                 phat.setMaCTMT(chitiet.getMaCTMT());
                 phat.setMaSach(chitiet.getMaSach());
                 phat.setTieuDe(chitiet.getTieuDe());
-                int soNgay = daysBetween(chitiet.getNgayTra(),item.getNgayPhaiTra());
-                phat.setSoNgay(soNgay);
-                phat.setNgayPhat(Date.valueOf(LocalDate.now()));
-                phat.setSoTien(soNgay*5000);
+                long soNgay = daysBetween(Date.valueOf(txtNgayTra.getText()),item.getNgayPhaiTra());
+                phat.setSoNgay((int)(soNgay));
+                phat.setNgayPhat(Date.valueOf(txtNgayTra.getText()));
+                phat.setSoTien(((int)(soNgay))*5000);
                 phatDao.save(phat);
             }
             
@@ -289,11 +304,11 @@ public class TraForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

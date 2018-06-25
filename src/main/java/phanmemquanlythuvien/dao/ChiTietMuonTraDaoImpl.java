@@ -39,7 +39,7 @@ public class ChiTietMuonTraDaoImpl implements ChiTietMuonTraDao {
     public ChiTietMuonTra findBySachId(int id) {
         return queryFactory.select(chitietmuontraBean)
                 .from(chitietmuontra)
-                .where(chitietmuontra.maSach.eq(id))
+                .where(chitietmuontra.maSach.eq(id),chitietmuontra.ngayTra.isNull())
                 .fetchOne();
     }
 
@@ -88,7 +88,10 @@ public class ChiTietMuonTraDaoImpl implements ChiTietMuonTraDao {
 
     @Override
     public List<ChiTietMuonTra> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(chitietmuontraBean)
+                .from(chitietmuontra)
+                .where(where)
+                .fetch();       
     }
 
     @Override

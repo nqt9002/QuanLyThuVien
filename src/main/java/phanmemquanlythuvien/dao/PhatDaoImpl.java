@@ -80,7 +80,10 @@ public class PhatDaoImpl implements PhatDao {
 
     @Override
     public List<Phat> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(phatBean)
+                .from(phat)
+                .where(where)
+                .fetch();
     }
 
     @Override

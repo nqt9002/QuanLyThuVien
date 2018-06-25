@@ -15,10 +15,12 @@ import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.DauSachDao;
 import phanmemquanlythuvien.dao.NxbDao;
+import phanmemquanlythuvien.dao.SachDao;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.ChuDe;
 import phanmemquanlythuvien.dto.DauSach;
 import phanmemquanlythuvien.dto.Nxb;
+import phanmemquanlythuvien.dto.Sach;
 import phanmemquanlythuvien.dto.TacGia;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MaxValidator;
@@ -35,6 +37,7 @@ import phanmemquanlythuvien.qdto.QDauSach;
 public class DauSachForm extends javax.swing.JFrame {
 
     DauSach item;
+    Sach itemSach;
     
     private static final Logger LOGGER = Logger.getLogger(TacGiaForm.class);
     
@@ -59,14 +62,14 @@ public class DauSachForm extends javax.swing.JFrame {
         DauSachDao dauSachDao = App.ctx.getBean(DauSachDao.class);
         validators.add(new MaxValidator(60, txtTenDauSach, "Tên đầu sách"));
         validators.add(new RequireValidator(txtTenDauSach, "Tên đầu sách"));
-        validators.add(new UniqueValidator(txtTenDauSach, "tên đầu sách", dauSachDao, QDauSach.DauSach.ten));
+        validators.add(new UniqueValidator(txtTenDauSach, "tên đầu sách", dauSachDao, QDauSach.DauSach.ten, this.item));
         validators.add(new RequireValidator(txtLanTaiBan, "Lần tái bản"));
         validators.add(new NumberValidator(txtLanTaiBan, "Lần tái bản"));
         validators.add(new MaxValidator(1000, txtTomTat, "Tóm tắt nội dung"));
         validators.add(new RequireValidator(txtTomTat, "Tóm tắt nội dung"));
         
         this.item2Form();
-    }   
+    }
     
     public final void buildComboBox(){
         tacgiaDao.findAll().stream().filter(tg -> tg.getTrangThai() == true).forEach(tacgia -> {
@@ -146,7 +149,16 @@ public class DauSachForm extends javax.swing.JFrame {
         form2Item();
         DauSachDao dsD = App.ctx.getBean(DauSachDao.class);
         dsD.save(item);
-        // TODO show popup
+        SachDao sachDao = App.ctx.getBean(SachDao.class);
+        int allDS = sachDao.countAllDS(item.getMaDS());
+        String tacGia = tacgiaDao.getTenTacGia(item.getMaTG());
+        String chuDe = chudeDao.getTenChuDe(item.getMaCD());
+        String nXB = nxbDao.getTenNXB(item.getMaNXB());
+        for(int i = 0; i < allDS; i++){
+            int mDS = item.getMaDS();
+            String tieuDe = (item.getTen() + " - " + chuDe + " - " + tacGia + " - " + nXB);
+            sachDao.saveTieuDe(mDS,tieuDe);
+        }
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
         dispose();
     }

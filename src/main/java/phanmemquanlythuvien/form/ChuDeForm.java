@@ -42,7 +42,7 @@ public class ChuDeForm extends javax.swing.JFrame {
         ChuDeDao chuDeDao = App.ctx.getBean(ChuDeDao.class);
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
-        validators.add(new UniqueValidator(txtTen, "tên", chuDeDao, QChuDe.ChuDe.tenChuDe));
+        validators.add(new UniqueValidator(txtTen, "tên", chuDeDao, QChuDe.ChuDe.tenChuDe, this.item));
     }
 
     public void item2Form(){

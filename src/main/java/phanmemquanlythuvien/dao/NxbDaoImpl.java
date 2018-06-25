@@ -110,7 +110,10 @@ public class NxbDaoImpl implements NxbDao {
 
     @Override
     public List<Nxb> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(nxbBean)
+                .from(nxb)
+                .where(where)
+                .fetch();        
     }
 
     @Override

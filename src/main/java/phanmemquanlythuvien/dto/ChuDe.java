@@ -53,8 +53,8 @@ public class ChuDe implements MyObject{
     }
 
     @Override
-    public int getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer getID() {
+        return maCD;
     }
 
     @Override

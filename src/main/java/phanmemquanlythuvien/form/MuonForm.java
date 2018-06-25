@@ -6,12 +6,9 @@
 package phanmemquanlythuvien.form;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -42,9 +39,10 @@ import phanmemquanlythuvien.form.validator.RequireValidator;
 public class MuonForm extends javax.swing.JFrame {
 
     MuonTra item;
- 
+    
     static MuonForm instance;
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
+    static final String MSG_KIEM_TRA_NGAY = "Ngày phải trả không được nhỏ hơn hoặc bằng ngày mượn.";
     
     private static final Logger LOGGER = Logger.getLogger(SachForm.class);    
     
@@ -125,9 +123,24 @@ public class MuonForm extends javax.swing.JFrame {
         return true;
     }
     
+    public static long daysBetween(Date d1, Date d2){
+        return (int) ((d1.getTime() - d2.getTime())/86400000);
+    }
+
+    public boolean checkDate(){
+        long soNgay = daysBetween(item.getNgayPhaiTra(),item.getNgayMuon());
+        if(soNgay <= 0){
+            JOptionPane.showMessageDialog(this, MSG_KIEM_TRA_NGAY);
+            txtNgayPhaiTra.grabFocus();
+            return false;
+        }
+        return true;
+    }
+    
     public void saveData(){
         if(!check()) return;
         form2Item();
+        if(checkDate() == false) return;
         muontraDao.save(item);
         int size = listSach.getModel().getSize();
         
@@ -157,8 +170,18 @@ public class MuonForm extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
         item = new MuonTra();
-        // resetForm();
+        resetForm();
         dispose();
+    }
+    
+    public void resetForm(){
+        txtBanDoc.setText("");
+        txtBanDoc.setEditable(false);
+        txtNgayMuon.setText("");
+        txtNgayMuon.setEditable(false);
+        txtNgayPhaiTra.setText("");
+        listModel = new DefaultListModel<>();
+        listSach.setModel(listModel);
     }
     
     @SuppressWarnings("unchecked")

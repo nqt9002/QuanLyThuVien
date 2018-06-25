@@ -91,8 +91,9 @@ public class BanDoc implements MyObject {
     }
 
     @Override
-    public int getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer getID() {
+        System.out.print("get ID from here");
+        return this.getMaBD();
     }
 
     @Override

@@ -59,7 +59,7 @@ import phanmemquanlythuvien.dto.TacGia;
                 .where(tacgia.maTG.eq(id)).execute();
         }
         
-        mapTacGia.put(p.getMaTG(), p.getTen());
+//        mapTacGia.put(p.getMaTG(), p.getTen());
 
         return p;
     }
@@ -112,7 +112,10 @@ import phanmemquanlythuvien.dto.TacGia;
 
     @Override
     public List<TacGia> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(tacgiaBean)
+                .from(tacgia)
+                .where(where)
+                .fetch();
     }
 
     @Override

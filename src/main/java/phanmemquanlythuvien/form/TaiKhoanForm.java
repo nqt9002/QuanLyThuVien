@@ -7,6 +7,7 @@ package phanmemquanlythuvien.form;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -53,13 +54,25 @@ public class TaiKhoanForm extends javax.swing.JFrame {
         validators.add(new MaxValidator(60, txtTen, "Tên"));
         validators.add(new RequireValidator(txtTen, "Tên"));
         validators.add(new RequireValidator(txtTaiKhoan, "Tài khoản"));
+        validators.add(new MinValidator(6, txtTaiKhoan, "Tài khoản"));
         validators.add(new MaxValidator(60, txtTaiKhoan, "Tài khoản"));
         TaikhoanDao tkD = App.ctx.getBean(TaikhoanDao.class);
-        validators.add(new UniqueValidator(txtTaiKhoan, "tài khoản", tkD, QTaiKhoan.TaiKhoan.taiKhoan));
+        validators.add(new UniqueValidator(txtTaiKhoan, "tài khoản", tkD, QTaiKhoan.TaiKhoan.taiKhoan, this.item));
         
         createValidators.add(new RequireValidator(txtMatKhau, "Mật khẩu"));
         createValidators.add(new RequireValidator(txtMaBaoMat, "Mã bảo mật"));
         
+        cbxKichHoat.setEnabled(!Objects.equals(this.item.getID(), App.activeUser.getID()));
+//        if(item.getID() == 1){
+//            if(!Objects.equals(this.item.getID(), App.activeUser.getID())){
+//                cbxKichHoat.enable(false);
+//                txtMaBaoMat.setEditable(false);
+//                txtMatKhau.setEditable(false);
+//                txtTaiKhoan.setEditable(false);
+//                txtTen.setEditable(false);
+//            }
+//                
+//        }
     }
     
     public final void item2Form(){

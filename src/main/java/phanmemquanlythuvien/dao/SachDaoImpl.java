@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
-import phanmemquanlythuvien.dto.MyObject;
 
 import phanmemquanlythuvien.qdto.QSach;
 import phanmemquanlythuvien.dto.Sach;
@@ -110,7 +109,10 @@ public class SachDaoImpl implements SachDao {
 
     @Override
     public List<Sach> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(sachBean)
+                .from(sach)
+                .where(where)
+                .fetch();
     }
 
     @Override
@@ -126,5 +128,22 @@ public class SachDaoImpl implements SachDao {
     @Override
     public void delete2(Sach p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public int countAllDS(int mDauSach){
+        return (int) queryFactory
+                .select(sachBean)
+                .from(sach)
+                .where(sach.maDS.eq(mDauSach))
+                .fetchCount();
+    }
+
+    @Override
+    public void saveTieuDe(int mDauSach, String tieuDe){
+        queryFactory.update(sach)
+                .set(sach.tieuDe, tieuDe)
+                .where(sach.maDS.eq(mDauSach))
+                .execute();      
     }
 }

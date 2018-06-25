@@ -146,7 +146,6 @@ public class SubPanel extends CommonViewImpl implements CommonView {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        table.setGridColor(new java.awt.Color(255, 255, 255));
         table.setSelectionBackground(new java.awt.Color(59, 89, 152));
         jScrollPane1.setViewportView(table);
 

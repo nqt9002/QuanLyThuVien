@@ -85,7 +85,10 @@ public class MuonTraDaoImpl implements MuonTraDao {
 
     @Override
     public List<MuonTra> findAll2(Predicate... where) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryFactory.select(muontraBean)
+        .from(muontra)
+        .where(where)
+        .fetch();
     }
 
     @Override
@@ -108,9 +111,6 @@ public class MuonTraDaoImpl implements MuonTraDao {
         SQLQuery<Tuple> query = queryFactory.select(muontra.all())
                 .from(muontra)
                 .where(muontra.maMT.eq(id));
-        
-        System.out.print(query.getSQL().getSQL());
-        
         return query.fetchOne();
     }
 

@@ -22,10 +22,12 @@ public interface SachDao extends CommonDao<Sach> {
 
     long count();
     void delete(Sach p);
+    void saveTieuDe(int mDauSach, String tieuDe);
     
     void doiTrangThai(Set<Integer> idSach, TrangThaiSach trangthai);
     int countDS(int mDauSach, int trangthai);
     int countDS(int mDauSach, TrangThaiSach trangthai);
     int countDS(int mDauSach);
+    int countAllDS(int mDauSach);
     
 }

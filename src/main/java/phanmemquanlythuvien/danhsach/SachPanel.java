@@ -122,7 +122,11 @@ public class SachPanel extends SubPanel{
             });              
         } else {
             ChiTietMuonTraDao chitietDao = App.ctx.getBean(ChiTietMuonTraDao.class);
+            LOGGER.info("TEST: "+chitietDao.findBySachId(sach.getMaSach()).getTieuDe());
+           
             ChiTietMuonTra chitiet = chitietDao.findBySachId(sach.getMaSach());
+            
+           // chitietDao.findById(sach.getMaSach()).equals(chitiet.getNgayTra() != null);
             MuonTra muon = App.ctx.getBean(MuonTraDao.class).findById(chitiet.getMaMT());
             TraForm form = new TraForm(muon);
             form.setVisible(true);
@@ -183,7 +187,6 @@ public class SachPanel extends SubPanel{
     }
     
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {                                   
-        // TODO add your handling code here:
         TrangThaiSach trangThai = getSelectedTrangThai();
         
         switch (trangThai) {
