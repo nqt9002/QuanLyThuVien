@@ -5,11 +5,8 @@
  */
 package phanmemquanlythuvien.form;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
@@ -17,17 +14,14 @@ import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
 import phanmemquanlythuvien.dao.DauSachDao;
 import phanmemquanlythuvien.dao.MuonTraDao;
+import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dao.SachDao;
-import phanmemquanlythuvien.dto.ChiTietMuonTra;
-import phanmemquanlythuvien.dto.DauSach;
-import phanmemquanlythuvien.dto.MuonTra;
-import phanmemquanlythuvien.dto.Sach;
-import phanmemquanlythuvien.enums.TrangThaiSach;
-import phanmemquanlythuvien.form.validator.DateValidator;
+import phanmemquanlythuvien.dto.Phat;
+import phanmemquanlythuvien.form.validator.GreaterValidator;
 import phanmemquanlythuvien.form.validator.InputError;
 import phanmemquanlythuvien.form.validator.MyValidator;
+import phanmemquanlythuvien.form.validator.NumberValidator;
 import phanmemquanlythuvien.form.validator.RequireValidator;
-import phanmemquanlythuvien.qdto.QChiTietMuonTra;
 
 /**
  *
@@ -35,76 +29,52 @@ import phanmemquanlythuvien.qdto.QChiTietMuonTra;
  */
 public class PhatForm extends javax.swing.JFrame {
 
-    MuonTra item;
-    
-    List<ChiTietMuonTra> allCTMT;
+    Phat item;
     
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
     
     private static final Logger LOGGER = Logger.getLogger(SachForm.class);    
     
-    List<MyValidator> validators = new ArrayList<>();
+    static BanDocDao banDocDao = App.ctx.getBean(BanDocDao.class);
     
-    static BanDocDao bandocDao = App.ctx.getBean(BanDocDao.class);
-    
-    MuonTraDao muontraDao = App.ctx.getBean(MuonTraDao.class);
+    MuonTraDao muonTraDao = App.ctx.getBean(MuonTraDao.class);
     ChiTietMuonTraDao ctmtDao= App.ctx.getBean(ChiTietMuonTraDao.class);
     SachDao sachDao = App.ctx.getBean(SachDao.class);
-    DauSachDao dausachDao = App.ctx.getBean(DauSachDao.class);   
-        
-    DefaultListModel<ChiTietMuonTra> listModel;    
-    List<ChiTietMuonTra> chiTietDaSua = new ArrayList<>();
+    DauSachDao dauSachDao = App.ctx.getBean(DauSachDao.class);
     
-    public PhatForm(MuonTra tra) {
+    List<MyValidator> validators = new ArrayList<>();
+
+    
+    public PhatForm(Phat phat) {
         initComponents();
-        this.item = tra;  
-        listModel = new DefaultListModel();
+        this.item = phat;  
         this.item2Form();
-        
-        validators.add(new RequireValidator(txtNgayTra, "Ngày trả"));
-        validators.add(new DateValidator(txtNgayTra, "Ngày trả"));
+        validators.add(new RequireValidator(txtSoTien, "Số tiền"));
+        validators.add(new NumberValidator(txtSoTien, "Số tiền"));
+        validators.add(new GreaterValidator(txtSoTien, "Số tiền", (item.getSoNgay()*5000)));
     }
-    
-    
-    public void item2Form(){
-        if(item.getMaMT() == null){
+
+    public final void item2Form(){
+        if(item.getMaPhat() == null){
+            deleteText();
             return;
         }
         
-        List<ChiTietMuonTra> chiTietList = ctmtDao.findAll(
-            QChiTietMuonTra.ChiTietMuonTra.maMT.eq(item.getMaMT())
-        );
-        
-        for(ChiTietMuonTra chitiet: chiTietList){
-            listModel.addElement(chitiet);
-            LOGGER.info(chitiet.getNgayTra() == null);
-        }
-        
-        txtBanDoc.setText(bandocDao.getTenBanDoc(item.getMaBD()));
-     //   txtNgayMuon.setText(item.getNgayMuon().toString());
-        listSach.setModel(listModel);
-        txtNgayPhaiTra.setText(item.getNgayPhaiTra().toString());
-        txtNgayTra.setText(LocalDate.now().toString());
+        txtBanDoc.setText(banDocDao.findById(muonTraDao.findById(item.getMaMT()).getMaBD()).getTenBD());
         txtBanDoc.setEditable(false);
-     //   txtNgayMuon.setEditable(false);
-        txtNgayPhaiTra.setEditable(false);
+        txtNgayPhat.setText(item.getNgayPhat().toString());
+        txtNgayPhat.setEditable(false);
+        txtSoNgayQuaHan.setText(item.getSoNgay().toString());
+        txtSoNgayQuaHan.setEditable(false);
+        txtSoTien.setText(item.getSoTien().toString());
+        txtSoTien.grabFocus();
+        txtTenSach.setText(item.getTieuDe());
+        txtTenSach.setEditable(false);
     }
     
-    public void traSach(){
-        int index = listSach.getSelectedIndex();
-        if(index >= 0){
-            ChiTietMuonTra chitiet = listModel.getElementAt(index);
-            if(!chitiet.isDaTra()){
-                chitiet.setNgayTra(Date.valueOf(LocalDate.now()));
-                listSach.setModel(listModel);
-                chiTietDaSua.add(chitiet);
-            }
-                
-        }
-    }    
-    
     public void form2Item(){
-        item.traThemSach(chiTietDaSua.size());
+        // bring data from txt to obj
+        item.setSoTien(Integer.parseInt(txtSoTien.getText()));
     }
     
     public boolean check(){
@@ -123,67 +93,60 @@ public class PhatForm extends javax.swing.JFrame {
     public void saveData(){
         if(!check()) return;
         form2Item();
-        muontraDao.save(item);
-        for(ChiTietMuonTra chitiet: chiTietDaSua){
-            ctmtDao.save(chitiet);
-            Sach sach = sachDao.findById(chitiet.getMaSach());
-            sach.setTrangThai(TrangThaiSach.SAN_SANG);
-            sachDao.save(sach);
-            DauSach dauSach = dausachDao.findById(sach.getMaDS());
-            int soluong = sachDao.countDS(dauSach.getMaDS());
-            dauSach.setSoLuong(soluong);
-            dausachDao.save(dauSach);       
-        }
+        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
+        phatDao.save(item);
+        // TODO show popup
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
-        item = new MuonTra();
         dispose();
     }
+    
+    public void deleteText()
+    {
+        txtBanDoc.setText(banDocDao.findById(muonTraDao.findById(item.getMaMT()).getMaBD()).getTenBD());
+        txtBanDoc.setEditable(false);
+        txtNgayPhat.setText(item.getNgayPhat().toString());
+        txtNgayPhat.setEditable(false);
+        txtSoNgayQuaHan.setText(item.getSoNgay().toString());
+        txtSoNgayQuaHan.setEditable(false);
+        txtSoTien.setText(item.getSoTien().toString());
+        txtSoTien.grabFocus();
+        txtTenSach.setText(item.getTieuDe());
+        txtTenSach.setEditable(false);
         
+    }    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listSach = new javax.swing.JList<>();
         jLabel12 = new javax.swing.JLabel();
         txtBanDoc = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtNgayPhaiTra = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtNgayTra = new javax.swing.JTextField();
+        txtNgayPhat = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtSoNgayQuaHan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSoTien = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtTenSach = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(139, 157, 195));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        listSach.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listSachMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listSach);
 
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Tên bạn đọc");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Tên Sách");
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ngày phải trả");
+        jLabel1.setText("Tên sách");
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Ngày trả");
+        jLabel4.setText("Ngày phạt");
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Số ngày quá hạn");
@@ -201,12 +164,16 @@ public class PhatForm extends javax.swing.JFrame {
         });
 
         btnHuy.setForeground(new java.awt.Color(0, 0, 157));
-        btnHuy.setText("Hủy");
+        btnHuy.setText("Đặt lại");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
             }
         });
+
+        txtTenSach.setColumns(20);
+        txtTenSach.setRows(5);
+        jScrollPane1.setViewportView(txtTenSach);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -216,24 +183,22 @@ public class PhatForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBanDoc)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(txtNgayPhaiTra)
-                    .addComponent(txtNgayTra)
+                    .addComponent(txtNgayPhat)
                     .addComponent(txtSoNgayQuaHan)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtSoTien)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -246,15 +211,11 @@ public class PhatForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNgayPhaiTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNgayPhat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -267,7 +228,7 @@ public class PhatForm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
                     .addComponent(btnHuy))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,24 +239,21 @@ public class PhatForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void listSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSachMouseClicked
-        if(evt.getClickCount() == 2){
-            traSach();
-        }
-    }//GEN-LAST:event_listSachMouseClicked
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         saveData();
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        dispose();
+        deleteText();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
@@ -328,7 +286,7 @@ public class PhatForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PhatForm(new MuonTra()).setVisible(true);
+                new PhatForm(new Phat()).setVisible(true);
             }
         });
     }
@@ -338,17 +296,15 @@ public class PhatForm extends javax.swing.JFrame {
     private javax.swing.JButton btnLuu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<ChiTietMuonTra> listSach;
     private javax.swing.JTextField txtBanDoc;
-    private javax.swing.JTextField txtNgayPhaiTra;
-    private javax.swing.JTextField txtNgayTra;
+    private javax.swing.JTextField txtNgayPhat;
     private javax.swing.JTextField txtSoNgayQuaHan;
     private javax.swing.JTextField txtSoTien;
+    private javax.swing.JTextArea txtTenSach;
     // End of variables declaration//GEN-END:variables
 }

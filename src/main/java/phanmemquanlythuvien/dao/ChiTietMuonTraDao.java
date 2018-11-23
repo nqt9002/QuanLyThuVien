@@ -22,5 +22,5 @@ public interface ChiTietMuonTraDao extends CommonDao<ChiTietMuonTra> {
     long count();
     void delete(ChiTietMuonTra p);
 //    List<ChiTietMuonTra> findByMaMT(int id);
-    
+    void saveTieuDe(int mDauSach, String tieuDe);
 }

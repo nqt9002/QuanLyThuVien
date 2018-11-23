@@ -123,7 +123,7 @@ public class BanDocCT extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbxTrangThai)))
-                        .addContainerGap(245, Short.MAX_VALUE))
+                        .addContainerGap(217, Short.MAX_VALUE))
                     .addComponent(txtEmailBD)))
         );
         jPanel1Layout.setVerticalGroup(

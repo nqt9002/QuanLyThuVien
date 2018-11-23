@@ -39,12 +39,10 @@ public class UniqueValidator implements MyValidator{
         List<MyObject> items = dao.findAll2(path.eq(this.field.getText()));
         
         if(items.size() > 1)
-            throw new InputError("Tên " + label + " đang tồn tại. Vui lòng chọn tên khác", this.field);
+            throw new InputError(label + " đang tồn tại. Vui lòng chọn "+label+" khác", this.field);
         
         if(items.size() == 1){
-            LOGGER.info("item is null:" + item);
-            LOGGER.info("item id: "+ item.getID());
-            LOGGER.info("item2 id: "+ items.get(0).getID());
+
             if(!Objects.equal(item.getID(), items.get(0).getID()))
                 throw new InputError(label + " đang tồn tại. Vui lòng chọn "+label+" khác", this.field);
         }

@@ -100,4 +100,12 @@ public class PhatDaoImpl implements PhatDao {
     public void delete2(Phat p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void saveTieuDe(int mDauSach, String tieuDe){
+        queryFactory.update(phat)
+                .set(phat.tieuDe, tieuDe)
+                .where(phat.maDauSach.eq(mDauSach))
+                .execute();      
+    }    
 }

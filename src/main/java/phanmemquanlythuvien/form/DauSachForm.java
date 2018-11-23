@@ -12,9 +12,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import phanmemquanlythuvien.config.App;
+import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
 import phanmemquanlythuvien.dao.ChuDeDao;
 import phanmemquanlythuvien.dao.DauSachDao;
 import phanmemquanlythuvien.dao.NxbDao;
+import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dao.SachDao;
 import phanmemquanlythuvien.dao.TacgiaDao;
 import phanmemquanlythuvien.dto.ChuDe;
@@ -107,11 +109,7 @@ public class DauSachForm extends javax.swing.JFrame {
             if(Objects.equals(cboNXBModel.getElementAt(i).getMaNXB(), item.getMaCD()))
                 cboNXB.setSelectedIndex(i);
         }
-        
-        
-//        cboTacGia.setSelectedItem(tacgiaDao.getTenTacGia(item.getMaTG()));
-//        cboNXB.setSelectedItem(nxbDao.getTenNXB(item.getMaNXB()));
-//        cboChuDe.setSelectedItem(chudeDao.getTenChuDe(item.getMaCD()));
+
         txtSoLuong.setText(item.getSoLuong().toString());
         txtSoLuong.setEnabled(false);
         txtLanTaiBan.setText(item.getLanTaiBan().toString());
@@ -150,6 +148,8 @@ public class DauSachForm extends javax.swing.JFrame {
         DauSachDao dsD = App.ctx.getBean(DauSachDao.class);
         dsD.save(item);
         SachDao sachDao = App.ctx.getBean(SachDao.class);
+        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
+        ChiTietMuonTraDao ctMuonTraDao = App.ctx.getBean(ChiTietMuonTraDao.class);
         int allDS = sachDao.countAllDS(item.getMaDS());
         String tacGia = tacgiaDao.getTenTacGia(item.getMaTG());
         String chuDe = chudeDao.getTenChuDe(item.getMaCD());
@@ -158,6 +158,9 @@ public class DauSachForm extends javax.swing.JFrame {
             int mDS = item.getMaDS();
             String tieuDe = (item.getTen() + " - " + chuDe + " - " + tacGia + " - " + nXB);
             sachDao.saveTieuDe(mDS,tieuDe);
+            ctMuonTraDao.saveTieuDe(mDS, tieuDe);
+            phatDao.saveTieuDe(mDS,tieuDe);
+            
         }
         JOptionPane.showMessageDialog(this, MSG_LUU_THANH_CONG);
         dispose();

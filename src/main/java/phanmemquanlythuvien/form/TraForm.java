@@ -162,6 +162,7 @@ public class TraForm extends javax.swing.JFrame {
                 phat.setMaCTMT(chitiet.getMaCTMT());
                 phat.setMaSach(chitiet.getMaSach());
                 phat.setTieuDe(chitiet.getTieuDe());
+                phat.setMaDauSach(sachDao.findById(chitiet.getMaSach()).getMaDS());
                 long soNgay = daysBetween(Date.valueOf(txtNgayTra.getText()),item.getNgayPhaiTra());
                 phat.setSoNgay((int)(soNgay));
                 phat.setNgayPhat(Date.valueOf(txtNgayTra.getText()));

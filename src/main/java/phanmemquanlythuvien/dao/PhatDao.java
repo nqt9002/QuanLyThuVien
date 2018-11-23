@@ -20,5 +20,5 @@ public interface PhatDao extends CommonDao<Phat> {
 
     long count();
     void delete(Phat p);
-    
+    void saveTieuDe(int mDauSach, String tieuDe);
 }

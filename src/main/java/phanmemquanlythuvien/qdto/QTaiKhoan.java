@@ -38,7 +38,7 @@ public class QTaiKhoan extends com.querydsl.sql.RelationalPathBase<QTaiKhoan> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<QTaiKhoan> _TaiKhoan_AD7C6529885A58D2PK = createPrimaryKey(maTaiKhoan);
+    public final com.querydsl.sql.PrimaryKey<QTaiKhoan> _TaiKhoan_AD7C652938BF82F5PK = createPrimaryKey(maTaiKhoan);
 
     public QTaiKhoan(String variable) {
         super(QTaiKhoan.class, forVariable(variable), "dbo", "TaiKhoan");

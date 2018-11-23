@@ -67,7 +67,7 @@
                                   <Component id="cbxTrangThai" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="245" max="32767" attributes="0"/>
+                          <EmptySpace pref="217" max="32767" attributes="0"/>
                       </Group>
                       <Component id="txtEmailBD" alignment="0" max="32767" attributes="0"/>
                   </Group>

@@ -32,7 +32,7 @@ public class QSach extends com.querydsl.sql.RelationalPathBase<QSach> {
 
     public final NumberPath<Integer> trangThai = createNumber("trangThai", Integer.class);
 
-    public final com.querydsl.sql.PrimaryKey<QSach> _Sach_B235742DB8F21EC7PK = createPrimaryKey(maSach);
+    public final com.querydsl.sql.PrimaryKey<QSach> _Sach_B235742D06866170PK = createPrimaryKey(maSach);
 
     public final com.querydsl.sql.ForeignKey<QDauSach> _Sach_MaDS_398D8EEEFK = createForeignKey(maDS, "MaDS");
 

@@ -155,6 +155,7 @@ public class MuonForm extends javax.swing.JFrame {
             ChiTietMuonTra chitiet = new ChiTietMuonTra();
             chitiet.setMaMT(item.getMaMT());
             chitiet.setMaSach(sach.getMaSach());
+            chitiet.setMaDauSach(sach.getMaDS());
             chitiet.setTieuDe(sach.getTieuDe());
             ctmtDao.save(chitiet);
         }

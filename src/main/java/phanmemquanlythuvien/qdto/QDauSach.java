@@ -42,7 +42,7 @@ public class QDauSach extends com.querydsl.sql.RelationalPathBase<QDauSach> {
 
     public final StringPath ttnd = createString("ttnd");
 
-    public final com.querydsl.sql.PrimaryKey<QDauSach> _DauSach_272586541A065DD8PK = createPrimaryKey(maDS);
+    public final com.querydsl.sql.PrimaryKey<QDauSach> _DauSach_2725865473F79852PK = createPrimaryKey(maDS);
 
     public final com.querydsl.sql.ForeignKey<QChuDe> _DauSach_MaCD_35BCFE0AFK = createForeignKey(maCD, "MaCD");
 

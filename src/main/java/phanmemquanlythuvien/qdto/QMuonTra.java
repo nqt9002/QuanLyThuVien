@@ -38,7 +38,7 @@ public class QMuonTra extends com.querydsl.sql.RelationalPathBase<QMuonTra> {
 
     public final NumberPath<Integer> tongSoTra = createNumber("tongSoTra", Integer.class);
 
-    public final com.querydsl.sql.PrimaryKey<QMuonTra> _MuonTra_2725DFD506D08726PK = createPrimaryKey(maMT);
+    public final com.querydsl.sql.PrimaryKey<QMuonTra> _MuonTra_2725DFD5FC463EE1PK = createPrimaryKey(maMT);
 
     public final com.querydsl.sql.ForeignKey<QBanDoc> _MuonTra_MaBD_3D5E1FD2FK = createForeignKey(maBD, "MaBD");
 

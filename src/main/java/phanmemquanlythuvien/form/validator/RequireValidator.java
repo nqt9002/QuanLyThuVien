@@ -23,7 +23,7 @@ public class RequireValidator implements MyValidator{
     
     @Override
     public void run() throws InputError{
-        if(this.field.getText().isEmpty()){
+        if(this.field.getText().trim().isEmpty()){
             throw new InputError(label + " không được để trống", this.field);
         }
     }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import phanmemquanlythuvien.config.App;
 
 import phanmemquanlythuvien.qdto.QChiTietMuonTra;
 import phanmemquanlythuvien.dto.ChiTietMuonTra;
@@ -109,4 +110,12 @@ public class ChiTietMuonTraDaoImpl implements ChiTietMuonTraDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void saveTieuDe(int mDauSach, String tieuDe){
+        queryFactory.update(chitietmuontra)
+                .set(chitietmuontra.tieuDe, tieuDe)
+                .where(chitietmuontra.maDauSach.eq(mDauSach))
+                .execute();      
+    }       
+    
 }

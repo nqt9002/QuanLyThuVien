@@ -15,6 +15,8 @@ public class Phat implements MyObject{
     private Integer maSach;
 
     private Integer maPhat;
+    
+    private Integer maDauSach;
 
     private java.sql.Date ngayPhat;
 
@@ -55,6 +57,14 @@ public class Phat implements MyObject{
     public void setMaPhat(Integer maPhat) {
         this.maPhat = maPhat;
     }
+    
+    public Integer getMaDauSach() {
+        return maDauSach;
+    }
+
+    public void setMaDauSach(Integer maDauSach) {
+        this.maDauSach = maDauSach;
+    }    
 
     public java.sql.Date getNgayPhat() {
         return ngayPhat;

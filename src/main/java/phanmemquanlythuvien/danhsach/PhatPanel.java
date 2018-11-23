@@ -8,6 +8,7 @@ package phanmemquanlythuvien.danhsach;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import phanmemquanlythuvien.chitiet.PhatCT;
 import phanmemquanlythuvien.config.App;
 import phanmemquanlythuvien.dao.BanDocDao;
 import phanmemquanlythuvien.dao.ChiTietMuonTraDao;
@@ -15,6 +16,7 @@ import phanmemquanlythuvien.dao.MuonTraDao;
 import phanmemquanlythuvien.dao.PhatDao;
 import phanmemquanlythuvien.dto.Phat;
 import phanmemquanlythuvien.enums.Quyen;
+import phanmemquanlythuvien.form.PhatForm;
 
 /**
  *
@@ -42,9 +44,9 @@ public class PhatPanel extends SubPanel{
     @Override
        public void showHideButton(){
            btnThem.setVisible(false);
-           btnSua.setVisible(false);
+           btnSua.setVisible(canWrite());
            btnXoa.setVisible(false);
-           btnChiTiet.setVisible(false);
+           btnChiTiet.setVisible(canWrite());
            btnMuon.setVisible(false);
        }    
     
@@ -57,7 +59,7 @@ public class PhatPanel extends SubPanel{
             item.getMaPhat(),
             item.getMaMT(),
             banDocDao.findById(muonTraDao.findById(item.getMaMT()).getMaBD()).getTenBD(),
-            ctMuonTraDao.findById(item.getMaMT()).getTieuDe(),
+            item.getTieuDe(),
             item.getSoNgay(),
             item.getNgayPhat(),
             item.getSoTien()
@@ -94,30 +96,51 @@ public class PhatPanel extends SubPanel{
         table.setModel(new DefaultTableModel(data, header));
     }
     
-//    @Override
-//    public void them(){
-//        sua(new Phat());
-//    }
-//
-//    @Override
-//    public void sua() {
-//        if(checkSelectedRow() == false)
-//            return;
-//        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
-//        Phat selectedPhat = phatDao.findById(getSelectedId());
-//        sua(selectedPhat);
-//    }
-//    
-//    public void sua(Phat phat){
-//        PhatForm form = new PhatForm(phat);
-//        form.setVisible(true);
-//        //check if dispose
-//        form.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                showData();
-//            }
-//        });
-//    }
+    @Override
+    public void them(){
+        sua(new Phat());
+    }
+
+    @Override
+    public void sua() {
+        if(checkSelectedRow() == false)
+            return;
+        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
+        Phat selectedPhat = phatDao.findById(getSelectedId());
+        sua(selectedPhat);
+    }
+    
+    public void sua(Phat phat){
+        PhatForm form = new PhatForm(phat);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });
+    }
+    
+    @Override
+    public void chiTiet(){
+        if(checkSelectedRow() == false)
+            return;
+        PhatDao phatDao = App.ctx.getBean(PhatDao.class);
+        Phat selectedPhat = phatDao.findById(getSelectedId());
+        chiTiet(selectedPhat);        
+    }
+    
+    public void chiTiet(Phat phat){
+        PhatCT form = new PhatCT(phat);
+        form.setVisible(true);
+        //check if dispose
+        form.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                showData();
+            }
+        });        
+    }
     
 }

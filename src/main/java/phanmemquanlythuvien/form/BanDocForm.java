@@ -36,7 +36,7 @@ public class BanDocForm extends javax.swing.JFrame {
     
     static final String MSG_LUU_THANH_CONG = "Lưu thành công.";
     
-    List<MyValidator> validators = new ArrayList<MyValidator>();
+    List<MyValidator> validators = new ArrayList<>();
 
     public BanDocForm() {
         initComponents();

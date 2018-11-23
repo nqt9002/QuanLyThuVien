@@ -34,7 +34,7 @@ public class QTacGia extends com.querydsl.sql.RelationalPathBase<QTacGia> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<QTacGia> _TacGia_27250074656D691EPK = createPrimaryKey(maTG);
+    public final com.querydsl.sql.PrimaryKey<QTacGia> _TacGia_2725007450C2F793PK = createPrimaryKey(maTG);
 
     public final com.querydsl.sql.ForeignKey<QDauSach> __DauSach_MaTG_33D4B598FK = createInvForeignKey(maTG, "MaTG");
 

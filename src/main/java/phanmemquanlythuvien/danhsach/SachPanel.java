@@ -122,7 +122,6 @@ public class SachPanel extends SubPanel{
             });              
         } else {
             ChiTietMuonTraDao chitietDao = App.ctx.getBean(ChiTietMuonTraDao.class);
-            LOGGER.info("TEST: "+chitietDao.findBySachId(sach.getMaSach()).getTieuDe());
            
             ChiTietMuonTra chitiet = chitietDao.findBySachId(sach.getMaSach());
             

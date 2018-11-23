@@ -13,6 +13,8 @@ public class ChiTietMuonTra implements MyObject {
     private Integer maMT;
 
     private Integer maSach;
+    
+    private Integer maDauSach;
 
     private java.sql.Date ngayTra;
     
@@ -41,6 +43,14 @@ public class ChiTietMuonTra implements MyObject {
     public void setMaSach(Integer maSach) {
         this.maSach = maSach;
     }
+    
+    public Integer getMaDauSach() {
+        return maDauSach;
+    }
+
+    public void setMaDauSach(Integer maDauSach) {
+        this.maDauSach = maDauSach;
+    }    
 
     public java.sql.Date getNgayTra() {
         return ngayTra;

@@ -36,7 +36,7 @@ public class QBanDoc extends com.querydsl.sql.RelationalPathBase<QBanDoc> {
 
     public final BooleanPath trangThai = createBoolean("trangThai");
 
-    public final com.querydsl.sql.PrimaryKey<QBanDoc> _BanDoc_272475A7D1744B60PK = createPrimaryKey(maBD);
+    public final com.querydsl.sql.PrimaryKey<QBanDoc> _BanDoc_272475A70606812BPK = createPrimaryKey(maBD);
 
     public final com.querydsl.sql.ForeignKey<QMuonTra> __MuonTra_MaBD_3D5E1FD2FK = createInvForeignKey(maBD, "MaBD");
 

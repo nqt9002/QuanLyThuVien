@@ -48,8 +48,10 @@ public class SachForm extends javax.swing.JFrame {
 
         validators.add(new RequireValidator(txtSoLuong, "Số lượng"));
         validators.add(new NumberValidator(txtSoLuong, "Số lượng"));
-        validators.add(new GreaterValidator(txtSoLuong, "Số lượng"));
+        validators.add(new GreaterValidator(txtSoLuong, "Số lượng", 0));
         cboDauSach();
+        txtSoLuong.setText("1");
+        txtSoLuong.grabFocus();
     }
     
     public static SachForm getInstance(){
@@ -62,7 +64,7 @@ public class SachForm extends javax.swing.JFrame {
 
     public void setItem(Sach sach){
         item = sach;
-        item2Form();
+        item2Form();      
     }
     
     public final void cboDauSach(){
@@ -78,7 +80,6 @@ public class SachForm extends javax.swing.JFrame {
         }
         cboDauSach.setSelectedItem(dausachDao.getTenDauSach(item.getMaDS()));
         cboTrangThai.setSelectedItem(item.getTrangThaiEnum());
-
     }
     
     public boolean check(){

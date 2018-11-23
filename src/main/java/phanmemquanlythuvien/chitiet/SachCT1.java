@@ -106,7 +106,7 @@ public class SachCT1 extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGap(31, 31, 31)
                                 .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

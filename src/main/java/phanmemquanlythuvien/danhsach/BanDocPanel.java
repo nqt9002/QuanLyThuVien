@@ -148,7 +148,8 @@ public class BanDocPanel extends SubPanel{
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 if(isNew)
                     allBanDoc.add(bandoc);
-                showData();
+                refreshTable();
+                //showData();
             }
         });
     }

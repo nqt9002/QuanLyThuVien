@@ -26,6 +26,8 @@ public class QChiTietMuonTra extends com.querydsl.sql.RelationalPathBase<QChiTie
 
     public final NumberPath<Integer> maCTMT = createNumber("maCTMT", Integer.class);
 
+    public final NumberPath<Integer> maDauSach = createNumber("maDauSach", Integer.class);
+
     public final NumberPath<Integer> maMT = createNumber("maMT", Integer.class);
 
     public final NumberPath<Integer> maSach = createNumber("maSach", Integer.class);
@@ -34,7 +36,7 @@ public class QChiTietMuonTra extends com.querydsl.sql.RelationalPathBase<QChiTie
 
     public final StringPath tieuDe = createString("tieuDe");
 
-    public final com.querydsl.sql.PrimaryKey<QChiTietMuonTra> _ChiTietM_1E4E398D24CB7BF9PK = createPrimaryKey(maCTMT);
+    public final com.querydsl.sql.PrimaryKey<QChiTietMuonTra> _ChiTietM_1E4E398D58B2E092PK = createPrimaryKey(maCTMT);
 
     public final com.querydsl.sql.ForeignKey<QMuonTra> _ChiTietMuo_MaMT_4222D4EFFK = createForeignKey(maMT, "MaMT");
 
@@ -64,10 +66,11 @@ public class QChiTietMuonTra extends com.querydsl.sql.RelationalPathBase<QChiTie
 
     public void addMetadata() {
         addMetadata(maCTMT, ColumnMetadata.named("MaCTMT").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(maDauSach, ColumnMetadata.named("MaDauSach").withIndex(4).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(maMT, ColumnMetadata.named("MaMT").withIndex(2).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(maSach, ColumnMetadata.named("MaSach").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
-        addMetadata(ngayTra, ColumnMetadata.named("NgayTra").withIndex(5).ofType(Types.DATE).withSize(10));
-        addMetadata(tieuDe, ColumnMetadata.named("TieuDe").withIndex(4).ofType(Types.CHAR).withSize(200).notNull());
+        addMetadata(ngayTra, ColumnMetadata.named("NgayTra").withIndex(6).ofType(Types.DATE).withSize(10));
+        addMetadata(tieuDe, ColumnMetadata.named("TieuDe").withIndex(5).ofType(Types.NVARCHAR).withSize(200).notNull());
     }
 
 }
